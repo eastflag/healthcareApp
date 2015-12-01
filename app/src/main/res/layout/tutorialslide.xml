@@ -1,0 +1,33 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <LinearLayout
+		android:id="@+id/page_mark"
+		android:orientation="horizontal" 
+		android:layout_width="fill_parent"
+		android:layout_height="30dp"
+		android:gravity="center"
+		android:layout_alignParentBottom="true"
+		android:layout_marginBottom="15dp" 
+		/>
+    
+        
+    <android.support.v4.view.ViewPager
+        android:id="@+id/pager"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        />
+        
+  
+<!-- 	        <android.support.v4.view.PagerTitleStrip
+	            android:id="@+id/pagerTitleStrip"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:layout_gravity="top"
+	            android:paddingTop="1dp"
+	            android:textSize="20sp" >
+	        </android.support.v4.view.PagerTitleStrip> -->
+</RelativeLayout>

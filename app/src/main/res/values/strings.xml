@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">스마트 건강지킴이</string>
+    <string name="action_settings">Settings</string>
+	<!-- 앱 에러 처리   -->
+   	<string name="dialog_title">오류발생</string>
+	<string name="dialog_msg">알려지지않은 오류가 발생하였습니다.\n확인버튼 클릭후 목록에서 Gmail을 선택하시면
+	    					 오류내용을 이메일로 개발자에게 발송합니다.</string>
+	<string name="dialog_ok_toast">다이얼로그 확인후 토스트 메세지!</string>
+	<string name="dialog_prompt">개발자에게 메세지를 보냅니다.</string>
+	<string name="dialog_email">다이얼로그 이메일 프롬프트!</string>
+    
+    <!--  약관 동의 -->
+    <string name="terms_title_text">스마트 건강지킴이의 서비스에 동의합니다.</string>
+    <string name="terms_top_text">서비스 이용 약관</string>
+    <string name="terms_middle_text">개인정보 취급방침</string>
+    <string name="terms_bottom_text">개인정보 활용동의</string>
+    <string name="terms_ckeckbox_text">동의합니다.</string>
+    <string name="terms_btn_text">인증화면으로</string>
+    <string name="sign_text_terms_of_srvice">서비스 이용 약관</string>
+    <string name="sign_text_privacy_policy">개인정보 취급방침</string>
+    <string name="sign_text_use_of_pivacy">개인정보 활용동의</string>
+    <string name="sign_text_agree">동의합니다.</string>
+    <string name="sign_popup_title">동의 확인</string>
+    <string name="sign_popup_msg">약관에 동의해 주셔서 감사합니다.  </string>
+    <string name="sign_popup_msg1">서비스 이용 동의 후 서비스의 이용이 가능합니다. </string>
+    <string name="sign_popup_msg2">개인정보 취급방침 동의 후 서비스의 이용이 가능합니다. </string>
+    <string name="sign_popup_msg3">개인정보 활용동의 동의 후 서비스의 이용이 가능합니다. </string>
+    
+    
+    <!--  인증 관련  -->
+    <string name="cerf_top_text">스마트 건강지킴이 이용을 위해 \n전화번호 인증이 필요합니다.</string>
+    <string name="cerf_bottom_text">전화번호는 본인 확인및 부정이용방지를 위한 용도로만 사용됩니다.</string>
+    <string name="cerf_btn_1_text">인증요청</string>
+    <string name="cerf_btn_2_text">다음</string>
+    <string name="cerf_btn_1_failed_text">연결</string>
+    <string name="cerf_popup_title">인증성공</string>
+    <string name="cerf_popup_failed_title">인증실패</string>
+    <string name="cerf_popup_msg">인증을 완료하였습니다.</string>
+    <string name="cerf_popup_failed_msg">잘못된 인증번호입니다.</string>
+    <string name="cerf_popup_failed2_msg">등록된 번호가 아닙니다.\n고객센터(1544-1284)에 문의바랍니다.</string>
+    <string name="cerf_popup_close">닫기</string>
+    <string name="cerf_popup_sign_title">가입성공</string>
+    <string name="cerf_popup_sign_msg">서비스 가입을 완료하였습니다.</string>
+    
+    <!--  자녀선택 엑티비티  -->
+    <string name="child_list_top_text">자녀선택</string>
+    <string name="child_list_menu_1">사진앨범</string>
+    <string name="child_list_menu_2">카메라</string>
+    <string name="child_list_menu_3">초기화</string>
+    <string name="child_list_popup_data_empty_msg">이학생은 측정이력이 없습니다.</string>
+    <!-- 학생정보 없습니다. 추가  2015.02.26 tharaud-->
+    <string name="child_list_popup_data_student_empty_msg">학생 정보가 없습니다.</string>
+    
+    <!-- custom_ActionBar -->
+    <string name="actionbar_title_terms">정보 동의</string>
+    <string name="actionbar_title_cerf">사용자 확인</string>
+    <string name="actionbar_title_childlist">자녀 선택</string>
+    <string name="actionbar_title_title_male"> 군의 건강지킴이</string>
+    <string name="actionbar_title_title_female"> 양의 건강지킴이</string>
+    <string name="actionbar_title_videolist">추천운동</string>
+    <string name="actionbar_title_image">&#160;&#160;&#160;이미지 확인</string>
+    
+    
+    <!-- 비디오 리스트  -->
+    <string name="videolist_fileup_success_msg">사진업로드가 성공적으로 완료되었습니다.</string>
+    <string name="videolist_fileup_failed_msg">사진업로드가 실패하였습니다.</string>
+    <string name="videolist_fileuploading">사진을 업로드중입니다.</string>
+    <string name="videolist_datapopup_tatle">데이터 이용안내</string>
+    <string name="videolist_datapopup_msg">이동통신망(3G/LTE)으로 접속시 데이터 퉁화료가 발생할수 있습니다.</string>
+    <string name="videolist_datapopup_btn2">다시보지 않기</string>
+    
+    
+    <!--  네트워크 관련 -->
+    <string name="network_failed">통신및 기타 사항으로 인해 오류가 발생하였습니다. \n잠시후 다시 시도해 주세요.</string>
+    
+    <!--  에러코드들 -->
+    <string name="error_popup_title">Error</string>
+    <string name="error_popup_msg">\n알려지지않은 원인으로 에러가 발생하였습니다.\n앱을 재실행시켜 주시기 바랍니다.</string>
+    <string name="error_popup_30">error code: 30</string><!-- 아이선택시 -->
+    <string name="error_popup_40">error code: 40</string><!-- 비디오 리스트 -->
+    
+    <!-- 고객지원센터 연락처 추가 (아우라) -->
+    <string name="customer_center_address_aura">회사주소 : 경기도 광명시 시청로 34 3층 (주)아우라</string>
+    <string name="customer_center_phone_number_aura">대표번호 : 1544-1284 ,  팩스 : 070-4015-7887</string>
+    <!-- <string name="customer_center_fax_number_aura"> </string> -->
+    <string name="customer_center_email_address_aura">email : aura@aurasystem.kr </string>
+<string name="loading_video">Loading video</string>
+    <string name="title_activity_terms_view">TermsViewActivity</string>
+</resources>

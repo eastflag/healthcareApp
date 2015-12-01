@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/mainlayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:columnCount="3"
+    android:orientation="horizontal" >
+
+    <!-- 신장 -->
+
+    <Button
+        android:id="@+id/imageview1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_rowSpan="2"
+        android:background="@drawable/metro_btn_cm"
+        android:textColor="@color/white"
+        android:textStyle="bold" />
+
+    <!-- 체중 -->
+
+    <Button
+        android:id="@+id/imageview2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/metro_btn_kg"
+        android:textColor="@color/c_465866"
+        android:textStyle="bold" />
+
+    <!-- BMI -->
+
+    <Button
+        android:id="@+id/imageview3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/metro_btn_bmi"
+        android:textColor="@color/white"
+        android:textStyle="bold" />
+
+    <!-- 흡연 -->
+
+    <Button
+        android:id="@+id/imageview4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/metro_btn_smoking"
+        android:textColor="@color/c_465866"
+        android:textStyle="bold" />
+
+    <!-- 추가정보 -->
+
+    <Button
+        android:id="@+id/imageview5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/metro_btn_add_more"
+        android:textColor="@color/white"
+        android:textStyle="bold" />
+
+    <!-- 랭킹 -->
+
+    <Button
+        android:id="@+id/imageview6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/metro_btn_ranking"
+        android:textColor="@color/white" />
+
+    <!-- 성장점수 -->
+
+    <Button
+        android:id="@+id/imageview7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/metro_btn_g_point"
+        android:textColor="@color/white" />
+
+    <!-- 추천운동 -->
+
+    <Button
+        android:id="@+id/imageview9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_rowSpan="2"
+        android:background="@drawable/metro_btn_video_list" />
+
+    <!-- 식단 -->
+
+    <Button
+        android:id="@+id/imageview8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_columnSpan="2"
+        android:background="@drawable/metro_btn_food" />
+
+    <!-- 더 보기 -->
+
+    <ImageButton
+        android:id="@+id/btn_more"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/metro_btn_more"
+        android:onClick="clickMore" />
+
+    <!-- 로고 -->
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/metro_btn_aura_logo"
+        android:onClick="clickAuraLogo" />
+
+</GridLayout>

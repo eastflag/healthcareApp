@@ -1,0 +1,40 @@
+apply plugin: 'com.android.application'
+
+android {
+    signingConfigs {
+        release_config {
+            keyAlias 'healthcare'
+            keyPassword 'dkdnfk.gpftm'
+            storeFile file('C:/android/studio_workspace/healthcare/app/HealthCare')
+            storePassword 'dkdnfk.gpftm'
+        }
+    }
+    compileSdkVersion 17
+    buildToolsVersion "22.0.1"
+    defaultConfig {
+        applicationId "kr.co.aura.mtelo.healthcare"
+        minSdkVersion 9
+        targetSdkVersion 17
+        versionCode 38
+        versionName "1.1.8"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    packagingOptions {
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/LICENSE.txt'
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:support-v4:22.1.+'
+    compile 'com.actionbarsherlock:actionbarsherlock:4.4.0@aar'
+    compile project(':ARCA_Library')
+    compile project(':Zoomlibrary')
+}

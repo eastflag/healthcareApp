@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    android:paddingRight="8dp"
+    android:paddingLeft="8dp"
+    android:background="@color/white"
+    android:id="@+id/mainlayout"
+    >
+     <!--  
+        app:reverseRotation="true"
+        app:flipDrawable="@drawable/ic_launcher"
+        app:flipRotations="x"
+        app:flipInterpolator="@android:anim/bounce_interpolator"
+        app:flipDuration="5000"
+     -->
+     
+     
+<LinearLayout 
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="5"
+    android:orientation="horizontal"
+    android:layout_marginTop="8dp"
+    >
+    <!-- 신장 -->
+	 <Button
+	     android:id="@+id/imageview1"
+	     android:layout_width="0dp"
+	     android:layout_height="match_parent"
+	     android:layout_weight="3.30"
+	     android:background="@drawable/metro_btn_cm"
+	     android:gravity="bottom|center_horizontal"
+	     android:paddingBottom="8dp"
+	     android:textColor="@color/white"
+	     android:textStyle="bold" />
+
+	 <LinearLayout 
+	     android:layout_width="0dp"
+         android:layout_height="wrap_content"
+         android:layout_weight="7"
+    	  android:orientation="vertical"
+    	  >
+	 
+	 <LinearLayout 
+	      android:layout_width="wrap_content"
+    	  android:layout_height="0dp"
+    	  android:layout_weight="1"
+    	  android:orientation="horizontal"
+    	  android:layout_marginLeft="8dp"
+    	  android:layout_marginBottom="8dp"
+	     >
+	     <!-- 체중 -->
+	     <Button
+	         android:id="@+id/imageview2"
+	         android:layout_width="0dp"
+	         android:layout_height="match_parent"
+	         android:layout_weight="1"
+	         android:textColor="@color/c_465866"
+	         android:textStyle="bold"
+	         android:gravity="center"
+	         android:background="@drawable/metro_btn_kg"
+	         android:layout_marginRight="8dp"
+	        />
+		<!-- BMI -->
+	     <Button
+	         android:id="@+id/imageview3"
+	         android:layout_width="0dp"
+	         android:layout_height="match_parent"
+	         android:layout_weight="1"
+	         android:background="@drawable/metro_btn_bmi"
+	         android:gravity="center"
+	         android:textColor="@color/white"
+	         android:textStyle="bold" />
+	 </LinearLayout>
+	 <LinearLayout 
+	      android:layout_width="wrap_content"
+    	  android:layout_height="0dp"
+    	  android:orientation="horizontal"
+    	  android:layout_weight="1"
+	     >
+	     <!-- 흡연 -->
+	     <Button
+	         android:id="@+id/imageview4"
+	         android:layout_width="0dp"
+	         android:layout_height="match_parent"
+	         android:layout_weight="1"
+	         android:textColor="@color/c_465866"
+	         android:textStyle="bold"
+	         android:gravity="center"
+    	     android:layout_marginLeft="8dp"
+			 android:layout_marginRight="8dp"	         
+	         android:background="@drawable/metro_btn_smoking"
+	        />
+		<!-- 추가정보 -->
+	     <Button
+	         android:id="@+id/imageview5"
+	         android:layout_width="0dp"
+	         android:layout_height="match_parent"
+	         android:layout_weight="1"
+	         android:background="@drawable/metro_btn_add_more"
+	         android:gravity="right|center_vertical"
+	         android:textColor="@color/white"
+	         android:textStyle="bold" />
+	 </LinearLayout>
+	 </LinearLayout>
+</LinearLayout>
+
+<!-- 2단계 플립  -->
+	<LinearLayout
+	    android:id="@+id/fliplayout2"
+	    android:layout_width="match_parent" 
+	    android:layout_height="0dp"
+    	android:layout_weight="4.5"
+	    android:orientation="horizontal"
+	    android:layout_marginTop="8dp"
+	    android:layout_marginBottom="8dp"
+	    >
+	 
+	    <LinearLayout
+	        android:layout_width="0dp" 
+	        android:layout_height="wrap_content"
+	        android:layout_weight="7"
+	        android:orientation="vertical"
+	        android:layout_marginRight="8dp"
+	        >
+		 <LinearLayout 
+		     android:layout_width="match_parent"
+	         android:layout_height="0dp"
+	         android:layout_weight="1"
+		     android:orientation="horizontal"
+		     >
+			<!-- 랭킹 -->
+		    <Button
+		        android:id="@+id/imageview6"
+		        android:layout_width="0dp"
+		        android:layout_height="match_parent"
+		        android:layout_marginRight="8dp"
+		        android:layout_weight="1"
+		        android:background="@drawable/metro_btn_ranking"
+		        android:gravity="center"
+		        android:textColor="@color/white" />
+		     <!-- 성장점수 -->
+			<Button
+				android:id="@+id/imageview7"
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				android:layout_weight="1"
+		        android:background="@drawable/metro_btn_g_point"
+				android:gravity="center"
+				android:textColor="@color/white" />
+		
+		 </LinearLayout>
+		 <!-- 식단 -->
+	     <Button
+	         android:id="@+id/imageview8"
+	         android:layout_width="match_parent"
+	         android:layout_height="0dp"
+	         android:layout_weight="1"
+			android:layout_marginTop="8dp"
+			android:background="@drawable/metro_btn_food"
+	         />
+	    </LinearLayout>
+	    <!-- 추천운동 -->
+	     <Button
+	         android:id="@+id/imageview9"
+	         android:layout_width="0dp"
+	         android:layout_height="match_parent"
+	         android:layout_weight="3.22"
+	         android:background="@drawable/metro_btn_video_list" />
+
+     </LinearLayout>
+
+
+	
+   	<!-- 3단계 하단 공지버튼, 현재 삭제-->
+	<LinearLayout
+	    android:id="@+id/fliplayout4"
+	    android:layout_width="match_parent" 
+	    android:layout_height="0dp"
+    	android:layout_weight="0.6"
+	    android:orientation="horizontal"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:visibility="gone"
+	    >
+		<ImageButton
+		    android:id="@+id/btn_notice"
+		    android:layout_width="wrap_content"
+		    android:layout_height="match_parent"
+		    android:layout_weight="1"
+		    android:layout_marginRight="140dp"
+		    android:background="@drawable/metro_btn_notice"
+		    android:onClick="clickNotice" />
+		<TextView
+		    android:layout_width="0dp"
+		    android:layout_height="match_parent"
+		    android:layout_weight="2"
+		    android:visibility="invisible"
+		    />
+		    
+		<ImageButton
+		    android:layout_width="wrap_content"
+		    android:layout_height="match_parent"
+		    android:layout_weight="1"
+		    android:background="@drawable/metro_btn_qa"
+		    android:onClick="clickQA" 
+		    />
+	</LinearLayout>
+
+</LinearLayout>

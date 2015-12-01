@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    >
+    
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+	android:layout_marginBottom="6dp"
+	android:layout_marginTop="6dp"     
+    android:background="@drawable/childlist_box"
+    
+     >
+   
+    <ImageView
+        android:id="@+id/child_list_item_img"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_alignParentLeft="true"
+        android:background="@drawable/childlist_default_image"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_centerInParent="true"
+         />
+    <TextView 
+        android:id="@+id/child_list_item_top_tx"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/child_list_item_img"
+        android:text="top_tx"
+        android:textSize="24sp"
+        android:textColor="#585858"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:gravity="right"
+        />
+	<TextView 
+	        android:id="@+id/child_list_item_mid_tx"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_toRightOf="@id/child_list_item_img"
+	        android:layout_below="@id/child_list_item_top_tx"
+	        android:text="mid_tx"
+	        android:textSize="18sp"
+	        android:textColor="#585858"
+	        android:layout_marginTop="30dp"
+	        android:layout_marginRight="15dp"
+	        android:gravity="right"
+	        />
+	<TextView 
+	        android:id="@+id/child_list_item_bottom_tx"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_toRightOf="@id/child_list_item_img"
+	        android:layout_below="@id/child_list_item_mid_tx"
+	        android:text="bottom_tx"
+	        android:textSize="18sp"
+	        android:textColor="#959595"
+	        android:layout_marginTop="20dp"
+	        android:layout_marginRight="15dp"
+	        android:gravity="right"
+	        />
+</RelativeLayout>
+</LinearLayout>

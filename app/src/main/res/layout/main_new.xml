@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    android:paddingRight="10dp"
+    android:paddingLeft="10dp"
+    android:background="@color/white"
+    android:id="@+id/mainlayout"
+    >
+     <!--  
+        app:reverseRotation="true"
+        app:flipDrawable="@drawable/ic_launcher"
+        app:flipRotations="x"
+        app:flipInterpolator="@android:anim/bounce_interpolator"
+        app:flipDuration="5000"
+     -->
+     
+     
+<LinearLayout 
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="5.5"
+    android:orientation="horizontal"
+    android:layout_marginTop="10dp"
+    >
+    
+	 <Button
+         android:id="@+id/imageview1"
+         android:layout_width="0dp"
+         android:layout_height="match_parent"
+         android:layout_weight="1"
+         android:textStyle="bold"
+         android:textColor="@color/white"
+         android:paddingRight="10dp"
+         android:paddingBottom="10dp"
+         android:gravity="right|bottom"
+         android:background="@drawable/metro_btn_cm"
+         />
+	 <LinearLayout 
+	      android:layout_width="0dp"
+    	  android:layout_height="match_parent"
+    	  android:layout_weight="1"
+    	  android:orientation="vertical"
+    	  android:layout_marginLeft="10dp"
+	     >
+	     <Button
+	         android:id="@+id/imageview2"
+	         android:layout_width="match_parent"
+	         android:layout_height="0dp"
+	         android:layout_weight="1"
+	         android:textColor="@color/c_465866"
+	         android:layout_marginBottom="5dp"
+	         android:textStyle="bold"
+	         android:paddingTop="10dp"
+	         android:gravity="center"
+	         android:paddingRight="10dp"
+	         android:background="@drawable/metro_btn_kg"
+	        />
+	
+	     <Button
+	         android:id="@+id/imageview3"
+	         android:layout_width="match_parent"
+	         android:layout_height="0dp"
+	         android:layout_weight="1"
+	         android:layout_marginTop="5dp"
+	         android:background="@drawable/metro_btn_bmi"
+	         android:gravity="right|center_vertical"
+	         android:paddingRight="15dp"
+	         android:paddingTop="15dp"
+	         android:textColor="@color/white"
+	         android:textStyle="bold" />
+
+	 </LinearLayout>
+</LinearLayout>
+<!-- 2단계 플립  -->
+	<LinearLayout
+	    android:id="@+id/fliplayout2"
+	    android:layout_width="match_parent" 
+	    android:layout_height="0dp"
+    	android:layout_weight="2.8"
+	    android:orientation="horizontal"
+	    android:layout_marginTop="10dp"
+	    >
+
+	<Button
+		android:id="@+id/imageview4"
+		android:layout_width="0dp"
+		android:layout_height="match_parent"
+		android:layout_weight="1"
+		android:layout_marginRight="10dp"
+		android:background="@drawable/metro_btn_smoking"
+		android:gravity="center"
+		android:textColor="@color/white" />
+
+     <Button
+         android:id="@+id/imageview5"
+         android:layout_width="0dp"
+         android:layout_height="match_parent"
+         android:layout_weight="1"
+         android:background="@drawable/metro_btn_ranking"
+         />
+     </LinearLayout>
+
+<!-- 3단계 플립  -->
+	<LinearLayout
+	    android:id="@+id/fliplayout3"
+	    android:layout_width="fill_parent" 
+	    android:layout_height="0dp"
+    	android:layout_weight="2.8"
+    	android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+	    >
+	<Button
+         android:id="@+id/imageview6"
+         android:layout_width="0dp" 
+         android:layout_height="match_parent"
+         android:layout_weight="1"
+         android:textStyle="bold"
+         android:gravity="center"
+         android:paddingTop="15dp"
+         android:textColor="@color/white"
+         android:background="@drawable/metro_btn_g_point"
+         />
+	<Button
+         android:id="@+id/imageview7"
+         android:layout_width="0dp"
+         android:layout_height="match_parent"
+         android:layout_weight="1"
+         android:layout_marginLeft="10dp"
+         android:background="@drawable/metro_btn_video_list"
+         />
+	</LinearLayout>
+	
+	<LinearLayout
+	    android:id="@+id/fliplayout4"
+	    android:layout_width="fill_parent" 
+	    android:layout_height="0dp"
+    	android:layout_weight="0.6"
+	    android:orientation="horizontal"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+	    >
+	<!-- 4단계 하단 공지버튼 -->
+
+	<ImageButton
+	    android:id="@+id/btn_notice"
+	    android:layout_width="wrap_content"
+	    android:layout_height="match_parent"
+	    android:layout_weight="1"
+	    android:layout_marginRight="140dp"
+	    android:background="@drawable/metro_btn_notice"
+	    android:onClick="clickNotice" />
+
+	<TextView
+	    android:layout_width="0dp"
+	    android:layout_height="match_parent"
+	    android:layout_weight="2"
+	    android:visibility="invisible"
+	    />
+	    
+	<ImageButton
+	    android:layout_width="wrap_content"
+	    android:layout_height="match_parent"
+	    android:layout_weight="1"
+	    android:background="@drawable/metro_btn_qa"
+	    android:onClick="clickQA" 
+	    />
+
+	</LinearLayout>
+
+</LinearLayout>

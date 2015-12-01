@@ -1,0 +1,91 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:paddingTop="20dp"
+    android:background="@drawable/bg"
+    
+     >
+     
+    <LinearLayout 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:background="@drawable/cerf_big_box"
+        >
+    <TextView
+        android:id="@+id/layout_top_text"
+        android:layout_width="fill_parent" 
+        android:layout_height="wrap_content"
+        android:text="@string/cerf_top_text"
+        android:textColor="@color/black"
+	    android:textSize="18sp"
+	    android:gravity="center"
+	    android:layout_marginTop="15dp"
+	    android:layout_marginBottom="30dp"
+        />
+	<kr.co.aura.mtelo.healthcare.certification.CloseEditText
+        android:id="@+id/editText1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:singleLine="true"
+        android:background="@drawable/text_input_box"
+        android:paddingRight="10dp"
+        android:paddingLeft="8dp"
+    />
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/cerf_btn_1_text"
+        android:textSize="16sp"
+        android:textColor="@color/white"
+        android:layout_marginTop="5dp" 
+        android:enabled="false"
+        android:background="@drawable/default_btn"
+        />
+
+    <kr.co.aura.mtelo.healthcare.certification.CloseEditText
+        android:id="@+id/editText2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:singleLine="true"
+        android:maxLength="4"
+        android:background="@drawable/text_input_box"
+        android:paddingRight="10dp"
+        android:layout_marginBottom="20dp"
+        android:paddingLeft="8dp"
+        android:visibility="gone"
+    />
+    </LinearLayout>
+    
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="@string/cerf_btn_2_text"
+        android:textSize="18sp"
+        android:textColor="@color/white"
+        android:enabled="true"
+        android:background="@drawable/default_btn"
+         />
+
+    <TextView
+        android:id="@+id/layout_bottom_text"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/cerf_bottom_text"
+        android:textColor="@color/black"
+        android:textSize="12sp" 
+        android:layout_marginTop="90dp"
+        android:gravity="center"
+        />
+
+</LinearLayout>

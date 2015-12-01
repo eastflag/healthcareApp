@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center" 
+        android:orientation="horizontal"
+        android:background="@drawable/custom_actionbar_bg"
+        >
+     <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:id="@+id/actionbar_left_image1"
+        android:src="@drawable/default_back"
+        android:background="#00000000"
+        android:textColor="#ffffff"
+        android:textSize="25dp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="8"
+        android:gravity="center"
+        android:text="Header!"
+        android:id="@+id/actionbar_center_tx1"
+        android:textColor="#ffffff"
+        android:textSize="20sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="update\n"
+        android:id="@+id/actionbar_right_tx1"
+        android:textColor="#ffffff"
+        android:textSize="14sp" />
+</LinearLayout>
+

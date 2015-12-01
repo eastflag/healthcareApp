@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:orientation="vertical"
+	android:background="@drawable/bg"
+    >
+	
+	
+	
+	<!-- 서비스 이용 약관	******************************************************** -->
+	<LinearLayout
+	    android:id="@+id/ll_Terms_of_Service"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_marginLeft="10dp"
+	    android:layout_marginRight="10dp"
+	    android:orientation="vertical"
+	    >
+	
+	    <TextView 
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content" 
+	    android:text="@string/terms_title_text"
+	    android:gravity="left"
+	    android:textColor="@color/black"
+	    android:textSize="18sp"
+	    android:layout_marginTop="30dp"
+	    android:layout_marginBottom="15dp"
+	    />
+	    <RelativeLayout
+	        android:layout_width="fill_parent"
+	        android:layout_height="35.33dp"
+	        android:layout_marginTop="10dp"
+	        android:background="@drawable/terms_join_top_bar"
+	        >
+
+	        <!-- 서비스 이용 약관 타이틀 -->
+	        <TextView
+	            android:id="@+id/tv_Terms_of_Service_title"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignParentLeft="true"
+	            android:layout_centerVertical="true"
+	            android:text="@string/terms_top_text"
+	            />
+	        
+	        <ImageButton
+	            android:id="@+id/btn_detail_TermsOfService"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignParentRight="true"
+	            android:layout_centerVertical="true"
+	            android:layout_marginRight="9.33dp"
+	            android:onClick="btnDetailTermsOfServiceClick"
+	            android:background="@drawable/cerf_zoom" />
+
+	    </RelativeLayout>
+
+	    <RelativeLayout
+	        android:layout_width="fill_parent"
+	        android:layout_height="60dp"
+	        android:gravity="center_vertical" 
+	        android:visibility="gone"
+	        >
+	        
+	        <ScrollView 
+				android:id="@+id/scroll1"
+	            android:layout_width="fill_parent"
+	            android:layout_height="fill_parent" >
+	            
+		        <TextView 
+		            android:layout_width="fill_parent"
+		            android:layout_height="wrap_content"
+		            android:layout_marginLeft="10dp"
+		            android:layout_marginRight="10dp"
+		            android:layout_gravity="center_horizontal"
+		            android:text="@string/terms_middle_text"
+		            android:textColor="@color/black"
+		            
+		            />
+			</ScrollView>
+	    </RelativeLayout>
+
+	    <RelativeLayout
+	        android:layout_width="fill_parent"
+	        android:layout_height="36dp"
+	        android:gravity="center_vertical" 
+	        android:background="@drawable/terms_join_bottom_bar"
+	        >
+
+	        <!-- 서비스 이용 약관 및 개인 정보 취급 방침 동의 체크 박스 -->
+
+	        <CheckBox
+	            android:id="@+id/cb_I_agree_to_Terms_of_Service"
+	            android:layout_width="25dp"
+	            android:layout_height="wrap_content"
+	            android:layout_centerVertical="true"
+	            android:layout_marginLeft="9.33dp"
+	            android:gravity="center" 
+	            android:button="@drawable/checkbox"
+	            />
+
+	        <!-- 동의 텍스트 -->
+	        <TextView
+	            android:id="@+id/textView1"
+	            android:layout_width="wrap_content"
+	            android:layout_height="35dp"
+	            android:layout_toRightOf="@id/cb_I_agree_to_Terms_of_Service"
+	            android:layout_centerInParent="true"
+	            android:layout_centerHorizontal="true"
+	            android:gravity="center_vertical"
+	            android:textSize="16sp" 
+	            android:textColor="@color/black"
+	            android:text="@string/terms_ckeckbox_text"
+	            android:paddingLeft="10dp"
+	            />
+
+	    </RelativeLayout>
+
+	    
+		
+		<!-- 개인정보 취급 방침	******************************************************** -->
+	    <RelativeLayout
+	        android:layout_width="fill_parent"
+	        android:layout_height="35.33dp"
+		    android:layout_marginTop="16.67dp"
+	        android:gravity="center_vertical"
+	        android:background="@drawable/terms_join_top_bar"
+	        >
+
+	        <!-- 개인정보 취급 방침 타이틀 -->
+	        <TextView
+	            android:id="@+id/tv_Privacy_title"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignParentLeft="true"
+	            android:layout_centerVertical="true"
+                android:text="@string/terms_middle_text"
+	             />
+
+	        <ImageButton
+	            android:id="@+id/btn_detail_Privacy"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignParentRight="true"
+	            android:layout_centerVertical="true"
+	            android:layout_marginRight="9.33dp"
+	            android:onClick="btnDetailPrivacyClick"
+	              android:background="@drawable/cerf_zoom" />
+
+	    </RelativeLayout>
+
+	    <RelativeLayout
+	        android:layout_width="fill_parent"
+	        android:layout_height="60dp"
+	        android:gravity="center_vertical" 
+	        android:visibility="gone"
+	        >
+	        
+	        <ScrollView 
+				android:id="@+id/scroll2"
+	            android:layout_height="fill_parent"
+	            android:layout_width="fill_parent"
+	             >
+	        
+		        <TextView 
+		            android:layout_width="fill_parent"
+		            android:layout_height="wrap_content"
+		            android:layout_marginLeft="10dp"
+		            android:layout_marginRight="10dp"
+		            android:layout_gravity="center_horizontal" 
+		            android:text="@string/terms_ckeckbox_text"
+		            android:textColor="@color/black"
+		            />
+		        
+			</ScrollView>		       
+	        
+	   </RelativeLayout>
+
+	    <RelativeLayout
+	        android:layout_width="fill_parent"
+	       android:layout_height="36dp"
+	        android:gravity="center_vertical" 
+	        android:background="@drawable/terms_join_bottom_bar"
+	        >
+
+
+	        <!-- 개인정보 취급 방침 동의 체크 박스 -->
+	        <CheckBox
+	            android:id="@+id/cb_I_agree_to_Privacy"
+	            android:layout_width="30dp"
+	            android:layout_height="wrap_content"
+	            android:layout_centerVertical="true"
+	            android:layout_marginLeft="9.33dp"
+	            android:button="@drawable/checkbox"
+	             />
+
+	        <!-- 동의 텍스트 -->
+	        <TextView
+	            android:id="@+id/textView2"
+	            android:layout_width="wrap_content"
+	            android:layout_height="35dp"
+	            android:layout_centerVertical="true"
+	            android:layout_centerHorizontal="true"
+	            android:layout_toRightOf="@+id/cb_I_agree_to_Privacy"
+	            android:gravity="center_vertical"
+	            android:textSize="16sp"
+	            android:text="@string/terms_ckeckbox_text"
+	            android:textColor="@color/black"
+	            android:paddingLeft="10dp"
+	            ></TextView>
+	    </RelativeLayout>
+
+		
+		<!-- 개인정보 활용 동의 	******************************************************** -->
+	    <RelativeLayout
+	        android:layout_width="fill_parent"
+	        android:layout_height="35.33dp"
+		    android:layout_marginTop="16.67dp"
+	        android:gravity="center_vertical"
+	        android:background="@drawable/terms_join_top_bar"
+	        >
+
+	        <!-- 개인정보 활용 동의 타이틀 -->
+	        <TextView
+	            android:id="@+id/tv_CONSENT_TO_USE_OF_Privacy_title"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignParentLeft="true"
+	            android:layout_centerVertical="true"
+	            android:text="@string/terms_bottom_text"
+	             />
+
+	        <ImageButton
+	            android:id="@+id/btn_CONSENT_TO_USE_OF_Privacy_title"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignParentRight="true"
+	            android:layout_centerVertical="true"
+	            android:layout_marginRight="9.33dp"
+	            android:onClick="btnConsentToUseOfPrivacyClick"
+	              android:background="@drawable/cerf_zoom" />
+
+	    </RelativeLayout>
+
+	    <RelativeLayout
+	        android:layout_width="fill_parent"
+	        android:layout_height="60dp"
+	        android:gravity="center_vertical" 
+	        android:visibility="gone"	  
+	         >
+	        <ScrollView 
+				android:id="@+id/scroll3"
+	            android:layout_width="fill_parent"
+	            android:layout_height="fill_parent" >
+	        
+		        <TextView 
+		            android:layout_width="fill_parent"
+		            android:layout_height="wrap_content"
+		            android:layout_marginLeft="10dp"
+		            android:layout_marginRight="10dp"
+		            android:layout_gravity="center_horizontal" 
+		            android:text="@string/terms_ckeckbox_text"
+		            android:textColor="@color/black"
+		            />
+		        
+			</ScrollView>		       
+	        
+	   </RelativeLayout>
+
+	    <RelativeLayout
+	        android:layout_width="fill_parent"
+	        android:layout_height="36dp"
+	        android:gravity="center_vertical" 
+	        android:background="@drawable/terms_join_bottom_bar"
+	        >
+
+
+	        <!-- 개인정보 활용 동의 체크 박스 -->
+	        <CheckBox
+	            android:id="@+id/cb_I_agree_to_CONSENT_TO_USE_OF_Privacy"
+	            android:layout_width="30dp"
+	            android:layout_height="wrap_content"
+	            android:layout_centerVertical="true"
+	            android:layout_marginLeft="9.33dp"
+	            android:button="@drawable/checkbox"
+	            />
+
+	        <!-- 동의 텍스트 -->
+	        <TextView
+	            android:id="@+id/textView3"
+	            android:layout_width="wrap_content"
+	            android:layout_height="35dp"
+	            android:layout_centerVertical="true"
+	            android:layout_centerHorizontal="true"
+	            android:layout_toRightOf="@+id/cb_I_agree_to_CONSENT_TO_USE_OF_Privacy"
+	            android:gravity="center_vertical"
+	            android:textSize="16sp"
+	            android:textColor="@color/black"
+	            android:text="@string/terms_ckeckbox_text"
+	            android:paddingLeft="10dp"
+	             />
+
+	    </RelativeLayout>
+	</LinearLayout>
+		<!-- 나야나 가입 버튼	******************************************************** -->
+		<Button
+	    android:id="@+id/btn_Join_StarRing"
+	    android:layout_width="fill_parent"
+	    android:layout_height="40dp"
+	    android:layout_marginBottom="13.33dp"
+	    android:layout_marginLeft="70.67dp"
+	    android:layout_marginRight="70.67dp"
+	    android:layout_marginTop="50.33dp"
+		android:text="@string/terms_btn_text"
+		android:textColor="@color/white"
+	    android:onClick="btnJoinStarRing"
+	    android:singleLine="true"
+	    android:background="@drawable/default_btn"
+	    />
+</LinearLayout>
