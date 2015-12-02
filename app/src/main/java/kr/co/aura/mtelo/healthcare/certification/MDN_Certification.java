@@ -366,7 +366,9 @@ public class MDN_Certification extends SherlockActivity implements OnClickListen
 							CPreferences cp = new CPreferences(mContext);
 							cp.setSignUP("true");
 							cp.setShared_MDN( LCommonFunction.remake_PhoneNumber(mContext, edit1.getText().toString()) );
-							Intent in = new Intent(mContext, VideoSplash.class);
+							//Intent in = new Intent(mContext, VideoSplash.class);
+							//인사말 동영상 삭제
+							Intent in = new Intent(mContext, Child_List.class);
 							startActivity(in);
 							finish();
 						}
