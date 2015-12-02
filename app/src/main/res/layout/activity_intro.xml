@@ -1,18 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical"
-    >
+    android:id="@+id/intro_layout"
+    android:background="#FFFFFFFF">
 	
     <ImageView
-      android:id="@+id/intro_image"
-      android:layout_width="fill_parent"  
-      android:layout_height="fill_parent"
-      android:src="@drawable/intro"
-      android:scaleType="fitXY"
-     />
-<!--       android:onClick="moveMain" -->
+        android:id="@+id/logo_title"
+        android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true" android:layout_alignParentTop="true"
+        android:layout_marginTop="30dp"
+      android:src="@drawable/logo_title" />
+
+    <ImageView
+        android:id="@+id/logo_city"
+        android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true" android:layout_below="@id/logo_title"
+        android:layout_marginTop="10dp"
+        android:visibility="invisible"
+        android:src="@drawable/logo_kwangmeong" />
+
+    <ImageView
+        android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:paddingTop="50dp"
+        android:src="@drawable/logo_main" />
+
+    <ImageView
+        android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true" android:layout_alignParentBottom="true"
+        android:layout_marginBottom="30dp"
+        android:src="@drawable/logo_aura" />
     
 
-</LinearLayout>
+</RelativeLayout>

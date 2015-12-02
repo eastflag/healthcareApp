@@ -14,6 +14,8 @@ import kr.co.aura.mtelo.healthcare.util.LCommonFunction;
 import kr.co.aura.mtelo.healthcare.util.MLog;
 import kr.co.aura.mtelo.healthcare.util.Popup_Manager;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
@@ -34,9 +36,13 @@ import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
+import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
+import com.androidquery.AQuery;
+import com.androidquery.callback.AjaxCallback;
+import com.androidquery.callback.AjaxStatus;
 import com.google.android.gcm.GCMRegistrar;
 
 public class Intro extends Activity {
@@ -54,26 +60,82 @@ public class Intro extends Activity {
 	private final int SHOW_SERVICE_INFO = 101;
 	private final int SHOW_SERVICE_ERROR = 102;
 
-	private ImageView introButton;
+	private RelativeLayout introLayout;
+	private ImageView iv_city;
 	private Context mCon;
+
+	private AQuery mAq;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_intro);
 
+		mAq = new AQuery(this);
+		iv_city = (ImageView) findViewById(R.id.logo_city);
+
 		mCon = Intro.this;
-		
-		introButton = (ImageView) findViewById(R.id.intro_image);
+
+		introLayout = (RelativeLayout) findViewById(R.id.intro_layout);
 		Animation alphaAnim = (Animation) AnimationUtils.loadAnimation(
 				getApplicationContext(), R.anim.alpha);
-		introButton.startAnimation(alphaAnim);
+		introLayout.startAnimation(alphaAnim);
+
+		//학교 정보 추출
+		String url = Define.getNetUrl() + Define.STUDENT_INFO;
+		mAq.ajax(url, JSONObject.class, new AjaxCallback<JSONObject>(){
+			@Override
+			public void callback(String url, JSONObject object, AjaxStatus status) {
+				if(status.getCode() != 200) {
+					showLogo(1);
+					return;
+				}
+
+				try {
+					JSONArray array = object.getJSONArray("value");
+					if(array.length() > 0) {
+						JSONObject json = array.getJSONObject(0);
+						if(json.has("address")) {
+							String address = json.getString("address");
+							if(address != null && address.contains("광명")) {
+								//show 광명 로고
+								showLogo(1);
+							} else {
+								//show 오산 로고
+								showLogo(2);
+							}
+						} else {
+							showLogo(1);
+						}
+					} else {
+						showLogo(1);
+					}
+				} catch (JSONException e) {
+					showLogo(1);
+				}
+			}
+		});
 
 		if(Define.LOG)
 			select_Dev_Server();
 		else
 			start_Timer();
-		
+	}
 
+	private void showLogo(int index) {
+		iv_city.setVisibility(View.VISIBLE);
+		switch(index) {
+			case 1: //광명
+				iv_city.setImageResource(R.drawable.logo_kwangmeong);
+				break;
+			case 2: //오산
+				iv_city.setImageResource(R.drawable.logo_osan);
+				break;
+		}
+
+		Animation anim = (Animation) AnimationUtils.loadAnimation(
+				getApplicationContext(), R.anim.translate_bounce);
+		iv_city.startAnimation(anim);
 	}
 
 
@@ -169,7 +231,7 @@ public class Intro extends Activity {
 					}
 
 					if (mService_Info) {
-						moveMain(introButton);
+						moveMain(introLayout);
 					} else {
 						Message msg = mHandler.obtainMessage(SHOW_SERVICE_INFO, mService_Message);
 						mHandler.sendMessage(msg);
