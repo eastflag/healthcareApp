@@ -19,6 +19,7 @@ import kr.co.aura.mtelo.healthcare.network.NetWork.Call_Back;
 import kr.co.aura.mtelo.healthcare.preferences.CPreferences;
 import kr.co.aura.mtelo.healthcare.util.Content_Download;
 import kr.co.aura.mtelo.healthcare.util.LCommonFunction;
+import kr.co.aura.mtelo.healthcare.util.MLog;
 import kr.co.aura.mtelo.healthcare.util.Popup_Manager;
 import kr.co.aura.mtelo.healthcare.util.UploadMuitpoartEntity;
 import kr.co.aura.mtelo.healthcare.util.UploadMuitpoartEntity.ProgressListener;
@@ -107,6 +108,7 @@ public class VideoList extends SherlockActivity implements OnItemClickListener{
 		String schoolId = in.getStringExtra("schoolGradeId");
 		String grdeId 	= in.getStringExtra("grdeId");
 		String userId 	= in.getStringExtra("userId");
+		MLog.write(Log.ERROR, this.toString(), schoolId + ", " + grdeId + ", " + userId);
 		
 		//웹에서 호출시 schoolId가 없고 userId가 들어온다, userId를 이용해서 DB에서 schoolId를 얻어올것
 		if(schoolId == null)
@@ -121,8 +123,15 @@ public class VideoList extends SherlockActivity implements OnItemClickListener{
 		{//메트로 메인에서 호출시
 //			getMasterGradeId(schoolId, userId);
 		}
+
+		//userId&ver=1.1.8
+		if(userId.contains("&")) {
+			userId = userId.substring(0, userId.indexOf('&'));
+		}
+
+		MLog.write(Log.ERROR, this.toString(), schoolId + ", " + grdeId + ", " + userId);
 		
-		request_video_list(schoolId , grdeId);
+		request_video_list(schoolId, userId, grdeId);
 	}
 	
 	
@@ -345,10 +354,10 @@ public class VideoList extends SherlockActivity implements OnItemClickListener{
 			
 			
 			
-	private void request_video_list(String type, String grdeId)
+	private void request_video_list(String type, String userId, String grdeId)
 	{
 		
-		JSONNetWork_Manager.request_GetVideoList(type, grdeId, mCon, new Call_Back() {
+		JSONNetWork_Manager.request_GetVideoList(type, userId, grdeId, mCon, new Call_Back() {
 			@Override
 			public void onRoaming(String message) {	}
 			

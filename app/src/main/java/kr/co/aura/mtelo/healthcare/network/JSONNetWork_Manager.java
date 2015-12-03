@@ -67,15 +67,15 @@ public class JSONNetWork_Manager //implements Call_Back
 	 * @param context
 	 * @param call_back
 	 */
-	public static void request_GetVideoList  ( String sId,String grdeId, Context context, final Call_Back call_back)
+	public static void request_GetVideoList  ( String sId, String userId, String grdeId, Context context, final Call_Back call_back)
 	{
 		if(grdeId == null || grdeId.length() == 0 ) grdeId = "1";
 		StringBuffer strbuff = new StringBuffer();
 		strbuff.append((String)Define.getNetUrl());
 		strbuff.append(Define.VIDEO_LIST);
-		String keys[] = {JSONNetWork.KEY_VIDEO_MASTER_ID, JSONNetWork.KEY_VIDEO_SCHOOL_ID};
-		String values[] = { grdeId, sId};
-		MLog.write(context, "masterGradeId = "+grdeId + " schoolGradeId= "+sId);
+		String keys[] = {JSONNetWork.KEY_VIDEO_MASTER_ID, JSONNetWork.KEY_VIDEO_SCHOOL_ID, JSONNetWork.KEY_USER_ID};
+		String values[] = { grdeId, sId, userId};
+		MLog.write(context, "masterGradeId = "+grdeId + " schoolGradeId= "+sId + " userId=" + userId);
 		
 		JSONNetWork jn = new JSONNetWork(context);
 		jn.setMRequestType(JSONNetWork.REQUESTTYPE_POST);
