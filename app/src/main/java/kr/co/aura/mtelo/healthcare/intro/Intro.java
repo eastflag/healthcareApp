@@ -28,6 +28,7 @@ import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -82,22 +83,33 @@ public class Intro extends Activity {
 		introLayout.startAnimation(alphaAnim);
 
 		//학교 정보 추출
-		String url = Define.getNetUrl() + Define.STUDENT_INFO;
-		mAq.ajax(url, JSONObject.class, new AjaxCallback<JSONObject>(){
+		String url = Define.getNetUrl() + Define.STUDENT_LIST;
+		//Log.e("LDK", "url: " + url);
+
+		JSONObject json = new JSONObject();
+		try {
+			json.put("mdn", getMdn(this));
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+
+		mAq.post(url, json, JSONObject.class, new AjaxCallback<JSONObject>() {
 			@Override
 			public void callback(String url, JSONObject object, AjaxStatus status) {
-				if(status.getCode() != 200) {
+				//Log.e("LDK", "result:" + object.toString());
+
+				if (status.getCode() != 200) {
 					showLogo(1);
 					return;
 				}
 
 				try {
 					JSONArray array = object.getJSONArray("value");
-					if(array.length() > 0) {
+					if (array != null && array.length() > 0) {
 						JSONObject json = array.getJSONObject(0);
-						if(json.has("address")) {
+						if (json.has("address")) {
 							String address = json.getString("address");
-							if(address != null && address.contains("광명")) {
+							if (address != null && address.contains("광명")) {
 								//show 광명 로고
 								showLogo(1);
 							} else {
@@ -112,6 +124,7 @@ public class Intro extends Activity {
 					}
 				} catch (JSONException e) {
 					showLogo(1);
+					Log.e("LDK", "json exception:" + e.getMessage());
 				}
 			}
 		});
@@ -120,6 +133,16 @@ public class Intro extends Activity {
 			select_Dev_Server();
 		else
 			start_Timer();
+	}
+
+	public String getMdn(Context context) {
+		TelephonyManager tMgr =(TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE);
+		//2015-06-29 전화번호가 +82로 시작하는 경우 보정
+		String number = tMgr.getLine1Number();
+		if(number.startsWith("+82")) {
+			number = number.replace("+82", "0");
+		}
+		return number;
 	}
 
 	private void showLogo(int index) {
