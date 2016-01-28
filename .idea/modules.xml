@@ -5,7 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/ARCA_Library/ARCA_Library.iml" filepath="$PROJECT_DIR$/ARCA_Library/ARCA_Library.iml" />
       <module fileurl="file://$PROJECT_DIR$/Zoomlibrary/Zoomlibrary.iml" filepath="$PROJECT_DIR$/Zoomlibrary/Zoomlibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/healthcare.iml" filepath="$PROJECT_DIR$/healthcare.iml" />
+      <module fileurl="file://$PROJECT_DIR$/healthcareApp.iml" filepath="$PROJECT_DIR$/healthcareApp.iml" />
     </modules>
   </component>
 </project>
