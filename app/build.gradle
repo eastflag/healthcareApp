@@ -1,14 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
-    signingConfigs {
-        release_config {
-            keyAlias 'healthcare'
-            keyPassword 'dkdnfk.gpftm'
-            storeFile file('C:/android/studio_workspace/healthcare/app/HealthCare')
-            storePassword 'dkdnfk.gpftm'
-        }
-    }
+//    signingConfigs {
+//        release_config {
+//            keyAlias 'healthcare'
+//            keyPassword 'dkdnfk.gpftm'
+//            storeFile file('C:/android/studio_workspace/healthcare/app/HealthCare')
+//            storePassword 'dkdnfk.gpftm'
+//        }
+//    }
     compileSdkVersion 17
     buildToolsVersion "22.0.1"
     defaultConfig {
