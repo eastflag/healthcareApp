@@ -1,28 +1,5 @@
 package kr.co.aura.mtelo.healthcare;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
-
-import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLSession;
-
-import kr.co.aura.mtelo.healthcare.certification.TermsViewActivity;
-import kr.co.aura.mtelo.healthcare.network.JSONNetWork;
-import kr.co.aura.mtelo.healthcare.network.JSONNetWork_Manager;
-import kr.co.aura.mtelo.healthcare.network.NetWork.Call_Back;
-import kr.co.aura.mtelo.healthcare.preferences.CPreferences;
-import kr.co.aura.mtelo.healthcare.util.LCommonFunction;
-import kr.co.aura.mtelo.healthcare.util.MLog;
-import kr.co.aura.mtelo.healthcare.util.Popup_Manager;
-import kr.co.aura.mtelo.healthcare.video.VideoList;
-
-import org.json.JSONObject;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -51,6 +28,30 @@ import android.widget.TextView;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.google.android.gcm.GCMRegistrar;
+
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
+
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLSession;
+
+import kr.co.aura.mtelo.healthcare.certification.TermsViewActivity;
+import kr.co.aura.mtelo.healthcare.mentaltest.VideoTest;
+import kr.co.aura.mtelo.healthcare.network.JSONNetWork;
+import kr.co.aura.mtelo.healthcare.network.JSONNetWork_Manager;
+import kr.co.aura.mtelo.healthcare.network.NetWork.Call_Back;
+import kr.co.aura.mtelo.healthcare.preferences.CPreferences;
+import kr.co.aura.mtelo.healthcare.util.LCommonFunction;
+import kr.co.aura.mtelo.healthcare.util.MLog;
+import kr.co.aura.mtelo.healthcare.util.Popup_Manager;
+import kr.co.aura.mtelo.healthcare.video.VideoList;
 
 
 public class MetroMain extends SherlockActivity implements OnClickListener{	
@@ -792,7 +793,7 @@ public class MetroMain extends SherlockActivity implements OnClickListener{
 	
 	//13.11.08
 	int animTime = 800, anim_Count = 0;
-	TranslateAnimation  mAnim1, mAnim2, mAnim3, mAnim4;
+	TranslateAnimation  mAnim1, mAnim2, mAnim3;
 	private void makeAnim()
 	{
 		mAnim1 = new TranslateAnimation( TranslateAnimation.RELATIVE_TO_PARENT, -1f,
@@ -827,63 +828,51 @@ public class MetroMain extends SherlockActivity implements OnClickListener{
 		mAnim2.setFillAfter(true);
 		
 	}
-	
-	private void send_gcm()
-	{
-		new Thread(new Runnable() {
-    		public void run() {
-    			try {
-					sender( GCMRegistrar.getRegistrationId(getApplicationContext()), GCMIntentService.API_KEY, "홍길동의 정보가 업데이트 되었습니다.");
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-    		}
-    	}
-    	).start();
-	}
+
 
 	
 	
 	@Override
 	public void onClick(View v) {
-		Intent in2 = new Intent(mCon, WEBActivity.class);
-		in2.putExtra("sex", mSex);
-		in2.putExtra("name", mName);
-		
-	// tharaud 2015.05.26 심리검사 우선 주석 
-		
-		/*if(v.getId()==R.id.imageview5){
+
+	// tharaud 2015.05.26 심리검사 우선 주석
+
+		if(v.getId()==R.id.imageview5){
 			//Intent in3 = new Intent(MetroMain.this, SimRiWebActivity.class);
 		//	Intent in3 = new Intent(MetroMain.this, SimliTestFrontTempActivity.class);
 			//Intent in3 = new Intent(MetroMain.this, SimliTestFrontTempActivity.class);
-			Intent in3 = new Intent(MetroMain.this, AddInfoActivity.class);
+			Intent in3 = new Intent(MetroMain.this, VideoTest.class);
 			in3.putExtra("sex", mSex);
 			in3.putExtra("userId" , mUserId);
 			in3.putExtra("name", mName);
 			//in3.putExtra("menu_value", "menu_list");
-			MLog.write("MetroMain","AddInfoActivity Call ...~ ");
-			startActivity(in3); 
-			
-		}else{ */
-			switch (v.getId())
-			{
-	
-			case R.id.imageview1:	//신장
-				//Log.i("MetroMain", " => 3 Server URL :::"+ Define.getNetUrl());
-				in2.putExtra("url", Define.getNetUrl()+"front-views/view?p=height"+getUserId());
-				break;
-			case R.id.imageview2:	//체중
-				in2.putExtra("url", Define.getNetUrl()+"front-views/view?p=weight"+getUserId());
-				break;
-			case R.id.imageview3:	//bmi
-				in2.putExtra("url", Define.getNetUrl()+"front-views/view?p=bmi"+getUserId());
-				break;
-			case R.id.imageview4:	//흡연
-				in2.putExtra("url", Define.getNetUrl()+"front-views/view?p=smoke"+getUserId());
-				break;
-			case R.id.imageview5:	//추가정보
-				showDialog("알림", "준비중입니다..");  //2015.04.17  추가정보메뉴 즉 심리검사 추가로 인한 수정  //tharaud
-			return;
+			MLog.write("MetroMain", "AddInfoActivity Call ...~ ");
+			startActivity(in3);
+
+		}else{
+
+			Intent in2 = new Intent(mCon, WEBActivity.class);
+			in2.putExtra("sex", mSex);
+			in2.putExtra("name", mName);
+
+			switch (v.getId()) {
+
+				case R.id.imageview1:    //신장
+					//Log.i("MetroMain", " => 3 Server URL :::"+ Define.getNetUrl());
+					in2.putExtra("url", Define.getNetUrl() + "front-views/view?p=height" + getUserId());
+					break;
+				case R.id.imageview2:    //체중
+					in2.putExtra("url", Define.getNetUrl() + "front-views/view?p=weight" + getUserId());
+					break;
+				case R.id.imageview3:    //bmi
+					in2.putExtra("url", Define.getNetUrl() + "front-views/view?p=bmi" + getUserId());
+					break;
+				case R.id.imageview4:    //흡연
+					in2.putExtra("url", Define.getNetUrl() + "front-views/view?p=smoke" + getUserId());
+					break;
+				case R.id.imageview5:    //추가정보
+					showDialog("알림", "준비중입니다..");  //2015.04.17  추가정보메뉴 즉 심리검사 추가로 인한 수정  //tharaud
+					return;
 //				in2.putExtra("url", Define.getNetUrl()+"front-views/view?p=add_info"+getUserId());
 //				in2.putExtra("menu", "addinfo");
 //				in2.putExtra("url", Define.getNetUrl()+"front-views/view?p=add_info"+getUserId());
@@ -891,21 +880,21 @@ public class MetroMain extends SherlockActivity implements OnClickListener{
 //				Log.i("MetroMain ","URL :::"+Define.getNetUrl().toString() +"front-views/view?p=add_info"+ "  , UserId ::: "+getUserId());
 //				in2.putExtra("url", Define.getNetUrl()+"front-views/view?p=add_info"+getUserId());
 //				break;
-				
-		
-			case R.id.imageview6:	//랭킹
-				in2.putExtra("url", Define.getNetUrl()+"front-views/view?p=rank"+getUserId());
-				break;
-			case R.id.imageview7:	//성장점수
-				in2.putExtra("url", Define.getNetUrl()+"front-views/view?p=score"+getUserId());
-				break;
-			case R.id.imageview8:	//식단
-				in2.putExtra("url", Define.getNetUrl()+"front-views/view?p=food"+getUserId());
-				break;
+
+
+				case R.id.imageview6:    //랭킹
+					in2.putExtra("url", Define.getNetUrl() + "front-views/view?p=rank" + getUserId());
+					break;
+				case R.id.imageview7:    //성장점수
+					in2.putExtra("url", Define.getNetUrl() + "front-views/view?p=score" + getUserId());
+					break;
+				case R.id.imageview8:    //식단
+					in2.putExtra("url", Define.getNetUrl() + "front-views/view?p=food" + getUserId());
+					break;
 			}
-			startActivity(in2); 
+			startActivity(in2);
 			overridePendingTransition(android.R.anim.slide_in_left, R.anim.slide_out_left);
-	/*	}*/
+		}
 		
 	}
 
