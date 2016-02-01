@@ -11,7 +11,7 @@ public class Define {
 	 */
 	//public static boolean LOG =true; //개발자 모드 true , 상용모드 false 로 변경..... 
 	//public static boolean LOG =true; //개발자 모드 true , 상용모드 false 로 변경.....
-	public static boolean LOG =true; //개발자 모드 true , 상용모드 false 로 변경.....
+	public static boolean LOG = true; //개발자 모드 true , 상용모드 false 로 변경.....
 	public static String LOG_FILTER = "HealthCare";
 	
 	
@@ -47,7 +47,11 @@ public class Define {
 	{
 		if (LOG) {
 			Log.i("Define", " => 2 Server URL :::"+ServerAdd);
-			return ServerAdd;  
+			if(ServerAdd == null)
+				return SERVER_IP;
+			else
+				return ServerAdd;
+
 		} else {
 			//return "http://210.127.55.205/HealthCare/"; // 실서버
 			//return "http://192.168.0.8:8081/healthcare/"; // 테스트 서버

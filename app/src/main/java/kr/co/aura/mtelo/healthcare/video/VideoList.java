@@ -590,6 +590,7 @@ public class VideoList extends SherlockActivity implements OnItemClickListener{
 			 */
 			} catch (Exception e) {
 				onCancelled();
+
 				return 0L;
 			}
 			

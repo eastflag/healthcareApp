@@ -1,5 +1,32 @@
 package kr.co.aura.mtelo.healthcare.intro;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.telephony.TelephonyManager;
+import android.util.Log;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
+
+import com.androidquery.AQuery;
+import com.androidquery.callback.AjaxCallback;
+import com.androidquery.callback.AjaxStatus;
+import com.google.android.gcm.GCMRegistrar;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -13,38 +40,6 @@ import kr.co.aura.mtelo.healthcare.network.NetWork.Call_Back;
 import kr.co.aura.mtelo.healthcare.util.LCommonFunction;
 import kr.co.aura.mtelo.healthcare.util.MLog;
 import kr.co.aura.mtelo.healthcare.util.Popup_Manager;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.database.DataSetObserver;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.telephony.TelephonyManager;
-import android.util.Log;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.ListAdapter;
-import android.widget.RelativeLayout;
-import android.widget.SimpleAdapter;
-import android.widget.Toast;
-
-import com.androidquery.AQuery;
-import com.androidquery.callback.AjaxCallback;
-import com.androidquery.callback.AjaxStatus;
-import com.google.android.gcm.GCMRegistrar;
 
 public class Intro extends Activity {
 
@@ -129,9 +124,9 @@ public class Intro extends Activity {
 			}
 		});
 
-		if(Define.LOG)
-			select_Dev_Server();
-		else
+//		if(Define.LOG)
+//			select_Dev_Server();
+//		else
 			start_Timer();
 	}
 
@@ -273,7 +268,6 @@ public class Intro extends Activity {
 
 			@Override
 			public void onError(String error) {
-
 				Message msg = mHandler.obtainMessage(SHOW_SERVICE_ERROR, error);
 				mHandler.sendMessage(msg);
 			}
