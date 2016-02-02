@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!--상단 레이아웃-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="3"
+        >
+
+        <!--왼쪽 이미지-->
+        <ImageView
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="6"
+            android:src="#123123"
+            />
+
+        <View
+            android:layout_width="2px"
+            android:layout_height="match_parent"
+            android:background="#e4cb0e"
+            />
+        <!--오른쪽 텍스트-->
+        <LinearLayout
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:orientation="vertical"
+            android:background="@color/c_AB8212"
+            >
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2px"
+                android:background="#e4cb0e"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dip"
+                android:layout_weight="1"
+                android:text="소모칼로리"
+                style="@style/exercise_text"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dip"
+                android:layout_weight="1"
+                android:text="240 Kcal"
+                style="@style/exercise_text"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2px"
+                android:background="#e4cb0e"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dip"
+                android:layout_weight="1"
+                android:text="걸음수"
+                style="@style/exercise_text"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dip"
+                android:layout_weight="1"
+                android:text="6000 보"
+                style="@style/exercise_text"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2px"
+                android:background="#e4cb0e"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dip"
+                android:layout_weight="1"
+                android:text="이동거리"
+                style="@style/exercise_text"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dip"
+                android:layout_weight="1"
+                android:text="4.05 km"
+                style="@style/exercise_text"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2px"
+                android:background="#e4cb0e"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dip"
+                android:layout_weight="1"
+                android:text="평균속도"
+                style="@style/exercise_text"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dip"
+                android:layout_weight="1"
+                android:text="66m/min"
+                style="@style/exercise_text"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2px"
+                android:background="#e4cb0e"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dip"
+                android:layout_weight="1"
+                android:text="페형"
+                style="@style/exercise_text"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dip"
+                android:layout_weight="1"
+                android:text="정상"
+                style="@style/exercise_text"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2px"
+                android:background="#e4cb0e"
+                />
+        </LinearLayout>
+        <View
+            android:layout_width="2px"
+            android:layout_height="match_parent"
+            android:background="#e4cb0e"
+            />
+    </LinearLayout>
+
+    <!--중간레라우웃-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1"
+        android:background="#999999"
+
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+        >
+        <ImageButton
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@android:drawable/presence_online"
+            android:layout_gravity="left"/>
+
+        <TextView
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="2016.03.10(목)"
+            android:gravity="center"
+            />
+        <ImageButton
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@android:drawable/presence_online"/>
+
+
+    </LinearLayout>
+
+
+    <!--하단 레이아웃-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="3"
+        android:background="#765756"
+        >
+        <!--하단 왼쪽-->
+        <RelativeLayout
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+           android:background="#8623c6"
+            >
+            <!--반등-->
+            <TextView
+                 android:id="@+id/class_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="반 등 "
+                style="@style/exercise_text"
+                />
+            <TextView
+                android:id="@+id/class_no"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10"
+                android:textColor="#ffffff"
+                android:textSize="16sp"
+                android:layout_toRightOf="@id/class_text"
+                />
+
+            <!--학년등-->
+            <TextView
+                android:id="@+id/student_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="학년 등 "
+                style="@style/exercise_text"
+                android:layout_below="@id/class_text"
+                />
+            <TextView
+                android:id="@+id/student_no"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="250"
+                android:textColor="#ffffff"
+                android:textSize="16sp"
+                android:layout_toRightOf="@id/student_text"
+                android:layout_below="@id/class_no"
+                />
+
+
+            <!--종목-->
+            <TextView
+                android:id="@+id/entries_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="종목 "
+                style="@style/exercise_text"
+                android:layout_below="@id/student_text"
+                />
+            <TextView
+                android:id="@+id/entries_no"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="달리기"
+                android:textColor="#ffffff"
+                android:textSize="16sp"
+                android:layout_toRightOf="@id/entries_text"
+                android:layout_below="@id/student_no"
+                />
+        </RelativeLayout>
+
+        <!--하단 오른쪽 -->
+        <LinearLayout
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="158dp"
+                android:orientation="vertical"
+                android:padding="15dip">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="정상 -260Kcal"
+                    style="@style/exercise_text"
+                    />
+                <ProgressBar
+                    android:layout_width="match_parent"
+                    android:layout_height="20dip"
+                    style="@android:style/Widget.ProgressBar.Horizontal"
+                    android:layout_marginTop="10dip"
+                    android:layout_marginBottom="10dip"
+                    />
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="40dip"
+                    android:text="상세"
+                    android:background="#3026e4"
+                    />
+            </LinearLayout>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="나의 History"
+                android:background="#d1e426"
+                android:layout_margin="10dip"
+                />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

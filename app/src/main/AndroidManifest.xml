@@ -52,6 +52,7 @@
     <android:uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
+
         android:name=".ApplicationSetting"
         android:allowBackup="true"
         android:configChanges="keyboardHidden|orientation"

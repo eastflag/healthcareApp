@@ -2,6 +2,7 @@ package kr.co.aura.mtelo.healthcare.mentaltest;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
@@ -25,6 +27,8 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
     private LinearLayout mImgLayout ;
     private LinearLayout mImgBtn1 , mImgBtn2, mImgBtn3, mImgBtn4;
     private Button mCheckBtn1, mCheckBtn2, mCheckBtn3, mCheckBtn4, mReplayBtn, mOksBtn;
+    private Button mTopButton;
+    private TextView mTopText;
 
     private final static int POOLING_INTERVAL_MS = 100;
     private Timer timer;
@@ -42,8 +46,20 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
         setContentView(R.layout.activity_video_test);
 
         videoInit();
-
         layoutInit();
+        topLayoutInit();
+    }
+
+
+    private void topLayoutInit(){
+        mTopButton = (Button)findViewById(R.id.question_btn);
+        mTopText   = (TextView)findViewById(R.id.question_text);
+    }
+
+    //16.02.02 상단 문제 설명 설정
+    private void setTopLayout(String btn, String text){
+        mTopButton.setText(btn);
+        mTopText.setText(text);
     }
 
 
@@ -121,6 +137,8 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
                 case R.id.replay_btn:
                     mImgLayout.setVisibility(View.GONE);
                     mVideoView.start();
+                    mVideoView.setBackgroundColor(Color.TRANSPARENT);
+
                     break;
                 case R.id.ok_btn:
                     Toast.makeText(VideoTest.this, "문항을 선택하였습니다 ", Toast.LENGTH_LONG).show();
@@ -154,14 +172,14 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
     public void onPrepared(final MediaPlayer mp) {
         isActive = true;
         mp.start();
-        Log.e("", "@@@@@  onPrepared ");
+        mVideoView.setBackgroundColor(Color.TRANSPARENT);
     }
 
     @Override
     public void onCompletion(MediaPlayer mp) {
         mImgLayout.setVisibility(View.VISIBLE);
-//        mp.release();
-        mVideoView.setVideoURI(null);
+        mVideoView.seekTo(0);
+        mVideoView.setBackgroundColor(Color.BLACK);
 
     }
 
