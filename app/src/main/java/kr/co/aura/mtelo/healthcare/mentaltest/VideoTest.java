@@ -30,6 +30,10 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
     private Timer timer;
     private boolean isActive;
 
+    private final String INTRO_VIDEO ="http://210.127.55.205/psychology_contents/sample/an/AN_IN.mp4";
+    private final String OUTRO_VIDEO ="http://210.127.55.205/psychology_contents/sample/an/AN_OUT.mp4";
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -80,7 +84,7 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
     private void videoInit() {
         Intent in = getIntent();
 //        Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.healthcare_video);
-        Uri uri = Uri.parse("http://210.127.55.205/psychology_contents/sample/an/AN_IN.mp4");
+        Uri uri = Uri.parse(INTRO_VIDEO);
         mVideoView = (VideoView) findViewById(R.id.myVideo);
         mVideoView.requestFocus();
         mVideoView.setVideoURI(uri);
@@ -120,6 +124,13 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
                     break;
                 case R.id.ok_btn:
                     Toast.makeText(VideoTest.this, "문항을 선택하였습니다 ", Toast.LENGTH_LONG).show();
+                    if(mVideoView == null)
+                        videoInit();
+
+                    mVideoView.setVideoURI(Uri.parse(OUTRO_VIDEO));
+                    mVideoView.start();
+
+                    mImgLayout.setVisibility(View.GONE);
                     break;
 
             }
@@ -149,10 +160,28 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
     @Override
     public void onCompletion(MediaPlayer mp) {
         mImgLayout.setVisibility(View.VISIBLE);
+//        mp.release();
+        mVideoView.setVideoURI(null);
+
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if(mVideoView.isPlaying()){
+            mVideoView.pause();
+        }
+    }
 
-//    private void initVideoProgressPooling(final int stopAtMsec) {
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(mImgLayout.getVisibility() == View.GONE && !mVideoView.isPlaying()){
+            mVideoView.resume();
+        }
+    }
+
+    //    private void initVideoProgressPooling(final int stopAtMsec) {
 //        cancelProgressPooling();
 //        timer = new Timer();
 //        timer.schedule(new TimerTask() {
