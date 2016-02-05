@@ -6,6 +6,8 @@ import android.view.View;
 import android.widget.Button;
 
 import com.actionbarsherlock.app.SherlockActivity;
+import com.crashlytics.android.answers.Answers;
+import com.crashlytics.android.answers.ContentViewEvent;
 
 import kr.co.aura.mtelo.healthcare.R;
 import kr.co.aura.mtelo.healthcare.addinfo.mentaltest.VideoTest;
@@ -42,6 +44,10 @@ public class AddInfoActivity extends SherlockActivity implements View.OnClickLis
 
             case R.id.add_info_btn2:    //심리검사
                 intent = new Intent(AddInfoActivity.this, VideoTest.class);
+                Answers.getInstance().logContentView(new ContentViewEvent()
+                        .putContentName("심리검사 시작")
+                        .putContentType("Video")
+                        .putContentId("01040239227"));
                 break;
 
             case R.id.add_info_btn3:

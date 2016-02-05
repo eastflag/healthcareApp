@@ -1,7 +1,6 @@
 package kr.co.aura.mtelo.healthcare.addinfo.mentaltest;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -42,8 +41,17 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
 
     private final String INTRO_VIDEO ="http://210.127.55.205/psychology_contents/sample/an/AN_IN.mp4";
     private final String OUTRO_VIDEO ="http://210.127.55.205/psychology_contents/sample/an/AN_OUT.mp4";
-    private final String BG_IMAGE ="http://210.127.55.205/psychology_contents/sample/an/AN_E13_01_Q.png";
 
+
+    private final String BG_IMAGE ="http://210.127.55.205/psychology_contents/sample/an/AN_E13_01_Q.png";
+    private final String EX1_IMAGE ="http://210.127.55.205/psychology_contents/sample/an/AN_E13_01_A_1.png";
+    private final String EX2_IMAGE ="http://210.127.55.205/psychology_contents/sample/an/AN_E13_01_A_2.png";
+
+    private final String EX1_VIDEO = "http://210.127.55.205/psychology_contents/sample/an/AN_E13_01_1.mp4";
+    private final String EX2_VIDEO = "http://210.127.55.205/psychology_contents/sample/an/AN_E13_01_2.mp4";
+
+
+    private String mLastPlayVideo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -55,11 +63,16 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
         layoutInit();
         BtnLayuoutInit();
 
-        setMode2();
 
         ImageView bg = (ImageView) findViewById(R.id.image_bg);
         Picasso.with(VideoTest.this).load(BG_IMAGE).fit().into(bg);
 
+        setLayoutImages(BG_IMAGE, EX1_IMAGE, EX2_IMAGE, null, null);
+
+
+        VideoPlay(INTRO_VIDEO);
+//        mImgLayout.bringToFront();
+//        mImgLayout.setVisibility(View.VISIBLE);
     }
 
 
@@ -96,28 +109,34 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
         mOksBtn.setOnClickListener(this);
 
 
-        //보기 이미지 체크
-        Picasso.with(VideoTest.this).load("http://210.127.55.205/psychology_contents/sample/an/AN_E13_01_1.png").into(mImgBtn1);
-        Picasso.with(VideoTest.this).load("http://210.127.55.205/psychology_contents/sample/an/AN_E13_01_2.png").fit().into(mImgBtn2);
     }
 
+
+    private void setLayoutImages(String bg , String ex1, String ex2 , String ex3 , String ex4){
+
+        //보기 이미지 체크
+        Picasso.with(VideoTest.this).load(ex1).into(mImgBtn1);
+        Picasso.with(VideoTest.this).load(ex2).fit().into(mImgBtn2);
+    }
 
     //16.02.01 비디오뷰 구성
     private void videoInit() {
-        Intent in = getIntent();
 //        Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.healthcare_video);
-        Uri uri = Uri.parse(INTRO_VIDEO);
         mVideoView = (FullVideoView) findViewById(R.id.myVideo);
-        mVideoView.requestFocus();
-        mVideoView.setVideoURI(uri);
         mVideoView.setOnPreparedListener(this);
         mVideoView.setOnCompletionListener(this);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            mVideoView.setSystemUiVisibility(VideoView.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
-        }
-
     }
 
+
+    private void VideoPlay(String url){
+        mImgLayout.setVisibility(View.GONE);
+        mVideoView.setVisibility(View.VISIBLE);
+        if(mVideoView != null){
+            mVideoView.bringToFront();
+            mVideoView.setVideoURI( Uri.parse(url));
+            mLastPlayVideo = url;
+        }
+    }
 
     private void BtnLayuoutInit(){
         mBtnLayout1 = (RelativeLayout) findViewById(R.id.btn_layout1);
@@ -155,31 +174,34 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
         } else {
             switch (v.getId()) {
                 case R.id.example_image1:
-                case R.id.example_image2:
-                case R.id.example_image3:
-                case R.id.example_image4:
                 case R.id.dubleBtn1:
+                    checkChkButton(mCheckBtn1);
+                    break;
+
+                case R.id.example_image2:
                 case R.id.dubleBtn2:
+                    checkChkButton(mCheckBtn2);
+                    break;
+
+                case R.id.example_image3:
                 case R.id.dubleBtn3:
+                    checkChkButton(mCheckBtn3);
+                    break;
+
+                case R.id.example_image4:
                 case R.id.dubleBtn4:
-                    checkChkButton(v);
+                    checkChkButton(mCheckBtn4);
                     break;
 
                 case R.id.replay_btn:
-                    mImgLayout.setVisibility(View.GONE);
-                    mVideoView.start();
-                    mVideoView.setBackgroundColor(Color.TRANSPARENT);
+                    if(mLastPlayVideo != null){
+                        VideoPlay(mLastPlayVideo);
+                    }
 
                     break;
                 case R.id.ok_btn:
                     Toast.makeText(VideoTest.this, "문항을 선택하였습니다 ", Toast.LENGTH_LONG).show();
-                    if(mVideoView == null)
-                        videoInit();
-
-                    mVideoView.setVideoURI(Uri.parse(OUTRO_VIDEO));
-                    mVideoView.start();
-
-                    mImgLayout.setVisibility(View.GONE);
+                    VideoPlay(OUTRO_VIDEO);
                     break;
 
             }
@@ -190,32 +212,65 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
 
     //16.02.01 더블버튼 체크로직
     private void checkChkButton(View v){
+
+        if (v.getTag() != null) {
+            double id = (Integer) v.getTag();
+            if (id == R.drawable.dublebtn_bg_click) {
+                Log.e("!!!", "@@@@@@@@@@@@ same!!! 리소스  " + id);
+                switch (v.getId()){
+                    case R.id.dubleBtn1:
+                        VideoPlay(EX1_VIDEO);
+                        break;
+
+                    case R.id.dubleBtn2:
+                        VideoPlay(EX1_VIDEO);
+                        break;
+
+                    case R.id.dubleBtn3:
+                        break;
+
+                    case R.id.dubleBtn4:
+                        break;
+                }
+            }
+
+        }
+
+
         mCheckBtn1.setBackgroundResource(R.drawable.dublebtn_bg);
         mCheckBtn2.setBackgroundResource(R.drawable.dublebtn_bg);
         mCheckBtn3.setBackgroundResource(R.drawable.dublebtn_bg);
         mCheckBtn4.setBackgroundResource(R.drawable.dublebtn_bg);
 
+        mCheckBtn1.setTag(R.drawable.dublebtn_bg);
+        mCheckBtn2.setTag(R.drawable.dublebtn_bg);
+        mCheckBtn3.setTag(R.drawable.dublebtn_bg);
+        mCheckBtn4.setTag(R.drawable.dublebtn_bg);
+
+
         switch (v.getId()) {
             case R.id.example_image1:
             case R.id.dubleBtn1:
                 mCheckBtn1.setBackgroundResource(R.drawable.dublebtn_bg_click);
-                setMode2();
+                mCheckBtn1.setTag(R.drawable.dublebtn_bg_click);
                 break;
 
             case R.id.example_image2:
             case R.id.dubleBtn2:
                 mCheckBtn2.setBackgroundResource(R.drawable.dublebtn_bg_click);
-                setMode4();
+                mCheckBtn2.setTag(R.drawable.dublebtn_bg_click);
                 break;
 
             case R.id.example_image3:
             case R.id.dubleBtn3:
                 mCheckBtn3.setBackgroundResource(R.drawable.dublebtn_bg_click);
+                mCheckBtn3.setTag(R.drawable.dublebtn_bg_click);
                 break;
 
             case R.id.example_image4:
             case R.id.dubleBtn4:
                 mCheckBtn4.setBackgroundResource(R.drawable.dublebtn_bg_click);
+                mCheckBtn4.setTag(R.drawable.dublebtn_bg_click);
                 break;
         }
 
@@ -223,22 +278,33 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
 
     @Override
     public void onPrepared(final MediaPlayer mp) {
-        mp.start();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            mVideoView.setSystemUiVisibility(VideoView.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
+        }
+
+        mImgLayout.setVisibility(View.GONE);
         mVideoView.setBackgroundColor(Color.TRANSPARENT);
+        mVideoView.setVisibility(View.VISIBLE);
+        mp.start();
     }
 
     @Override
     public void onCompletion(MediaPlayer mp) {
         mImgLayout.setVisibility(View.VISIBLE);
+        mImgLayout.bringToFront();
+        mVideoView.setVisibility(View.GONE);
         mVideoView.seekTo(0);
         mVideoView.setBackgroundColor(Color.BLACK);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            mVideoView.setSystemUiVisibility(VideoView.SYSTEM_UI_FLAG_FULLSCREEN);
+        }
 
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        if(mVideoView.isPlaying()){
+        if(mVideoView != null && mVideoView.isPlaying()){
             mVideoView.pause();
         }
     }
@@ -247,7 +313,7 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
     @Override
     protected void onResume() {
         super.onResume();
-        if(mImgLayout.getVisibility() == View.GONE && !mVideoView.isPlaying()){
+        if(mVideoView != null &&  mImgLayout.getVisibility() == View.GONE && !mVideoView.isPlaying()){
             mVideoView.resume();
         }
     }
