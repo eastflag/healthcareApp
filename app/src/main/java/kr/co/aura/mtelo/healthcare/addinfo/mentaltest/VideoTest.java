@@ -1,4 +1,4 @@
-package kr.co.aura.mtelo.healthcare.mentaltest;
+package kr.co.aura.mtelo.healthcare.addinfo.mentaltest;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -11,32 +11,38 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 import android.widget.VideoView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.Timer;
 
 import kr.co.aura.mtelo.healthcare.R;
+import kr.co.aura.mtelo.healthcare.util.FullVideoView;
 
 public class VideoTest extends Activity implements MediaPlayer.OnPreparedListener ,MediaPlayer.OnCompletionListener, View.OnClickListener{
 
 
-    private VideoView mVideoView;
+    private FullVideoView mVideoView;
     private LinearLayout mImgLayout ;
-    private LinearLayout mImgBtn1 , mImgBtn2, mImgBtn3, mImgBtn4;
+    private ImageView mImgBtn1 , mImgBtn2, mImgBtn3, mImgBtn4;
     private Button mCheckBtn1, mCheckBtn2, mCheckBtn3, mCheckBtn4, mReplayBtn, mOksBtn;
-    private Button mTopButton;
-    private TextView mTopText;
+    private RelativeLayout mBtnLayout1 ,mBtnLayout2, mBtnLayout3, mBtnLayout4;
 
-    private final static int POOLING_INTERVAL_MS = 100;
+    //보기 모드들
+    private final int MODE_2 =0;
+    private final int MODE_3 =1;
+    private final int MODE_4 =2;
+//    private final static int POOLING_INTERVAL_MS = 100;
     private Timer timer;
-    private boolean isActive;
 
     private final String INTRO_VIDEO ="http://210.127.55.205/psychology_contents/sample/an/AN_IN.mp4";
     private final String OUTRO_VIDEO ="http://210.127.55.205/psychology_contents/sample/an/AN_OUT.mp4";
-
+    private final String BG_IMAGE ="http://210.127.55.205/psychology_contents/sample/an/AN_E13_01_Q.png";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,29 +53,24 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
 
         videoInit();
         layoutInit();
-        topLayoutInit();
+        BtnLayuoutInit();
+
+        setMode2();
+
+        ImageView bg = (ImageView) findViewById(R.id.image_bg);
+        Picasso.with(VideoTest.this).load(BG_IMAGE).fit().into(bg);
+
     }
 
-
-    private void topLayoutInit(){
-        mTopButton = (Button)findViewById(R.id.question_btn);
-        mTopText   = (TextView)findViewById(R.id.question_text);
-    }
-
-    //16.02.02 상단 문제 설명 설정
-    private void setTopLayout(String btn, String text){
-        mTopButton.setText(btn);
-        mTopText.setText(text);
-    }
 
 
     //16.02.01 레이아웃구성
     private void layoutInit() {
         mImgLayout = (LinearLayout)findViewById(R.id.btnLayout);
-        mImgBtn1 = (LinearLayout)findViewById(R.id.imgbtn1);
-        mImgBtn2 = (LinearLayout)findViewById(R.id.imgbtn2);
-        mImgBtn3 = (LinearLayout)findViewById(R.id.imgbtn3);
-        mImgBtn4 = (LinearLayout)findViewById(R.id.imgbtn4);
+        mImgBtn1 = (ImageView)findViewById(R.id.example_image1);
+        mImgBtn2 = (ImageView) findViewById(R.id.example_image2);
+        mImgBtn3 = (ImageView) findViewById(R.id.example_image3);
+        mImgBtn4 = (ImageView) findViewById(R.id.example_image4);
         mImgBtn1.setOnClickListener(this);
         mImgBtn2.setOnClickListener(this);
         mImgBtn3.setOnClickListener(this);
@@ -77,10 +78,10 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
         mImgLayout.bringToFront();
 
 
-        mCheckBtn1 = (Button)mImgBtn1.findViewById(R.id.dubleBtn);
-        mCheckBtn2 = (Button)mImgBtn2.findViewById(R.id.dubleBtn);
-        mCheckBtn3 = (Button)mImgBtn3.findViewById(R.id.dubleBtn);
-        mCheckBtn4 = (Button)mImgBtn4.findViewById(R.id.dubleBtn);
+        mCheckBtn1 = (Button)findViewById(R.id.dubleBtn1);
+        mCheckBtn2 = (Button)findViewById(R.id.dubleBtn2);
+        mCheckBtn3 = (Button)findViewById(R.id.dubleBtn3);
+        mCheckBtn4 = (Button)findViewById(R.id.dubleBtn4);
 
         mCheckBtn1.setOnClickListener(this);
         mCheckBtn2.setOnClickListener(this);
@@ -93,6 +94,11 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
 
         mReplayBtn.setOnClickListener(this);
         mOksBtn.setOnClickListener(this);
+
+
+        //보기 이미지 체크
+        Picasso.with(VideoTest.this).load("http://210.127.55.205/psychology_contents/sample/an/AN_E13_01_1.png").into(mImgBtn1);
+        Picasso.with(VideoTest.this).load("http://210.127.55.205/psychology_contents/sample/an/AN_E13_01_2.png").fit().into(mImgBtn2);
     }
 
 
@@ -101,18 +107,46 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
         Intent in = getIntent();
 //        Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.healthcare_video);
         Uri uri = Uri.parse(INTRO_VIDEO);
-        mVideoView = (VideoView) findViewById(R.id.myVideo);
+        mVideoView = (FullVideoView) findViewById(R.id.myVideo);
         mVideoView.requestFocus();
         mVideoView.setVideoURI(uri);
         mVideoView.setOnPreparedListener(this);
         mVideoView.setOnCompletionListener(this);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            mVideoView.setSystemUiVisibility(VideoView.SYSTEM_UI_FLAG_FULLSCREEN);
+            mVideoView.setSystemUiVisibility(VideoView.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
         }
 
     }
 
 
+    private void BtnLayuoutInit(){
+        mBtnLayout1 = (RelativeLayout) findViewById(R.id.btn_layout1);
+        mBtnLayout2 = (RelativeLayout) findViewById(R.id.btn_layout2);
+        mBtnLayout3 = (RelativeLayout) findViewById(R.id.btn_layout3);
+        mBtnLayout4 = (RelativeLayout) findViewById(R.id.btn_layout4);
+    }
+
+    private void setMode2(){
+        mBtnLayout1.setVisibility(View.VISIBLE);
+        mBtnLayout2.setVisibility(View.VISIBLE);
+        mBtnLayout3.setVisibility(View.GONE);
+        mBtnLayout4.setVisibility(View.GONE);
+    }
+
+    private void setMode3(){
+        mBtnLayout1.setVisibility(View.VISIBLE);
+        mBtnLayout2.setVisibility(View.VISIBLE);
+        mBtnLayout3.setVisibility(View.VISIBLE);
+        mBtnLayout4.setVisibility(View.GONE);
+    }
+
+
+    private void setMode4(){
+        mBtnLayout1.setVisibility(View.VISIBLE);
+        mBtnLayout2.setVisibility(View.VISIBLE);
+        mBtnLayout3.setVisibility(View.VISIBLE);
+        mBtnLayout4.setVisibility(View.VISIBLE);
+    }
 
     @Override
     public void onClick(View v) {
@@ -120,17 +154,14 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
 
         } else {
             switch (v.getId()) {
-                case R.id.imgbtn1:
-                    checkChkButton(v);
-                    break;
-
-                case R.id.imgbtn2:
-                    checkChkButton(v);
-                    break;
-                case R.id.imgbtn3:
-                    checkChkButton(v);
-                    break;
-                case R.id.imgbtn4:
+                case R.id.example_image1:
+                case R.id.example_image2:
+                case R.id.example_image3:
+                case R.id.example_image4:
+                case R.id.dubleBtn1:
+                case R.id.dubleBtn2:
+                case R.id.dubleBtn3:
+                case R.id.dubleBtn4:
                     checkChkButton(v);
                     break;
 
@@ -164,13 +195,34 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
         mCheckBtn3.setBackgroundResource(R.drawable.dublebtn_bg);
         mCheckBtn4.setBackgroundResource(R.drawable.dublebtn_bg);
 
-//        View view = (View) v.getParent();
-        v.findViewById(R.id.dubleBtn).setBackgroundResource(R.drawable.dublebtn_bg_click);
+        switch (v.getId()) {
+            case R.id.example_image1:
+            case R.id.dubleBtn1:
+                mCheckBtn1.setBackgroundResource(R.drawable.dublebtn_bg_click);
+                setMode2();
+                break;
+
+            case R.id.example_image2:
+            case R.id.dubleBtn2:
+                mCheckBtn2.setBackgroundResource(R.drawable.dublebtn_bg_click);
+                setMode4();
+                break;
+
+            case R.id.example_image3:
+            case R.id.dubleBtn3:
+                mCheckBtn3.setBackgroundResource(R.drawable.dublebtn_bg_click);
+                break;
+
+            case R.id.example_image4:
+            case R.id.dubleBtn4:
+                mCheckBtn4.setBackgroundResource(R.drawable.dublebtn_bg_click);
+                break;
+        }
+
     }
 
     @Override
     public void onPrepared(final MediaPlayer mp) {
-        isActive = true;
         mp.start();
         mVideoView.setBackgroundColor(Color.TRANSPARENT);
     }
@@ -190,6 +242,7 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
             mVideoView.pause();
         }
     }
+
 
     @Override
     protected void onResume() {

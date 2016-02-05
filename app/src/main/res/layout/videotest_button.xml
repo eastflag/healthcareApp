@@ -15,19 +15,26 @@
         android:layout_marginLeft="10dp" />
 
 
+    <!--<?xml version="1.0" encoding="utf-8"?>-->
+    <!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:orientation="horizontal"-->
+        <!-->-->
 
-    <!--<ImageButton-->
-        <!--android:id="@+id/imgbtn1"-->
-        <!--android:layout_weight="5"-->
-        <!--android:layout_width="0dip"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:background="@drawable/imagebtn_bg" />-->
-    <!--<ImageButton-->
-        <!--android:id="@+id/imgbtn2"-->
-        <!--android:layout_weight="5"-->
-        <!--android:layout_width="0dip"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:background="@drawable/imagebtn_bg"-->
-        <!--/>-->
+        <!--<ImageView-->
+            <!--android:id="@+id/example_image"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:background="@drawable/imagebtn_bg" />-->
+
+        <!--<Button-->
+            <!--android:id="@+id/dubleBtn"-->
+            <!--android:layout_width="40dip"-->
+            <!--android:layout_height="40dip"-->
+            <!--android:layout_marginLeft="10dp"-->
+            <!--android:layout_marginTop="10dp"-->
+            <!--android:background="@drawable/dublebtn_bg" />-->
+    <!--</RelativeLayout>-->
 
 </LinearLayout>

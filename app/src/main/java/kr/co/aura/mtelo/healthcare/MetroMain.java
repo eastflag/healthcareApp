@@ -42,8 +42,8 @@ import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLSession;
 
+import kr.co.aura.mtelo.healthcare.addinfo.AddInfoActivity;
 import kr.co.aura.mtelo.healthcare.certification.TermsViewActivity;
-import kr.co.aura.mtelo.healthcare.mentaltest.VideoTest;
 import kr.co.aura.mtelo.healthcare.network.JSONNetWork;
 import kr.co.aura.mtelo.healthcare.network.JSONNetWork_Manager;
 import kr.co.aura.mtelo.healthcare.network.NetWork.Call_Back;
@@ -841,7 +841,7 @@ public class MetroMain extends SherlockActivity implements OnClickListener{
 			//Intent in3 = new Intent(MetroMain.this, SimRiWebActivity.class);
 		//	Intent in3 = new Intent(MetroMain.this, SimliTestFrontTempActivity.class);
 			//Intent in3 = new Intent(MetroMain.this, SimliTestFrontTempActivity.class);
-			Intent in3 = new Intent(MetroMain.this, VideoTest.class);
+			Intent in3 = new Intent(MetroMain.this, AddInfoActivity.class);
 			in3.putExtra("sex", mSex);
 			in3.putExtra("userId" , mUserId);
 			in3.putExtra("name", mName);

@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/black"
     >
 
     <LinearLayout
@@ -15,8 +16,11 @@
         <include layout="@layout/video_test_img_btn_list4" />
     </LinearLayout>
 
-    <VideoView
+    <kr.co.aura.mtelo.healthcare.util.FullVideoView
         android:id="@+id/myVideo"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerInParent="true" />
 </RelativeLayout>

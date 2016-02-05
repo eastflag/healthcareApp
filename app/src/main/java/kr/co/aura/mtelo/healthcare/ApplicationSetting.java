@@ -15,52 +15,41 @@
  *******************************************************************************/
 package kr.co.aura.mtelo.healthcare;
 
-import java.io.File;
-
-import kr.co.aura.mtelo.healthcare.Define.Config;
-
-import org.acra.ACRA;
-import org.acra.ReportField;
-import org.acra.ReportingInteractionMode;
-import org.acra.annotation.ReportsCrashes;
-
 import android.annotation.TargetApi;
 import android.app.Application;
 import android.content.Context;
 import android.os.Build;
 import android.os.StrictMode;
 
+import com.crashlytics.android.Crashlytics;
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 
-@ReportsCrashes(
-		formKey = "", // This is required for backward compatibility but not used
-		mailTo = "aura.helth@gmail.com",
-		mode = ReportingInteractionMode.DIALOG,
-		customReportContent = { ReportField.DEVICE_ID , ReportField.DISPLAY , ReportField.USER_CRASH_DATE ,ReportField.USER_EMAIL, ReportField.USER_IP
-				, ReportField.ANDROID_VERSION, ReportField.APP_VERSION_NAME , ReportField.BRAND
-				,ReportField.PHONE_MODEL, ReportField.STACK_TRACE ,ReportField.USER_COMMENT},
-				resDialogTitle  = R.string.dialog_title , 
-				resDialogText = R.string.dialog_msg
-//				resDialogCommentPrompt = R.string.dialog_prompt
-//				resDialogOkToast = R.string.dialog_ok_toast
-//				resDialogEmailPrompt = R.string.dialog_email
-		)
+import io.fabric.sdk.android.Fabric;
+import java.io.File;
+
+import kr.co.aura.mtelo.healthcare.Define.Config;
+
+
 public class ApplicationSetting extends Application {
 	@TargetApi(Build.VERSION_CODES.GINGERBREAD)
 	@SuppressWarnings("unused")
 	@Override
 	public void onCreate() {
 		super.onCreate();
+		Fabric.with(this, new Crashlytics());
 		if (Config.DEVELOPER_MODE && Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
 			StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().detectAll().penaltyDialog().build());
 			StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder().detectAll().penaltyDeath().build());
 		}
+
 		initImageLoader(getApplicationContext());
-		ACRA.init(this);
+
+		//16.0204 ACRA 제거
+//		ACRA.init(this);
 	}
 
 	public static void initImageLoader(Context context) {
