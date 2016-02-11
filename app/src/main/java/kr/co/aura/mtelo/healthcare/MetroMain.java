@@ -103,8 +103,13 @@ public class MetroMain extends SherlockActivity implements OnClickListener{
 	public void finish() {
 		super.finish();
 		overridePendingTransition(android.R.anim.slide_in_left, R.anim.slide_out_left);
+
+		//16.02.11 종료시 유저정보를 리셋
+		new CPreferences(mCon).setUserName("");
 	}
-	
+
+
+	//GCM test용으로 만들어둔것
 	 public static void sender(String regId, String authToken, String msg) throws Exception { 
          StringBuffer postDataBuilder = new StringBuffer();
          postDataBuilder.append("registration_id=" + regId); // 등록ID 
@@ -400,9 +405,14 @@ public class MetroMain extends SherlockActivity implements OnClickListener{
 		mPPM_Status	= in.getStringExtra("ppm_status");
 		mSchoolId	= in.getStringExtra("schoolGradeId");
 		mGradeId 	= in.getStringExtra("mGradeId");
-		
+
+
 		int add_str = mSex.equalsIgnoreCase("m")? R.string.actionbar_title_title_male: R.string.actionbar_title_title_female;
 		String str = mName +getResources().getString(add_str);
+
+		//16.02.11 유저이름 정보를 임시저장
+		new CPreferences(mCon).setUserName(str);
+
 		mActionBar = getSupportActionBar();
 		mActionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
 		mActionBar.setCustomView(R.layout.custom_actionbar);

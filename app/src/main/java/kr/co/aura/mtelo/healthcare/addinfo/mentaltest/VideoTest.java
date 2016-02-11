@@ -13,7 +13,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.squareup.picasso.Picasso;
@@ -169,9 +168,6 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.dubleBtn) {
-
-        } else {
             switch (v.getId()) {
                 case R.id.example_image1:
                 case R.id.dubleBtn1:
@@ -200,12 +196,10 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
 
                     break;
                 case R.id.ok_btn:
-                    Toast.makeText(VideoTest.this, "문항을 선택하였습니다 ", Toast.LENGTH_LONG).show();
                     VideoPlay(OUTRO_VIDEO);
                     break;
 
             }
-        }
             Log.e("", "!!!!!!! 더블버튼 태그" + v.getId());
     }
 

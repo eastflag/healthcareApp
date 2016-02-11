@@ -1,12 +1,13 @@
 package kr.co.aura.mtelo.healthcare.preferences;
 
 
-import kr.co.aura.mtelo.healthcare.util.MLog;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.util.Log;
+
+import kr.co.aura.mtelo.healthcare.util.MLog;
 
 public class CPreferences
 {
@@ -179,7 +180,7 @@ public class CPreferences
 	//긴급공지사항의 표시시간을 저장 
 	public void setEM_Notice_Count(int str)
 	{
-		mEditor.putInt( "Notice_Count", str);
+		mEditor.putInt("Notice_Count", str);
 		mEditor.commit();
 	}
 	public int getEM_Notice_Count()
@@ -190,7 +191,7 @@ public class CPreferences
 	//긴급공지사항의 ID를 저장한다
 	public void setEM_Notice_SEQ(String str)
 	{
-		mEditor.putString( "Notice_SEQ", str);
+		mEditor.putString("Notice_SEQ", str);
 		mEditor.commit();
 	}
 	public String getEM_Notice_SEQ()
@@ -263,7 +264,19 @@ public class CPreferences
 	{
 		return mSharedPreferences.getString("DataAlertPopup", "false");
 	}
-	
+
+
+	public void setUserName(String name)
+	{
+		mEditor.putString( "TempUserName", name);
+		mEditor.commit();
+	}
+	public String getUserName()
+	{
+		return mSharedPreferences.getString("TempUserName", "user");
+	}
+
+
 }
 
 

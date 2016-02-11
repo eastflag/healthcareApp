@@ -134,6 +134,7 @@
             android:name=".addinfo.mentaltest.VideoTest"
             android:launchMode="singleInstance"
             android:screenOrientation="landscape" />
+        <activity   android:name=".addinfo.exercise.ExerciseActivity" />
 
         <!-- <activity android:name=".VideoSplash_Simli" android:screenOrientation="landscape" android:launchMode="singleInstance"/> -->
 
@@ -146,9 +147,17 @@
             android:name=".certification.TermsViewActivity"
             android:label="@string/title_activity_terms_view" >
         </activity>
+
+
+
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="2ec22aeacf1028340861b6e9400a65375949bbd2" />
+        <!-- ATTENTION: This was auto-generated to add Google Play services to your project for
+             App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
     </application>
 
 </manifest>
