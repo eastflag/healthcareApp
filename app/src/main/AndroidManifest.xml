@@ -18,6 +18,9 @@
     <!-- 메시지 받을 때 wake up 하기 위해 -->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
+    <!-- 16.02.15 SMS읽기 권한 , 쓰기권한은 따로 추가해야 한다 -->
+    <uses-permission android:name="android.permission.READ_SMS" />
+
     <!--
      지원스크린 서포트 설정 
 	 <supports-screens	android:smallScreens="false"
