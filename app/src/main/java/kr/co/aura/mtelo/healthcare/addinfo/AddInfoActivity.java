@@ -17,7 +17,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 
 import kr.co.aura.mtelo.healthcare.R;
 import kr.co.aura.mtelo.healthcare.addinfo.exercise.ExerciseActivity;
-import kr.co.aura.mtelo.healthcare.addinfo.mentaltest.VideoTest;
+import kr.co.aura.mtelo.healthcare.addinfo.mentaltest.MentalTestListActivity;
 import kr.co.aura.mtelo.healthcare.preferences.CPreferences;
 
 /**
@@ -89,7 +89,7 @@ public class AddInfoActivity extends SherlockActivity implements View.OnClickLis
                 break;
 
             case R.id.add_info_btn2:    //심리검사
-                intent = new Intent(AddInfoActivity.this, VideoTest.class);
+                intent = new Intent(AddInfoActivity.this, MentalTestListActivity.class);
                 Answers.getInstance().logContentView(new ContentViewEvent()
                         .putContentName("심리검사 시작")
                         .putContentType("Video")

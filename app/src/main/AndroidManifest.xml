@@ -137,6 +137,7 @@
             android:name=".addinfo.mentaltest.VideoTest"
             android:launchMode="singleInstance"
             android:screenOrientation="landscape" />
+        <activity   android:name=".addinfo.mentaltest.MentalTestListActivity" />
         <activity   android:name=".addinfo.exercise.ExerciseActivity" />
 
         <!-- <activity android:name=".VideoSplash_Simli" android:screenOrientation="landscape" android:launchMode="singleInstance"/> -->
