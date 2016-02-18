@@ -1,13 +1,17 @@
 package kr.co.aura.mtelo.healthcare.intro;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
@@ -47,8 +51,9 @@ public class Intro extends Activity {
 	static String gcmURL = "https://android.googleapis.com/gcm/send";
 	static String gcmRegID = ""; // 단말의 레지스터 ID
 	// static String gcmAuthToken ="GCM 서버 등록한 Access Key";
-	
-	
+
+
+
 	static {
 		MLog.set_LogEnable(Define.LOG, Define.LOG_FILTER);
 	}
@@ -62,11 +67,19 @@ public class Intro extends Activity {
 
 	private AQuery mAq;
 
+	private final int MY_PERMISSION_GRANTED = 100;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_intro);
 
+
+
+		checkPermission();
+	}
+
+	private void init() {
 		mAq = new AQuery(this);
 		iv_city = (ImageView) findViewById(R.id.logo_city);
 
@@ -127,7 +140,46 @@ public class Intro extends Activity {
 //		if(Define.LOG)
 //			select_Dev_Server();
 //		else
-			start_Timer();
+		start_Timer();
+	}
+
+
+	private void checkPermission() {
+		Log.i("", "!!!!! CheckPermission : " +  ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) );
+		if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+			//사용권한이 없을경우
+
+			//최초권한 요청인지 , 사용자에 의한 재요청인지 확인
+			if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_PHONE_STATE)) {
+				Log.e("", "@@@@@@@@ permission  재요청");
+			}
+
+			//최초로 권한을 요청하는경우(처음실행)
+			ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_PHONE_STATE,
+					Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, MY_PERMISSION_GRANTED);
+
+		} else {
+			//사용 권한이 있는경우
+			Log.e("", "@@@@@@@@@@@@@ ermission deny");
+			init();
+		}
+	}
+
+
+
+	@Override
+	public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+		switch (requestCode){
+			case MY_PERMISSION_GRANTED:
+				if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+					Toast.makeText(this, "권한 획득", Toast.LENGTH_LONG).show();
+					init();
+				}
+				else{
+					Toast.makeText(this, "권한 허용을 선택하지않은경우 정상동작을 보장할수없습니다.", Toast.LENGTH_LONG).show();
+				}
+				break;
+		}
 	}
 
 	public String getMdn(Context context) {
@@ -160,7 +212,7 @@ public class Intro extends Activity {
 	private void start_Timer() {
 		Timer t = new Timer();
 		t.schedule(new TimerTask() {
-			
+
 			@Override
 			public void run() {
 				registGCM();
@@ -169,7 +221,7 @@ public class Intro extends Activity {
 		}, 2000);
 	}
 
-	
+
 	private void select_Dev_Server()
 	{
 		final String list[] = { "http://106.245.237.196:7070/HealthCare/",// mtelo 헬스케어 개발서버(100)
@@ -183,13 +235,13 @@ public class Intro extends Activity {
 				//"http://192.168.0.28/HealthCare/", 		// TTA 테스트서버 회사IP
 				//"http://210.96.71.161/HealthCare/", 		// TTA 테스트서버
 				//"http://210.127.55.205:82/HealthCare/"		// 개발서버
-				};
+		};
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(mCon, android.R.layout.simple_list_item_1, list);
 		AlertDialog.Builder dal = new AlertDialog.Builder(mCon);
 		dal.setTitle("선택");
 		dal.setInverseBackgroundForced(true);
 		dal.setSingleChoiceItems(list, 0, new DialogInterface.OnClickListener() {
-			
+
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				Toast.makeText(mCon, list[which]+" 입니다 ", Toast.LENGTH_SHORT).show();
@@ -199,11 +251,11 @@ public class Intro extends Activity {
 			}
 		});
 		dal.show();
-		
+
 	}
-	
-	
-	
+
+
+
 	private void registGCM() {
 		GCMRegistrar.checkDevice(this);
 		GCMRegistrar.checkManifest(this);
@@ -238,10 +290,10 @@ public class Intro extends Activity {
 					Result = jsonObject.optString(JSONNetWork.RETURN_KEY_RESULT); // 결과값
 					errMsg = jsonObject.optString(JSONNetWork.RETURN_KEY_ERRMSG); // 에러 메세지
 
-					if (Result != null && Result.equalsIgnoreCase("0")) 
+					if (Result != null && Result.equalsIgnoreCase("0"))
 					{
 						JSONObject array = new JSONObject(jsonObject.optString(JSONNetWork.RETURN_KEY_VALUE));
-						if (array != null) 
+						if (array != null)
 						{
 							mService_Info = array.optBoolean(JSONNetWork.KEY_SERVICE_INFO);
 							mService_Message = array.optString(JSONNetWork.KEY_SERVICE_MESSAGE);
@@ -278,27 +330,27 @@ public class Intro extends Activity {
 		@Override
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
-			case SHOW_SERVICE_INFO:
-				Popup_Manager.Show_Dialog(mCon,(String)msg.obj, mService_Message,
-						"확인", new Popup_Manager.OneButton_Handle() {
+				case SHOW_SERVICE_INFO:
+					Popup_Manager.Show_Dialog(mCon,(String)msg.obj, mService_Message,
+							"확인", new Popup_Manager.OneButton_Handle() {
 
-							@Override
-							public void onOK() {
-								finish();
-							}
-						});
-				break;
+								@Override
+								public void onOK() {
+									finish();
+								}
+							});
+					break;
 
-			case SHOW_SERVICE_ERROR:
-				Popup_Manager.Show_Error_Dialog(mCon, (String)msg.obj, new Popup_Manager.OneButton_Handle() {
-					@Override
-					public void onOK() {
-					}
-				});
-				break;
+				case SHOW_SERVICE_ERROR:
+					Popup_Manager.Show_Error_Dialog(mCon, (String)msg.obj, new Popup_Manager.OneButton_Handle() {
+						@Override
+						public void onOK() {
+						}
+					});
+					break;
 
 			}
-			
+
 			super.handleMessage(msg);
 		}
 	};

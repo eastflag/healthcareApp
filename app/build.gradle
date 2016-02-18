@@ -24,11 +24,16 @@ android {
 //            storePassword 'dkdnfk.gpftm'
 //        }
 //    }
-    compileSdkVersion 17
-    buildToolsVersion "22.0.1"
+
+    android {
+        useLibrary 'org.apache.http.legacy'
+    }
+
+    compileSdkVersion 23
+    buildToolsVersion '23.0.2'
     defaultConfig {
         applicationId "kr.co.aura.mtelo.healthcare"
-        minSdkVersion 17
+        minSdkVersion 18
         targetSdkVersion 23
         versionCode 39
         versionName "1.1.9"
@@ -54,7 +59,7 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:support-v4:22.1.+'
+    compile 'com.android.support:support-v4:23.0.1+'
     compile 'com.actionbarsherlock:actionbarsherlock:4.4.0@aar'
     compile project(':Zoomlibrary')
     compile 'com.squareup.picasso:picasso:2.5.2'
