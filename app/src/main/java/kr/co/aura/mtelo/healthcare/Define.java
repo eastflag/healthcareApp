@@ -71,5 +71,11 @@ public class Define {
 	 public static String FILE_UPLOAD_CONTENT ="UploadContent";
 	 public static String CHECK_EVENT = "CheckEvent";
 	 public static String SIMLI_VIDEO_LIST = "GetSimliVideoList"; //Simli Test
-	 
+
+
+
+	//심리검사
+	public static String MENTAL_LIST ="simli/type_list";
+
+
 }
