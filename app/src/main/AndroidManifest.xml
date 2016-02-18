@@ -21,6 +21,7 @@
     <!-- 16.02.15 SMS읽기 권한 , 쓰기권한은 따로 추가해야 한다 -->
     <uses-permission android:name="android.permission.READ_SMS" />
 
+    <!-- 주석 내용 분리 -->
     <!--
      지원스크린 서포트 설정 
 	 <supports-screens	android:smallScreens="false"
