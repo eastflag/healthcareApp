@@ -8,134 +8,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dip"
-        android:layout_weight="3"
-        >
-
-        <!--왼쪽 이미지-->
-        <ImageView
-            android:layout_width="0dip"
-            android:layout_height="match_parent"
-            android:layout_weight="6"
-            android:src="#123123"
-            />
-
-        <View
-            android:layout_width="2px"
-            android:layout_height="match_parent"
-            android:background="#e4cb0e"
-            />
-        <!--오른쪽 텍스트-->
-        <LinearLayout
-            android:layout_width="0dip"
-            android:layout_height="match_parent"
-            android:layout_weight="4"
-            android:orientation="vertical"
-            android:background="@color/c_AB8212"
-            >
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2px"
-                android:background="#e4cb0e"
-                />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="0dip"
-                android:layout_weight="1"
-                android:text="소모칼로리"
-                style="@style/exercise_text"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="0dip"
-                android:layout_weight="1"
-                android:text="240 Kcal"
-                style="@style/exercise_text"/>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2px"
-                android:background="#e4cb0e"
-                />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="0dip"
-                android:layout_weight="1"
-                android:text="걸음수"
-                style="@style/exercise_text"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="0dip"
-                android:layout_weight="1"
-                android:text="6000 보"
-                style="@style/exercise_text"/>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2px"
-                android:background="#e4cb0e"
-                />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="0dip"
-                android:layout_weight="1"
-                android:text="이동거리"
-                style="@style/exercise_text"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="0dip"
-                android:layout_weight="1"
-                android:text="4.05 km"
-                style="@style/exercise_text"/>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2px"
-                android:background="#e4cb0e"
-                />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="0dip"
-                android:layout_weight="1"
-                android:text="평균속도"
-                style="@style/exercise_text"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="0dip"
-                android:layout_weight="1"
-                android:text="66m/min"
-                style="@style/exercise_text"/>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2px"
-                android:background="#e4cb0e"
-                />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="0dip"
-                android:layout_weight="1"
-                android:text="페형"
-                style="@style/exercise_text"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="0dip"
-                android:layout_weight="1"
-                android:text="정상"
-                style="@style/exercise_text"/>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2px"
-                android:background="#e4cb0e"
-                />
-        </LinearLayout>
-        <View
-            android:layout_width="2px"
-            android:layout_height="match_parent"
-            android:background="#e4cb0e"
-            />
-    </LinearLayout>
-
-    <!--중간레라우웃-->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dip"
         android:layout_weight="1"
-        android:background="#999999"
+        android:background="@color/white"
 
         android:layout_gravity="center_horizontal"
         android:orientation="horizontal"
@@ -145,7 +19,7 @@
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:src="@android:drawable/presence_online"
+            android:src="@drawable/arrow_l"
             android:layout_gravity="left"/>
 
         <TextView
@@ -155,15 +29,197 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="2016.03.10(목)"
             android:gravity="center"
+            android:textColor="@color/black"
             />
         <ImageButton
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:src="@android:drawable/presence_online"/>
+            android:src="@drawable/arrow_r"
+            />
+    </LinearLayout>
 
+
+    <!--중간레라우웃-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="3"
+        >
+
+        <!--왼쪽 이미지-->
+        <LinearLayout
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="6"
+            android:orientation="vertical"
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dip"
+                android:text="축구"
+                android:textColor="#0d3367"
+                android:textSize="30sp"
+                android:layout_marginTop="10dip"
+                android:layout_marginLeft="30dip"
+                />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/pic_football"
+                android:padding="10dip"/>
+        </LinearLayout>
+
+
+        <!--오른쪽 텍스트-->
+        <LinearLayout
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:orientation="vertical"
+            >
+            <!-- 칼로리 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="#6d779b"
+                >
+
+                <ImageView
+                    android:layout_width="40dip"
+                    android:layout_height="40dip"
+                    android:src="@drawable/icon_01_kcal"
+
+                    />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/exercise_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="소모칼로리" />
+
+                    <TextView
+                        style="@style/exercise_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="240 Kcal" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- 걸음수 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#61657c"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="40dip"
+                    android:layout_height="40dip"
+                    android:src="@drawable/icon_02_foot"
+                    />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/exercise_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dip"
+                        android:layout_weight="1"
+                        android:text="걸음수" />
+
+                    <TextView
+                        style="@style/exercise_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dip"
+                        android:layout_weight="1"
+                        android:text="6000 보" />
+                </LinearLayout>
+            </LinearLayout>
+
+
+            <!-- 이동 거리 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#6d779b"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="40dip"
+                    android:layout_height="40dip"
+                    android:src="@drawable/icon_03_km" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/exercise_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dip"
+                        android:layout_weight="1"
+                        android:text="이동거리" />
+
+                    <TextView
+                        style="@style/exercise_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dip"
+                        android:layout_weight="1"
+                        android:text="4.05 km" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- 체형 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#484b5f"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="40dip"
+                    android:layout_height="40dip"
+                    android:src="@drawable/icon_04_body" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/exercise_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dip"
+                        android:layout_weight="1"
+                        android:text="페형" />
+
+                    <TextView
+                        style="@style/exercise_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dip"
+                        android:layout_weight="1"
+                        android:text="정상" />
+
+
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
 
     </LinearLayout>
+
+
 
 
     <!--하단 레이아웃-->

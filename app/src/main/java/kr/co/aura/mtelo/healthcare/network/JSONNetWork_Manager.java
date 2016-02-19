@@ -335,14 +335,12 @@ public class JSONNetWork_Manager //implements Call_Back
 //		strbuff.append((String)Define.getNetUrl());
 		strbuff.append( "http://210.127.55.205:82/HealthCare/");
 		strbuff.append(Define.MENTAL_LIST);
+		strbuff.append("?" + JSONNetWork.KEY_USER_ID +"=" + userId);
 
-		String keys[] = {JSONNetWork.KEY_USER_ID};
-		String values[] = { userId};
-		MLog.write(Log.ERROR, "request_Get_Mental_Info",  "userId = "+userId);
+		MLog.write(Log.ERROR, "request_Get_Mental_Info", "userId = " + userId +", url :"+ strbuff);
 
 		JSONNetWork jn = new JSONNetWork(context);
 		jn.setMRequestType(JSONNetWork.REQUESTTYPE_GET);
-		jn.setPostParams(keys, values);
 		jn.setMRequestUrl(strbuff.toString());
 		jn.set_Call_Back(call_back);
 		jn.start_Request();

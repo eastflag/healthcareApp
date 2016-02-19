@@ -102,8 +102,7 @@ public class Intro extends Activity {
         mAq.post(url, json, JSONObject.class, new AjaxCallback<JSONObject>() {
             @Override
             public void callback(String url, JSONObject object, AjaxStatus status) {
-                Log.e("LDK", "!!!!!! @#!@# result: url "+ url +" , object " + object.toString());
-                Log.e("" , "!!!!!! mdn " + getMdn(Intro.this));
+//                Log.e("LDK", "!!!!!! @#!@# result: url "+ url +" , object " + object.toString());
 
                 if (status.getCode() != 200) {
                     showLogo(1);
