@@ -1,6 +1,7 @@
 package kr.co.aura.mtelo.healthcare.addinfo.mentaltest;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -13,13 +14,20 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.squareup.picasso.Picasso;
 
-import java.util.Timer;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 import kr.co.aura.mtelo.healthcare.R;
+import kr.co.aura.mtelo.healthcare.network.JSONNetWork_Manager;
+import kr.co.aura.mtelo.healthcare.network.NetWork;
 import kr.co.aura.mtelo.healthcare.util.FullVideoView;
 
 public class VideoTest extends Activity implements MediaPlayer.OnPreparedListener ,MediaPlayer.OnCompletionListener, View.OnClickListener{
@@ -36,12 +44,12 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
     private final int MODE_3 =1;
     private final int MODE_4 =2;
 //    private final static int POOLING_INTERVAL_MS = 100;
-    private Timer timer;
+
+    private ArrayList<TestList> mTestList = new ArrayList<TestList>();
+
 
     private final String INTRO_VIDEO ="http://210.127.55.205/psychology_contents/sample/an/AN_IN.mp4";
     private final String OUTRO_VIDEO ="http://210.127.55.205/psychology_contents/sample/an/AN_OUT.mp4";
-
-
     private final String BG_IMAGE ="http://210.127.55.205/psychology_contents/sample/an/AN_E13_01_Q.png";
     private final String EX1_IMAGE ="http://210.127.55.205/psychology_contents/sample/an/AN_E13_01_A_1.png";
     private final String EX2_IMAGE ="http://210.127.55.205/psychology_contents/sample/an/AN_E13_01_A_2.png";
@@ -49,7 +57,7 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
     private final String EX1_VIDEO = "http://210.127.55.205/psychology_contents/sample/an/AN_E13_01_1.mp4";
     private final String EX2_VIDEO = "http://210.127.55.205/psychology_contents/sample/an/AN_E13_01_2.mp4";
 
-
+private String mSimliId;
     private String mLastPlayVideo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +65,12 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_test);
+
+        Intent in = getIntent();
+        mSimliId = in.getStringExtra("simliId");
+        Log.e("###" , "###### msimliId "+ mSimliId);
+
+        getMenetalTestList();
 
         videoInit();
         layoutInit();
@@ -74,6 +88,78 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
 //        mImgLayout.setVisibility(View.VISIBLE);
     }
 
+
+    private void getMenetalTestList() {
+        JSONNetWork_Manager.request_Get_Mental_TestList(mSimliId,this,  new NetWork.Call_Back() {
+            @Override
+            public void onError(String error) {
+            }
+
+            @Override
+            public void onGetResponsData(byte[] data) {
+            }
+
+            @Override
+            public void onGetResponsString(String data) {
+//                Log.e("$$$", "$$$ request_Get_Mental_Info()\n " + data);
+                String Result = null, errMsg = null;
+                JSONObject jsonObject = null;
+
+                try
+                {
+                    if ( data != null )
+                    {
+                        JSONArray array = new JSONArray( data);
+                        makeTestList(array);
+                    }
+                    else
+                    {
+                        Toast.makeText(VideoTest.this , "서버가 잘못됬습니다." , Toast.LENGTH_LONG).show();
+                    }
+                }
+                catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onRoaming(String message) {
+            }
+        });
+    }
+
+    private void makeTestList(JSONArray array) {
+
+        try {
+            for (int i = 0; i < array.length(); i++) {
+                JSONObject object = array.getJSONObject(i);
+                TestList item = new TestList();
+                item.content = object.getString("content");
+                item.img     = object.getString("img");
+                item.questId = object.getString("questId");
+                item.video   = object.getString("video");
+                item.videoC  = object.getString("videoC");
+
+                JSONArray answer = new JSONArray( object.getString("answer"));
+
+                for (int j = 0; j < answer.length() ; j++){
+                    JSONObject answerObject = answer.getJSONObject(j);
+                    TestItemAnswer Answer = new TestItemAnswer();
+                    Answer.answerId = answerObject.getString("answerId");
+                    Answer.content  = answerObject.getString("content");
+                    Answer.img      = answerObject.getString("img");
+                    Answer.score    = answerObject.getString("score");
+                    Answer.video    = answerObject.getString("video");
+                    item.answers.add(Answer);
+                }
+
+                mTestList.add(item);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 
 
     //16.02.01 레이아웃구성
@@ -312,36 +398,43 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
         }
     }
 
-    //    private void initVideoProgressPooling(final int stopAtMsec) {
-//        cancelProgressPooling();
-//        timer = new Timer();
-//        timer.schedule(new TimerTask() {
-//            @Override
-//            public void run() {
-//                mVideoView.post(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        if (!isActive) {
-//                            cancelProgressPooling();
-//                            return;
-//                        }
-//                        if (mVideoView.getCurrentPosition() >= stopAtMsec) {
-//                            mVideoView.pause();
-//                            cancelProgressPooling();
-//                            Toast.makeText(video_test.this, "Video has PAUSED at: " + mVideoView.getCurrentPosition(), Toast.LENGTH_SHORT).show();
-//                            mImgLayout.setVisibility(View.VISIBLE);
-//                        }
-//                    }
-//                });
-//            }
-//        }, 0, POOLING_INTERVAL_MS);
-//    }
-//
-//    private void cancelProgressPooling() {
-//        if(timer != null) {
-//            timer.cancel();
-//        }
-//        timer = null;
-//    }
+    class TestList {
+        private String content;
+        private String img;
+        private String questId;
+        private String video;
+        private String videoC;
+        private ArrayList<TestItemAnswer> answers = new ArrayList<TestItemAnswer>();
 
+        @Override
+        public String toString() {
+            return "TestList{" +
+                    "content='" + content + '\'' +
+                    ", img='" + img + '\'' +
+                    ", questId='" + questId + '\'' +
+                    ", video='" + video + '\'' +
+                    ", videoC='" + videoC + '\'' +
+                    ", answers=" + answers +
+                    '}';
+        }
+    }
+
+    class TestItemAnswer {
+        private String answerId;
+        private String content;
+        private String img;
+        private String score;
+        private String video = null;
+
+        @Override
+        public String toString() {
+            return "TestItemAnswer{" +
+                    "answerId='" + answerId + '\'' +
+                    ", content='" + content + '\'' +
+                    ", img='" + img + '\'' +
+                    ", socre='" + score + '\'' +
+                    ", video='" + video + '\'' +
+                    '}';
+        }
+    }
 }

@@ -1,7 +1,9 @@
 package kr.co.aura.mtelo.healthcare.addinfo.exercise;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -14,7 +16,7 @@ import kr.co.aura.mtelo.healthcare.preferences.CPreferences;
 /**
  * Created by young-kchoi on 2016. 2. 11..
  */
-public class ExerciseActivity extends SherlockActivity  {
+public class ExerciseActivity extends SherlockActivity  implements  View.OnClickListener {
 
 
     @Override
@@ -24,6 +26,9 @@ public class ExerciseActivity extends SherlockActivity  {
 
 
         init_ACtionBar();
+
+        Button btnExeriseDetail = (Button) findViewById(R.id.btn_exercise_detail);
+        btnExeriseDetail.setOnClickListener(this);
     }
 
 
@@ -48,4 +53,15 @@ public class ExerciseActivity extends SherlockActivity  {
         });
     }
 
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.btn_exercise_detail:
+                Intent intent = new Intent();
+
+                break;
+
+        }
+    }
 }

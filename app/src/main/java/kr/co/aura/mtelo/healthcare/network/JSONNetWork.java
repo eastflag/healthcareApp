@@ -1,13 +1,6 @@
 package kr.co.aura.mtelo.healthcare.network;
 
-import java.io.File;
-import java.io.UnsupportedEncodingException;
-
-import kr.co.aura.mtelo.healthcare.Define;
-import kr.co.aura.mtelo.healthcare.R;
-import kr.co.aura.mtelo.healthcare.network.NetWork.Call_Back;
-import kr.co.aura.mtelo.healthcare.preferences.CPreferences;
-import kr.co.aura.mtelo.healthcare.util.MLog;
+import android.content.Context;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -28,7 +21,14 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.content.Context;
+import java.io.File;
+import java.io.UnsupportedEncodingException;
+
+import kr.co.aura.mtelo.healthcare.Define;
+import kr.co.aura.mtelo.healthcare.R;
+import kr.co.aura.mtelo.healthcare.network.NetWork.Call_Back;
+import kr.co.aura.mtelo.healthcare.preferences.CPreferences;
+import kr.co.aura.mtelo.healthcare.util.MLog;
 
 public class JSONNetWork 
 {
@@ -99,10 +99,15 @@ public class JSONNetWork
 
 	//Video_List
 	public final static String KEY_FILE= "file";   //13.10.16 serviceNotice 추가
+
+	//심리검사
+	public final static String KEY_MENTAL_ID= "simliId";
+
+
 	private String mServerUrl = null; // 서버 url 정보
-	
+
 	private int mRequestType;
-	
+
 	private HttpClient mHttpClient;
 	
 //	private List<NameValuePair> mParams = new ArrayList<NameValuePair>();

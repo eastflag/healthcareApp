@@ -252,7 +252,9 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="40dip"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:gravity="bottom"
+                    >
 
                     <TextView
                         android:id="@+id/class_text"
@@ -279,7 +281,7 @@
                         android:textSize="16sp" />
                 </LinearLayout>
                 <ProgressBar
-                    android:layout_width="match_parent "
+                    android:layout_width="match_parent"
                     android:layout_height="20dip"
                     android:gravity="bottom"
                     style="@android:style/Widget.ProgressBar.Horizontal"
@@ -296,7 +298,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="40dip"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:gravity="bottom">
 
                     <TextView
                         android:id="@+id/student_text"
@@ -322,7 +325,7 @@
                         android:text="등" />
                 </LinearLayout>
                 <ProgressBar
-                    android:layout_width="match_parent "
+                    android:layout_width="match_parent"
                     android:layout_height="20dip"
                     android:gravity="bottom"
                     style="@android:style/Widget.ProgressBar.Horizontal"
@@ -338,16 +341,18 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="40dip"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:gravity="bottom">
 
                     <TextView
                         android:id="@+id/entries_text"
-                        style="@style/exercise_text"
                         android:layout_width="120dip"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/student_text"
                         android:gravity="left"
-                        android:text="종목 " />
+                        android:text="종목 "
+                        style="@style/exercise_text"
+                        />
 
                     <TextView
                         android:id="@+id/entries_number"
@@ -362,10 +367,11 @@
                         style="@style/exercise_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="등" />
+                        android:text="등"
+                        />
                 </LinearLayout>
                 <ProgressBar
-                    android:layout_width="match_parent "
+                    android:layout_width="match_parent"
                     android:layout_height="20dip"
                     android:gravity="bottom"
                     style="@android:style/Widget.ProgressBar.Horizontal"
@@ -379,10 +385,11 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical"
+            android:padding="10dip"
             >
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="158dp"
+                android:layout_height="140dp"
                 android:orientation="vertical"
                 android:padding="15dip">
                 <TextView
@@ -399,6 +406,7 @@
                     android:layout_marginBottom="10dip"
                     />
                 <Button
+                    android:id="@+id/btn_exercise_detail"
                     android:layout_width="match_parent"
                     android:layout_height="46dip"
                     android:text="상세"
@@ -410,7 +418,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="나의 History"
-                android:background="#d1e426"
+
+                android:background="#3e49e7"
                 android:layout_margin="10dip"
                 />
         </LinearLayout>

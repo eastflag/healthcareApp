@@ -75,7 +75,8 @@ public class Define {
 
 
 	//심리검사
+	public static String TEST_URL ="http://210.127.55.205:82/HealthCare/";
 	public static String MENTAL_LIST ="simli/type_list";
-
+	public static String MENTAL_TEST_LIST ="simli/qna_list";
 
 }

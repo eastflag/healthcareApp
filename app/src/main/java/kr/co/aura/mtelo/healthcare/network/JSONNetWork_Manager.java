@@ -333,11 +333,36 @@ public class JSONNetWork_Manager //implements Call_Back
 	{
 		StringBuffer strbuff = new StringBuffer();
 //		strbuff.append((String)Define.getNetUrl());
-		strbuff.append( "http://210.127.55.205:82/HealthCare/");
+		strbuff.append( Define.TEST_URL);
 		strbuff.append(Define.MENTAL_LIST);
 		strbuff.append("?" + JSONNetWork.KEY_USER_ID +"=" + userId);
 
 		MLog.write(Log.ERROR, "request_Get_Mental_Info", "userId = " + userId +", url :"+ strbuff);
+
+		JSONNetWork jn = new JSONNetWork(context);
+		jn.setMRequestType(JSONNetWork.REQUESTTYPE_GET);
+		jn.setMRequestUrl(strbuff.toString());
+		jn.set_Call_Back(call_back);
+		jn.start_Request();
+	}
+
+
+	/**
+	 * 16.2.18 신규
+	 * 심리검사 뮨재리스트 조회
+	 * @param type
+	 * @param call_back
+	 */
+	public static void request_Get_Mental_TestList(String simliId,  Context context, final Call_Back call_back)
+	{
+
+		StringBuffer strbuff = new StringBuffer();
+//		strbuff.append((String)Define.getNetUrl());
+		strbuff.append( Define.TEST_URL);
+		strbuff.append(Define.MENTAL_TEST_LIST);
+		strbuff.append("?" + JSONNetWork.KEY_MENTAL_ID +"=" + simliId);
+
+		MLog.write(Log.ERROR, "request_Get_Mental_TestList", "simliId = " + simliId +", url :"+ strbuff);
 
 		JSONNetWork jn = new JSONNetWork(context);
 		jn.setMRequestType(JSONNetWork.REQUESTTYPE_GET);
