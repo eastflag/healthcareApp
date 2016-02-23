@@ -129,7 +129,7 @@ public class MentalTestListActivity extends Activity implements View.OnClickList
 
             MentalListItem item = array.get(i);
             Log.e("" , "!!!!!! initBtn "+i + item.toString());
-            mBtn[i].setTag(item.simliId);
+            mBtn[i].setTag(item);
             mBtn[i].setText(item.title);
 
             if (item.useYN)
@@ -142,9 +142,14 @@ public class MentalTestListActivity extends Activity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
+        MentalListItem item = (MentalListItem)v.getTag();
 
         Intent intent = new Intent(MentalTestListActivity.this, VideoTest.class);
-        intent.putExtra("simliId" , (String)v.getTag());
+        intent.putExtra("simliId", item.simliId);
+        intent.putExtra("intro" ,  item.intro);
+        intent.putExtra("outro" ,  item.outro);
+
+
 
         switch (v.getId()){
             case R.id.test_list_btn1:

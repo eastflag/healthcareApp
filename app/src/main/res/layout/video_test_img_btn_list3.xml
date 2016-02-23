@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/btnMode4"
+    android:id="@+id/btnMode3"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#781f1f"
+    android:background="#ffffff"
     android:orientation="vertical">
 
 
@@ -101,73 +100,11 @@
             </RelativeLayout>
             <!--보기버튼3 끝-->
 
-            <!--보기버튼4 -->
-            <RelativeLayout
-                android:id="@+id/btn_layout4"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="10dip"
-                android:layout_weight="1">
 
-                <ImageView
-                    android:id="@+id/example_image4"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/imagebtn_bg" />
-
-                <Button
-                    android:id="@+id/dubleBtn4"
-                    android:layout_width="40dip"
-                    android:layout_height="40dip"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/dublebtn_bg" />
-            </RelativeLayout>
-            <!--보기버튼4 끝-->
         </LinearLayout>
 
 
-     <!--   <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingBottom="10dip"
-            android:paddingLeft="10dip"
-            android:paddingRight="10dip">
 
-            <Button
-                android:id="@+id/replay_btn"
-
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:layout_weight="5"
-
-                android:background="@drawable/video_test_replay_btn"
-                android:shadowColor="#A8A8A8"
-                android:shadowDx="0"
-                android:shadowDy="0"
-                android:shadowRadius="5"
-                android:text="다시보기"
-                android:textColor="#FFFFFF"
-                android:textSize="20sp" />
-
-            <Button
-                android:id="@+id/ok_btn"
-
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dip"
-
-                android:layout_weight="5"
-                android:background="@drawable/video_test_replay_btn"
-                android:shadowColor="#A8A8A8"
-                android:shadowDx="0"
-                android:shadowDy="0"
-                android:shadowRadius="5"
-                android:text="선택"
-                android:textColor="#FFFFFF"
-                android:textSize="20sp" />
-        </LinearLayout>-->
     </LinearLayout>
 
 </RelativeLayout>

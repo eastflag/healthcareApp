@@ -7,6 +7,8 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -37,7 +39,7 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
     private LinearLayout mImgLayout ;
     private ImageView mImgBtn1 , mImgBtn2, mImgBtn3, mImgBtn4;
     private Button mCheckBtn1, mCheckBtn2, mCheckBtn3, mCheckBtn4, mReplayBtn, mOksBtn;
-    private RelativeLayout mBtnLayout1 ,mBtnLayout2, mBtnLayout3, mBtnLayout4;
+    private RelativeLayout mBtnMode4, mBtnMode3, mBtnMode2;
 
     //보기 모드들
     private final int MODE_2 =0;
@@ -57,7 +59,10 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
     private final String EX1_VIDEO = "http://210.127.55.205/psychology_contents/sample/an/AN_E13_01_1.mp4";
     private final String EX2_VIDEO = "http://210.127.55.205/psychology_contents/sample/an/AN_E13_01_2.mp4";
 
-private String mSimliId;
+
+    private String mSimliId, mIntro, mOutro;
+    private ImageView mBG ;
+
     private String mLastPlayVideo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,29 +73,53 @@ private String mSimliId;
 
         Intent in = getIntent();
         mSimliId = in.getStringExtra("simliId");
-        Log.e("###" , "###### msimliId "+ mSimliId);
+        mIntro   = in.getStringExtra("intro");
+        mOutro   = in.getStringExtra("outro");
+
+        Log.e("###", "###### msimliId " + mSimliId + ", intro " + mIntro + ", outro " + mOutro);
+
+
+        mImgLayout = (LinearLayout)findViewById(R.id.btnLayout);
+        //배경이미지
+        mBG= (ImageView) findViewById(R.id.image_bg);
 
         getMenetalTestList();
 
+        //test
+        mIntro = INTRO_VIDEO;
         videoInit();
-        layoutInit();
-        BtnLayuoutInit();
+        VideoPlay(mIntro);
 
 
-        ImageView bg = (ImageView) findViewById(R.id.image_bg);
-        Picasso.with(VideoTest.this).load(BG_IMAGE).fit().into(bg);
-
-        setLayoutImages(BG_IMAGE, EX1_IMAGE, EX2_IMAGE, null, null);
-
-
-        VideoPlay(INTRO_VIDEO);
-//        mImgLayout.bringToFront();
-//        mImgLayout.setVisibility(View.VISIBLE);
     }
 
 
+
+    private void showQuestion(TestList item){
+        //배경화면 이미지
+        Picasso.with(VideoTest.this).load(item.img).fit().into(mBG);
+
+//        보기 이미지
+        if(item.answers.size() >= 2){
+            Picasso.with(VideoTest.this).load(item.answers.get(0).img).into(mImgBtn1);
+
+            Picasso.with(VideoTest.this).load(item.answers.get(1).img).into(mImgBtn2);
+            if (item.answers.size() >= 3) {
+
+                Picasso.with(VideoTest.this).load(item.answers.get(2).img).into(mImgBtn3);
+                if (item.answers.size() >= 4) {
+
+                    Picasso.with(VideoTest.this).load(item.answers.get(3).img ).into(mImgBtn4);
+                }
+            }
+        }
+
+
+
+    }
+
     private void getMenetalTestList() {
-        JSONNetWork_Manager.request_Get_Mental_TestList(mSimliId,this,  new NetWork.Call_Back() {
+        JSONNetWork_Manager.request_Get_Mental_TestList(mSimliId, this, new NetWork.Call_Back() {
             @Override
             public void onError(String error) {
             }
@@ -105,20 +134,14 @@ private String mSimliId;
                 String Result = null, errMsg = null;
                 JSONObject jsonObject = null;
 
-                try
-                {
-                    if ( data != null )
-                    {
-                        JSONArray array = new JSONArray( data);
+                try {
+                    if (data != null) {
+                        JSONArray array = new JSONArray(data);
                         makeTestList(array);
+                    } else {
+                        Toast.makeText(VideoTest.this, "서버가 잘못됬습니다.", Toast.LENGTH_LONG).show();
                     }
-                    else
-                    {
-                        Toast.makeText(VideoTest.this , "서버가 잘못됬습니다." , Toast.LENGTH_LONG).show();
-                    }
-                }
-                catch (Exception e)
-                {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -129,6 +152,8 @@ private String mSimliId;
         });
     }
 
+
+    //전체 문항리스트를 획득하여 ArrayList로 만든다
     private void makeTestList(JSONArray array) {
 
         try {
@@ -158,51 +183,63 @@ private String mSimliId;
             }
         } catch (JSONException e) {
             e.printStackTrace();
+        }finally {
+//            UI는 통신스레드에서 손댈수 없으니 핸들러를 이용해서 UI를 변경한다
+            mHandler.sendEmptyMessage(0);
         }
     }
 
 
+    private Handler mHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+
+            BtnLayuoutInit(mTestList.get(0).answers.size());
+        }
+    };
+
     //16.02.01 레이아웃구성
-    private void layoutInit() {
-        mImgLayout = (LinearLayout)findViewById(R.id.btnLayout);
-        mImgBtn1 = (ImageView)findViewById(R.id.example_image1);
-        mImgBtn2 = (ImageView) findViewById(R.id.example_image2);
-        mImgBtn3 = (ImageView) findViewById(R.id.example_image3);
-        mImgBtn4 = (ImageView) findViewById(R.id.example_image4);
-        mImgBtn1.setOnClickListener(this);
-        mImgBtn2.setOnClickListener(this);
-        mImgBtn3.setOnClickListener(this);
-        mImgBtn4.setOnClickListener(this);
+    private void layoutInit(RelativeLayout layout, int count) {
+        mImgLayout.removeAllViews();
+        mImgLayout.addView(layout);
+
+        if (count >= 2) {
+            mImgBtn1 = (ImageView) layout.findViewById(R.id.example_image1);
+            mImgBtn2 = (ImageView) layout.findViewById(R.id.example_image2);
+            mImgBtn1.setOnClickListener(this);
+            mImgBtn2.setOnClickListener(this);
+
+            mCheckBtn1 = (Button) layout.findViewById(R.id.dubleBtn1);
+            mCheckBtn2 = (Button) layout.findViewById(R.id.dubleBtn2);
+            mCheckBtn1.setOnClickListener(this);
+            mCheckBtn2.setOnClickListener(this);
+            if (count >= 3) {
+                mImgBtn3 = (ImageView) layout.findViewById(R.id.example_image3);
+                mImgBtn3.setOnClickListener(this);
+
+                mCheckBtn3 = (Button) layout.findViewById(R.id.dubleBtn3);
+                mCheckBtn3.setOnClickListener(this);
+                if (count >= 4) {
+                    mImgBtn4 = (ImageView) layout.findViewById(R.id.example_image4);
+                    mImgBtn4.setOnClickListener(this);
+
+                    mCheckBtn4 = (Button) layout.findViewById(R.id.dubleBtn4);
+                    mCheckBtn4.setOnClickListener(this);
+                }
+            }
+        }
+
+        showQuestion(mTestList.get(0));
         mImgLayout.bringToFront();
-
-
-        mCheckBtn1 = (Button)findViewById(R.id.dubleBtn1);
-        mCheckBtn2 = (Button)findViewById(R.id.dubleBtn2);
-        mCheckBtn3 = (Button)findViewById(R.id.dubleBtn3);
-        mCheckBtn4 = (Button)findViewById(R.id.dubleBtn4);
-
-        mCheckBtn1.setOnClickListener(this);
-        mCheckBtn2.setOnClickListener(this);
-        mCheckBtn3.setOnClickListener(this);
-        mCheckBtn4.setOnClickListener(this);
-
-
-        mReplayBtn = (Button) findViewById(R.id.replay_btn);
-        mOksBtn    = (Button) findViewById(R.id.ok_btn);
-
-        mReplayBtn.setOnClickListener(this);
-        mOksBtn.setOnClickListener(this);
-
-
+//        mReplayBtn = (Button) findViewById(R.id.replay_btn);
+//        mOksBtn    = (Button) findViewById(R.id.ok_btn);
+//
+//        mReplayBtn.setOnClickListener(this);
+//        mOksBtn.setOnClickListener(this);
     }
 
 
-    private void setLayoutImages(String bg , String ex1, String ex2 , String ex3 , String ex4){
-
-        //보기 이미지 체크
-        Picasso.with(VideoTest.this).load(ex1).into(mImgBtn1);
-        Picasso.with(VideoTest.this).load(ex2).fit().into(mImgBtn2);
-    }
 
     //16.02.01 비디오뷰 구성
     private void videoInit() {
@@ -223,34 +260,22 @@ private String mSimliId;
         }
     }
 
-    private void BtnLayuoutInit(){
-        mBtnLayout1 = (RelativeLayout) findViewById(R.id.btn_layout1);
-        mBtnLayout2 = (RelativeLayout) findViewById(R.id.btn_layout2);
-        mBtnLayout3 = (RelativeLayout) findViewById(R.id.btn_layout3);
-        mBtnLayout4 = (RelativeLayout) findViewById(R.id.btn_layout4);
-    }
+    private void BtnLayuoutInit(int count) {
+        if (count == 2) {
+            mBtnMode2 = (RelativeLayout) getLayoutInflater().inflate(R.layout.video_test_img_btn_list2, null);
+            layoutInit(mBtnMode2 , count);
 
-    private void setMode2(){
-        mBtnLayout1.setVisibility(View.VISIBLE);
-        mBtnLayout2.setVisibility(View.VISIBLE);
-        mBtnLayout3.setVisibility(View.GONE);
-        mBtnLayout4.setVisibility(View.GONE);
-    }
+        } else if (count == 3) {
+            mBtnMode3 = (RelativeLayout) getLayoutInflater().inflate(R.layout.video_test_img_btn_list3, null);
+            layoutInit(mBtnMode3 , count);
 
-    private void setMode3(){
-        mBtnLayout1.setVisibility(View.VISIBLE);
-        mBtnLayout2.setVisibility(View.VISIBLE);
-        mBtnLayout3.setVisibility(View.VISIBLE);
-        mBtnLayout4.setVisibility(View.GONE);
+        } else if (count == 4) {
+            mBtnMode4 = (RelativeLayout) getLayoutInflater().inflate(R.layout.video_test_img_btn_list4, null);
+            layoutInit(mBtnMode4, count);
+        }
     }
 
 
-    private void setMode4(){
-        mBtnLayout1.setVisibility(View.VISIBLE);
-        mBtnLayout2.setVisibility(View.VISIBLE);
-        mBtnLayout3.setVisibility(View.VISIBLE);
-        mBtnLayout4.setVisibility(View.VISIBLE);
-    }
 
     @Override
     public void onClick(View v) {
@@ -275,15 +300,15 @@ private String mSimliId;
                     checkChkButton(mCheckBtn4);
                     break;
 
-                case R.id.replay_btn:
-                    if(mLastPlayVideo != null){
-                        VideoPlay(mLastPlayVideo);
-                    }
-
-                    break;
-                case R.id.ok_btn:
-                    VideoPlay(OUTRO_VIDEO);
-                    break;
+//                case R.id.replay_btn:
+//                    if(mLastPlayVideo != null){
+//                        VideoPlay(mLastPlayVideo);
+//                    }
+//
+//                    break;
+//                case R.id.ok_btn:
+//                    VideoPlay(OUTRO_VIDEO);
+//                    break;
 
             }
             Log.e("", "!!!!!!! 더블버튼 태그" + v.getId());
@@ -296,7 +321,11 @@ private String mSimliId;
         if (v.getTag() != null) {
             double id = (Integer) v.getTag();
             if (id == R.drawable.dublebtn_bg_click) {
-                Log.e("!!!", "@@@@@@@@@@@@ same!!! 리소스  " + id);
+
+                //문재리스트 초기화
+                mTestList.remove(0);
+                BtnLayuoutInit(mTestList.get(0).answers.size());
+
                 switch (v.getId()){
                     case R.id.dubleBtn1:
                         VideoPlay(EX1_VIDEO);
@@ -307,6 +336,7 @@ private String mSimliId;
                         break;
 
                     case R.id.dubleBtn3:
+                        Log.e("$$" , "3번 버튼 클릭  ");
                         break;
 
                     case R.id.dubleBtn4:
@@ -319,13 +349,18 @@ private String mSimliId;
 
         mCheckBtn1.setBackgroundResource(R.drawable.dublebtn_bg);
         mCheckBtn2.setBackgroundResource(R.drawable.dublebtn_bg);
-        mCheckBtn3.setBackgroundResource(R.drawable.dublebtn_bg);
-        mCheckBtn4.setBackgroundResource(R.drawable.dublebtn_bg);
-
         mCheckBtn1.setTag(R.drawable.dublebtn_bg);
         mCheckBtn2.setTag(R.drawable.dublebtn_bg);
-        mCheckBtn3.setTag(R.drawable.dublebtn_bg);
-        mCheckBtn4.setTag(R.drawable.dublebtn_bg);
+
+        if(mCheckBtn3 != null){
+            mCheckBtn3.setBackgroundResource(R.drawable.dublebtn_bg);
+            mCheckBtn3.setTag(R.drawable.dublebtn_bg);
+        }
+
+        if(mCheckBtn4 !=null){
+            mCheckBtn4.setBackgroundResource(R.drawable.dublebtn_bg);
+            mCheckBtn4.setTag(R.drawable.dublebtn_bg);
+        }
 
 
         switch (v.getId()) {
@@ -398,7 +433,7 @@ private String mSimliId;
         }
     }
 
-    class TestList {
+    private class TestList {
         private String content;
         private String img;
         private String questId;
@@ -419,7 +454,7 @@ private String mSimliId;
         }
     }
 
-    class TestItemAnswer {
+    private class TestItemAnswer {
         private String answerId;
         private String content;
         private String img;
