@@ -108,7 +108,6 @@ public class ExerciseDetailTabActivity extends Activity{
         private String mTitle;
 
         public  SimpleFragment() {
-
         }
 
         @Override
@@ -118,9 +117,7 @@ public class ExerciseDetailTabActivity extends Activity{
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-            View v = inflater.inflate(R.layout.exercise_detail_tab_item, null);
-
-            return v;
+            return  inflater.inflate(R.layout.exercise_detail_tab_item, null);
         }
     }
 }
