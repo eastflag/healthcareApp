@@ -56,12 +56,17 @@ public class ExerciseActivity extends SherlockActivity  implements  View.OnClick
 
     @Override
     public void onClick(View v) {
+        Intent intent = null;
         switch (v.getId()){
             case R.id.btn_exercise_detail:
-                Intent intent = new Intent();
+                intent = new Intent(ExerciseActivity.this , ExerciseDetailActivity.class);
+
+                break;
+            case R.id.btn_exercise_history:
 
                 break;
 
         }
+        startActivity(intent);
     }
 }

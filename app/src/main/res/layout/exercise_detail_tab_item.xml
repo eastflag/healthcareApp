@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <Button
+        android:id="@+id/detail_tab_item_average_tx"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dip"
+        android:background="@drawable/stroke_bg"
+        android:text="반 평균(35명) 254Kcal" />
+
+    <!-- 1번쨰 -->
+    <LinearLayout
+        android:id="@+id/layout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dip">
+
+        <TextView
+            android:id="@+id/detail_tab_item_tx1"
+            style="@style/exercise_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dip"
+            android:gravity="left"
+            android:text="저체중 215Kcal" />
+
+        <ProgressBar
+            android:id="@+id/detail_tab_item_pro1"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <!-- 2번쨰 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dip">
+
+        <TextView
+            android:id="@+id/detail_tab_item_tx2"
+            style="@style/exercise_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dip"
+            android:gravity="left"
+            android:text="정상 215Kcal" />
+
+        <ProgressBar
+            android:id="@+id/detail_tab_item_pro2"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+
+    <!-- 3번쨰-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dip">
+
+        <TextView
+            android:id="@+id/detail_tab_item_tx3"
+            style="@style/exercise_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dip"
+            android:gravity="left"
+            android:text="과체중 215Kcal" />
+
+        <ProgressBar
+            android:id="@+id/detail_tab_item_pro3"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <!-- 4번쨰 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dip">
+
+        <TextView
+            android:id="@+id/detail_tab_item_tx4"
+            style="@style/exercise_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dip"
+            android:gravity="left"
+            android:text="중도비만 215Kcal" />
+
+        <ProgressBar
+            android:id="@+id/detail_tab_item_pro4"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <!-- 5번쨰 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dip">
+
+        <TextView
+            android:id="@+id/detail_tab_item_tx5"
+            style="@style/exercise_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dip"
+            android:gravity="left"
+            android:text="고도비만 215Kcal" />
+
+        <ProgressBar
+            android:id="@+id/detail_tab_item_pro5"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</LinearLayout>
