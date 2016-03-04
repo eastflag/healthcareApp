@@ -34,7 +34,8 @@
             android:id="@+id/detail_tab_item_pro1"
             style="@android:style/Widget.ProgressBar.Horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:indeterminate="false" />
     </LinearLayout>
 
     <!-- 2번쨰 -->
@@ -43,21 +44,24 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="20dip">
+        <include
+            android:id="@+id/ani_layout_2"
+            layout="@layout/animated_porgress_linear"
+            />
+        <!--<TextView-->
+            <!--android:id="@+id/detail_tab_item_tx2"-->
+            <!--style="@style/exercise_text"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginBottom="5dip"-->
+            <!--android:gravity="left"-->
+            <!--android:text="정상 215Kcal" />-->
 
-        <TextView
-            android:id="@+id/detail_tab_item_tx2"
-            style="@style/exercise_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dip"
-            android:gravity="left"
-            android:text="정상 215Kcal" />
-
-        <ProgressBar
-            android:id="@+id/detail_tab_item_pro2"
-            style="@android:style/Widget.ProgressBar.Horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+        <!--<ProgressBar-->
+            <!--android:id="@+id/detail_tab_item_pro2"-->
+            <!--style="@android:style/Widget.ProgressBar.Horizontal"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content" />-->
     </LinearLayout>
 
 

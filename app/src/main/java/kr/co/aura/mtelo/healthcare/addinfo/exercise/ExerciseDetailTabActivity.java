@@ -6,6 +6,7 @@ import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,10 +32,10 @@ public class ExerciseDetailTabActivity extends Activity{
         setContentView(R.layout.exerics_detail_tab);
 
         mTabLayout = (SegmentTabLayout) findViewById(R.id.exercise_detail_tab);
-        mFragments.add(new SimpleFragment());
-        mFragments.add(new SimpleFragment());
-        mFragments.add(new SimpleFragment());
-        mFragments.add(new SimpleFragment());
+        mFragments.add(new TabItemFragment());
+        mFragments.add(new TabItemFragment());
+        mFragments.add(new TabItemFragment());
+        mFragments.add(new TabItemFragment());
 
         initTabLayout();
 
@@ -98,16 +99,18 @@ public class ExerciseDetailTabActivity extends Activity{
 
         @Override
         public Fragment getItem(int position) {
-            return mFragments.get(position);
+            Fragment v = mFragments.get(position);
+
+            return v;
         }
     }
 
 
 
-     class SimpleFragment extends Fragment{
+     class TabItemFragment extends Fragment{
         private String mTitle;
 
-        public  SimpleFragment() {
+        public TabItemFragment() {
         }
 
         @Override
@@ -117,7 +120,28 @@ public class ExerciseDetailTabActivity extends Activity{
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-            return  inflater.inflate(R.layout.exercise_detail_tab_item, null);
+            View v =   inflater.inflate(R.layout.exercise_detail_tab_item, null);
+
+
+//            AnimatedProgressLinear ani = (AnimatedProgressLinear) v.findViewById(R.id.ani_layout_2);
+//            ani.startImgAnim();
+            return v;
         }
-    }
+
+
+         @Override
+         public void onActivityCreated(Bundle savedInstanceState) {
+             super.onActivityCreated(savedInstanceState);
+
+             showLog();
+
+         }
+
+
+
+         private void showLog(){
+             Log.e("!!!!" , "로그를 쓴다아!!!!!!");
+         }
+
+     }
 }
