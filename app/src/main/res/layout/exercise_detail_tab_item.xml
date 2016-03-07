@@ -42,27 +42,28 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="20dip">
-        <include
-            android:id="@+id/ani_layout_2"
-            layout="@layout/animated_porgress_linear"
-            />
-        <!--<TextView-->
-            <!--android:id="@+id/detail_tab_item_tx2"-->
-            <!--style="@style/exercise_text"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginBottom="5dip"-->
-            <!--android:gravity="left"-->
-            <!--android:text="정상 215Kcal" />-->
+        android:padding="20dip"
+        >
 
-        <!--<ProgressBar-->
-            <!--android:id="@+id/detail_tab_item_pro2"-->
-            <!--style="@android:style/Widget.ProgressBar.Horizontal"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content" />-->
+        <kr.co.aura.mtelo.healthcare.util.AnimatedProgressLinear
+            android:id="@+id/ani_layout_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
     </LinearLayout>
+    <!--<TextView-->
+    <!--android:id="@+id/detail_tab_item_tx2"-->
+    <!--style="@style/exercise_text"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginBottom="5dip"-->
+    <!--android:gravity="left"-->
+    <!--android:text="정상 215Kcal" />-->
+
+    <!--<ProgressBar-->
+    <!--android:id="@+id/detail_tab_item_pro2"-->
+    <!--style="@android:style/Widget.ProgressBar.Horizontal"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content" />-->
 
 
     <!-- 3번쨰-->

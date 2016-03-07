@@ -4,9 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="10dip">
+
+    >
 
     <TextView
+        android:id="@+id/ani_main_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text=" 정상 : 20Kcal"
@@ -16,10 +18,11 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="30dip">
+        android:layout_height="30dip"
+        >
 
         <LinearLayout
-            android:layout_width="0dip"
+            android:layout_width="300dip"
             android:layout_height="match_parent"
             android:layout_weight="3"
             android:gravity="left">
@@ -32,13 +35,13 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="0dip"
+            android:layout_width="80dip"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center">
 
             <TextView
-                android:id="@+id/ani_user_kcal_text"
+                android:id="@+id/ani_user_sub_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
@@ -57,8 +60,7 @@
         android:id="@+id/ani_progressbar"
         style="@android:style/Widget.ProgressBar.Horizontal"
         android:layout_width="match_parent"
-        android:layout_height="8dip"
+        android:layout_height="20dip"
         android:layout_marginTop="2dip" />
-
 
 </LinearLayout>

@@ -17,6 +17,7 @@ import com.flyco.tablayout.listener.OnTabSelectListener;
 import java.util.ArrayList;
 
 import kr.co.aura.mtelo.healthcare.R;
+import kr.co.aura.mtelo.healthcare.util.AnimatedProgressLinear;
 
 /**
  * Created by young-kchoi on 2016. 2. 24..
@@ -107,7 +108,7 @@ public class ExerciseDetailTabActivity extends Activity{
 
 
 
-     class TabItemFragment extends Fragment{
+    class TabItemFragment extends Fragment{
         private String mTitle;
 
         public TabItemFragment() {
@@ -123,25 +124,29 @@ public class ExerciseDetailTabActivity extends Activity{
             View v =   inflater.inflate(R.layout.exercise_detail_tab_item, null);
 
 
-//            AnimatedProgressLinear ani = (AnimatedProgressLinear) v.findViewById(R.id.ani_layout_2);
-//            ani.startImgAnim();
+            AnimatedProgressLinear ani = (AnimatedProgressLinear) v.findViewById(R.id.ani_layout_2);
+            ani.setXValue(800);
+            ani.setProgress(80);
+            ani.setAveProgressbar(90);
+            ani.startImgAnim();
+
             return v;
         }
 
 
-         @Override
-         public void onActivityCreated(Bundle savedInstanceState) {
-             super.onActivityCreated(savedInstanceState);
+        @Override
+        public void onActivityCreated(Bundle savedInstanceState) {
+            super.onActivityCreated(savedInstanceState);
 
-             showLog();
+            showLog();
 
-         }
+        }
 
 
 
-         private void showLog(){
-             Log.e("!!!!" , "로그를 쓴다아!!!!!!");
-         }
+        private void showLog(){
+            Log.e("!!!!" , "로그를 쓴다아!!!!!!");
+        }
 
-     }
+    }
 }
