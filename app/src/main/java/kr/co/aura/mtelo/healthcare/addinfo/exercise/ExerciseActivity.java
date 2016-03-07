@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
+import com.squareup.picasso.Picasso;
 
 import kr.co.aura.mtelo.healthcare.R;
 import kr.co.aura.mtelo.healthcare.preferences.CPreferences;
@@ -35,7 +36,7 @@ public class ExerciseActivity extends SherlockActivity  implements  View.OnClick
 
         init_ACtionBar();
 
-        intiLayout(intent);
+//        intiLayout(intent);  // 사용중지
 
         Button btnExeriseDetail = (Button) findViewById(R.id.btn_exercise_detail);
         btnExeriseDetail.setOnClickListener(this);
@@ -59,21 +60,55 @@ public class ExerciseActivity extends SherlockActivity  implements  View.OnClick
 
 
         mExerciseDate = (TextView) findViewById(R.id.exercise_date_txt);
+        mExerciseDate.setText(mDate);
 //        mExerciseName = (TextView) findViewById(R.id.exercise_date_txt);
 
+
+        //기본운동정보
         mExerciseCalorie = (TextView) findViewById(R.id.exercise_right_txt_1);  //칼로리
+        mExerciseCalorie.setText(mCalorie +" Kcal");
+
         mExerciseStep = (TextView) findViewById(R.id.exercise_right_txt_2);     //걸음수
+        mExerciseStep.setText(mStep+" 보");
+
         mExerciseDistance = (TextView) findViewById(R.id.exercise_right_txt_3);  //이동거리
+        mExerciseDistance.setText(mDistance +" km");
+
         mExerciseBodyType = (TextView) findViewById(R.id.exercise_right_txt_4);  //체형
+        mExerciseBodyType.setText(mBodyType);
+
+
+
+        //등수
         mExerciseClass = (TextView) findViewById(R.id.exercise_class_number);    //반 등수
+        mExerciseClass.setText(mClass);
+
         mExerciseGrade = (TextView) findViewById(R.id.exercise_student_number);    // 학년등수
+        mExerciseGrade.setText(mGrade);
+
         mExercicesEntries = (TextView) findViewById(R.id.exercise_entries_no); //종목등수
+        mExercicesEntries.setText(mExetices);
 
         mExerciseUser  = (TextView) findViewById(R.id.exercise_average_text);   //사용자 운동량
+        mExerciseUser.setText(mUser + " Kcal");
+
+
+        //평균운동량 계산
+        mUser ="260"; // 테스트 코드
+        mAverage ="280"; // 테스트 코드
+        int user = Integer.parseInt(mUser);
+        int aver = Integer.parseInt(mAverage);
+
+        int result = aver - user;
+
         mExerciseAverage = (TextView) findViewById(R.id.exercise_average_sub_text);   //평균 운동량
+        mExerciseAverage.setText(result +" Kcal" );
+
         mExerciseAverImg = (ImageView) findViewById(R.id.exercise_average_sub_img);
 
+        //운동이미지
         mExerciseImg = (ImageView) findViewById(R.id.exercise_left_img);
+        Picasso.with(this).load(mImg).into(mExerciseImg );
     }
 
 
