@@ -3,6 +3,7 @@ package kr.co.aura.mtelo.healthcare.addinfo;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -15,10 +16,17 @@ import com.crashlytics.android.answers.ContentViewEvent;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import kr.co.aura.mtelo.healthcare.R;
 import kr.co.aura.mtelo.healthcare.addinfo.exercise.ExerciseActivity;
 import kr.co.aura.mtelo.healthcare.addinfo.mentaltest.MentalTestListActivity;
+import kr.co.aura.mtelo.healthcare.network.JSONNetWork_Manager;
+import kr.co.aura.mtelo.healthcare.network.NetWork;
 import kr.co.aura.mtelo.healthcare.preferences.CPreferences;
+import kr.co.aura.mtelo.healthcare.util.MLog;
 
 /**
  * Created by young-kchoi on 2016. 2. 4..
@@ -27,6 +35,8 @@ public class AddInfoActivity extends SherlockActivity implements View.OnClickLis
 
 
     private Context mCon = this;
+    private Intent mExerciseIntent ;
+
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -47,6 +57,11 @@ public class AddInfoActivity extends SherlockActivity implements View.OnClickLis
         btn3.setOnClickListener(this);
 
         init_ACtionBar();
+
+        //실행후 운동량의 뎅이터를 가져올것
+//        getDate();
+
+
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
@@ -82,6 +97,8 @@ public class AddInfoActivity extends SherlockActivity implements View.OnClickLis
         switch (v.getId()) {
             case R.id.add_info_btn1:  //활동량 조회intent = new Intent(AddInfoActivity.this, VideoTest.class);
                 intent = new Intent(AddInfoActivity.this, ExerciseActivity.class);
+//                intent = mExerciseIntent ;
+
                 Answers.getInstance().logContentView(new ContentViewEvent()
                         .putContentName("활동량 체크")
                         .putContentId("01040239227"));
@@ -104,8 +121,86 @@ public class AddInfoActivity extends SherlockActivity implements View.OnClickLis
             startActivity(intent);
             finish();
         }
-
-
     }
+
+
+
+
+
+
+
+
+
+    private void getDate(){
+        //학교 정보 추출
+//        String url = Define.getNetUrl() + Define.MENTAL_LIST+"?" +JSONNetWork.KEY_USER_ID+ "=123";;
+        String url = "http://210.127.55.205:82/HealthCare/simli/type_list?userId=123";
+        Log.e("LDK", "############# url: " + url);
+
+        JSONNetWork_Manager.request_Get_Exercise_Info("123", this, new NetWork.Call_Back() {
+            @Override
+            public void onError(String error) {
+            }
+
+            @Override
+            public void onGetResponsData(byte[] data) {
+            }
+
+            @Override
+            public void onGetResponsString(String data) {
+                Log.e("", "$$$ request_Get_Exercise_Info()\n " + data);
+
+                String Result = null, errMsg = null;
+                JSONObject jsonObject = null;
+
+                try {
+                    if (data != null) {
+                        JSONArray array = new JSONArray(data);
+                        btnSetting(array);
+                    } else {
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onRoaming(String message) {
+            }
+        });
+    }
+
+    public void btnSetting(JSONArray array){
+       try {
+
+           Intent intent = new Intent(mCon , ExerciseActivity.class );
+            if (array.length() == 0) return;
+            for (int i = 0; i < array.length(); i++) {
+                MLog.write(Log.ERROR, this.toString(), "array= i " + array.get(i));
+                JSONObject object = array.getJSONObject(i);  // JSONObject 추출
+
+
+                intent.putExtra("date", object.getString("date")); //운동날짜
+                intent.putExtra("name", object.getString("name")); // 이름
+                intent.putExtra("img", object.getString("img")); //이미지 경로
+                intent.putExtra("calorie", object.getString("calorie")); //칼로리
+                intent.putExtra("step", object.getString("step")); //걸음수
+                intent.putExtra("distance", object.getString("distance")); //이동거리
+                intent.putExtra("bodyType", object.getString("bodyType")); //체형
+
+                intent.putExtra("class", object.getString("class")); // 반랭킹
+                intent.putExtra("grade", object.getString("grade")); //학년랭킹
+                intent.putExtra("exercise", object.getString("exercise")); // 종목랭킹
+
+                intent.putExtra("user", object.getString("user")); //사용자 운동량
+                intent.putExtra("average", object.getString("average")); //평군 운동량
+            }
+
+           mExerciseIntent = intent;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }
