@@ -371,4 +371,31 @@ public class JSONNetWork_Manager //implements Call_Back
 		jn.start_Request();
 	}
 
+
+
+	/**
+	 * 16.3.7 신규
+	 * 운동량 정보 조회
+	 * @param type
+	 * @param call_back
+	 */
+	public static void request_Get_Exercise_Info(String simliId,  Context context, final Call_Back call_back)
+	{
+
+		StringBuffer strbuff = new StringBuffer();
+//		strbuff.append((String)Define.getNetUrl());
+		strbuff.append( Define.TEST_URL);
+		strbuff.append(Define.MENTAL_TEST_LIST);
+		strbuff.append("?" + JSONNetWork.KEY_MENTAL_ID +"=" + simliId);
+
+		MLog.write(Log.ERROR, "request_Get_Exercise_Info", "simliId = " + simliId +", url :"+ strbuff);
+
+		JSONNetWork jn = new JSONNetWork(context);
+		jn.setMRequestType(JSONNetWork.REQUESTTYPE_GET);
+		jn.setMRequestUrl(strbuff.toString());
+		jn.set_Call_Back(call_back);
+		jn.start_Request();
+	}
+
+
 }
