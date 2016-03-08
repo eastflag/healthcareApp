@@ -180,20 +180,21 @@ public class AddInfoActivity extends SherlockActivity implements View.OnClickLis
                 JSONObject object = array.getJSONObject(i);  // JSONObject 추출
 
 
-                intent.putExtra("date", object.getString("date")); //운동날짜
-                intent.putExtra("name", object.getString("name")); // 이름
-                intent.putExtra("img", object.getString("img")); //이미지 경로
+                intent.putExtra("date", object.getString("exerciseDate")); //운동날짜
+                intent.putExtra("name", object.getString("exerciseName")); // 이름
+                intent.putExtra("img", object.getString("exerciseImg")); //이미지 경로
                 intent.putExtra("calorie", object.getString("calorie")); //칼로리
                 intent.putExtra("step", object.getString("step")); //걸음수
                 intent.putExtra("distance", object.getString("distance")); //이동거리
                 intent.putExtra("bodyType", object.getString("bodyType")); //체형
 
-                intent.putExtra("class", object.getString("class")); // 반랭킹
-                intent.putExtra("grade", object.getString("grade")); //학년랭킹
-                intent.putExtra("exercise", object.getString("exercise")); // 종목랭킹
+                intent.putExtra("class", object.getString("rangkingClass")); // 반랭킹
+                intent.putExtra("grade", object.getString("rangkingGrade")); //학년랭킹
+                intent.putExtra("exercise", object.getString("rangkingExercise")); // 종목랭킹
 
-                intent.putExtra("user", object.getString("user")); //사용자 운동량
-                intent.putExtra("average", object.getString("average")); //평군 운동량
+//                intent.putExtra("user", object.getString("user")); //사용자 운동량  //칼로리로 대체
+                intent.putExtra("average", object.getString("calorieAverage")); //평군 운동량
+                intent.putExtra("averageMax", object.getString("calorieMax")); //평군 운동량 맥스
             }
 
            mExerciseIntent = intent;

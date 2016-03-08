@@ -2,14 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/white">
 
     <!--상단 레이아웃-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="60dip"
-        android:background="@color/white"
-
         android:layout_gravity="center_horizontal"
         android:orientation="horizontal"
         android:gravity="center_horizontal"
@@ -450,9 +449,10 @@
                     android:id="@+id/btn_exercise_detail"
                     android:layout_width="match_parent"
                     android:layout_height="50dip"
+                    android:contentDescription="상세보기버튼"
                     android:text="상세"
                     android:textColor="@color/white"
-                    android:background="#f41814"
+                    android:background="@drawable/exercise_detail_bg"
                     />
             </LinearLayout>
 
@@ -460,8 +460,9 @@
                 android:id="@+id/btn_exercise_history"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:contentDescription="히스토리 버튼"
                 android:text="나의 History"
-                android:background="#3026e4"
+                android:background="@drawable/exercise_history_bg"
                 android:textColor="@color/white"
                 android:layout_margin="10dip"
                 />
