@@ -39,7 +39,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/exercise_detail_tab_btn_bg"
-            android:text="칼로리" />
+            android:text="칼로리"
+            android:layout_marginRight="2dip"/>
 
         <Button
             android:id="@+id/exercise_detail_top_tx2"
@@ -47,7 +48,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/exercise_detail_tab_btn_bg"
-            android:text="걸음 수" />
+            android:text="걸음 수"
+            android:layout_marginRight="2dip"/>
 
         <Button
             android:id="@+id/exercise_detail_top_tx3"
@@ -128,7 +130,7 @@
             android:drawablePadding="10dp"
             android:gravity="center"
             android:background="#d76257"
-            android:text="검음수"
+            android:text="걸음수"
             style="@style/exercise_text"
             android:padding="5dip"/>
 
