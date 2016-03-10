@@ -103,29 +103,21 @@ public class JSONNetWork
 	//심리검사
 	public final static String KEY_MENTAL_ID= "simliId";
 
+	//운동량 보기
+	public final static String KEY_EXERCISE_ID= "exerciseId";
 
 	private String mServerUrl = null; // 서버 url 정보
-
 	private int mRequestType;
-
 	private HttpClient mHttpClient;
-	
 //	private List<NameValuePair> mParams = new ArrayList<NameValuePair>();
 	private JSONObject mParams = new JSONObject();
-	
 	private HttpPost mHttpPost;
-	
 	private HttpGet mHttpGet;
-	
 	private MultipartEntity mMultipartEntity;
-	
 	private Context mContext;
-	
 	private CPreferences mCPreferences;
-	
 	private LTimeOut_Kepper mKepper;
 
-	
 	
 	public JSONNetWork(Context context)
 	{

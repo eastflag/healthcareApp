@@ -445,24 +445,22 @@
                         />
 
                 </LinearLayout>
-                <Button
+                <ImageButton
                     android:id="@+id/btn_exercise_detail"
                     android:layout_width="match_parent"
                     android:layout_height="50dip"
                     android:contentDescription="상세보기버튼"
-                    android:text="상세"
                     android:textColor="@color/white"
-                    android:background="@drawable/exercise_detail_bg"
+                    android:background="@drawable/btn_detail"
                     />
             </LinearLayout>
 
-            <Button
+            <ImageButton
                 android:id="@+id/btn_exercise_history"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:contentDescription="히스토리 버튼"
-                android:text="나의 History"
-                android:background="@drawable/exercise_history_bg"
+                android:background="@drawable/btn_history"
                 android:textColor="@color/white"
                 android:layout_margin="10dip"
                 />

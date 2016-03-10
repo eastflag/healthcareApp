@@ -379,16 +379,16 @@ public class JSONNetWork_Manager //implements Call_Back
 	 * @param type
 	 * @param call_back
 	 */
-	public static void request_Get_Exercise_Info(String simliId,  Context context, final Call_Back call_back)
+	public static void request_Get_Exercise_Info(String simliId, String exerciseId, Context context, final Call_Back call_back)
 	{
 
 		StringBuffer strbuff = new StringBuffer();
 //		strbuff.append((String)Define.getNetUrl());
 		strbuff.append( Define.TEST_URL);
-		strbuff.append(Define.MENTAL_TEST_LIST);
-		strbuff.append("?" + JSONNetWork.KEY_MENTAL_ID +"=" + simliId);
+		strbuff.append(Define.EXERCISE);
+		strbuff.append("?" + JSONNetWork.KEY_USER_ID +"=" + simliId +"&" +JSONNetWork.KEY_EXERCISE_ID +"="+ exerciseId);
 
-		MLog.write(Log.ERROR, "request_Get_Exercise_Info", "simliId = " + simliId +", url :"+ strbuff);
+		MLog.write(Log.ERROR, "request_Get_Exercise_Info", "simliId = " + simliId + ", url :" + strbuff);
 
 		JSONNetWork jn = new JSONNetWork(context);
 		jn.setMRequestType(JSONNetWork.REQUESTTYPE_GET);

@@ -51,6 +51,8 @@ public class ExerciseDetailActivity extends SherlockActivity implements View.OnC
     private ArrayList<ChartData> mCheatDatas = new ArrayList<ChartData>();
 
     private String mCalorie, mStep, mDistance, mSpeed, mBodyType;
+    private String mCalorieMax, mStepMax, mDistanceMax, mSpeedMax, mBodyTypeMax;
+
     private TextView mCalorieText, mStepText, mSpeedText, mBodyTypeText, mDistanceText;
 
     @Override
@@ -195,7 +197,6 @@ public class ExerciseDetailActivity extends SherlockActivity implements View.OnC
                 );
 
                 mCheatDatas.add(data);
-
             }
 
         } catch (JSONException e) {
@@ -254,6 +255,7 @@ public class ExerciseDetailActivity extends SherlockActivity implements View.OnC
             set1.setValueTextSize(12f);
 
 
+        // Y축 최대값을 설정한다
         YAxis leftAxis = mChart.getAxisLeft();
         if (status == CALORIE) {
             leftAxis.setAxisMaxValue(430f);
@@ -284,9 +286,6 @@ public class ExerciseDetailActivity extends SherlockActivity implements View.OnC
     }
 
 
-    private void changeChart(){
-
-    }
 
 
     // 차크 메소드들
@@ -325,7 +324,6 @@ public class ExerciseDetailActivity extends SherlockActivity implements View.OnC
 
     @Override
     public void onChartFling(MotionEvent me1, MotionEvent me2, float velocityX, float velocityY) {
-        Log.e("!!!!", "!!! onChartFling "+ this.getPackageName());
     }
 
     @Override
@@ -335,7 +333,6 @@ public class ExerciseDetailActivity extends SherlockActivity implements View.OnC
 
     @Override
     public void onChartTranslate(MotionEvent me, float dX, float dY) {
-        Log.e("!!!!", "!!! onChartTranslate "+ this.getPackageName());
     }
 
     @Override

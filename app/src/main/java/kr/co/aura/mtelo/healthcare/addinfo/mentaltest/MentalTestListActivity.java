@@ -103,8 +103,10 @@ public class MentalTestListActivity extends Activity implements View.OnClickList
                 JSONObject object = array.getJSONObject(i);  // JSONObject 추출
 
                 MentalListItem item = new MentalListItem();
-                item.intro = object.getString("intro");
-                item.outro = object.getString("outro");
+                item.introImg= object.getString("introImg");
+                item.introVideo = object.getString("introVideo");
+                item.outroImg = object.getString("outroImg");
+                item.outroVideo = object.getString("outroVideo");
                 item.simliId = object.getString("simliId");
                 item.title = object.getString("simliNm");
                 item.useYN = object.getString("useYN").equals("Y")? true: false;
@@ -146,8 +148,10 @@ public class MentalTestListActivity extends Activity implements View.OnClickList
 
         Intent intent = new Intent(MentalTestListActivity.this, VideoTest.class);
         intent.putExtra("simliId", item.simliId);
-        intent.putExtra("intro" ,  item.intro);
-        intent.putExtra("outro" ,  item.outro);
+        intent.putExtra("introImg" ,  item.introImg);
+        intent.putExtra("introVideo" ,  item.introVideo);
+        intent.putExtra("outroImg" ,  item.outroImg);
+        intent.putExtra("outroVideo" ,  item.outroVideo);
 
 
 
@@ -166,23 +170,45 @@ public class MentalTestListActivity extends Activity implements View.OnClickList
 
 
     class MentalListItem {
-        String intro = null;
-        String outro = null;
+        String introImg = null;
+        String introVideo = null;
+        String outroImg = null;
+        String outroVideo = null;
         String simliId = null;
         String title = null;
         boolean useYN = false;
 
+    public MentalListItem() {
+    }
+
+        public MentalListItem(String introImg, String introVideo, String outroImg, String outroVideo, String simliId, String title, boolean useYN) {
+            this.introImg = introImg;
+            this.introVideo = introVideo;
+            this.outroImg = outroImg;
+            this.outroVideo = outroVideo;
+            this.simliId = simliId;
+            this.title = title;
+            this.useYN = useYN;
+        }
         @Override
         public String toString() {
             return "MentalListItem{" +
-                    "intro='" + intro + '\'' +
-                    ", outro='" + outro + '\'' +
+                    "introImg='" + introImg + '\'' +
+                    ", introVideo='" + introVideo + '\'' +
+                    ", outroImg='" + outroImg + '\'' +
+                    ", outroVideo='" + outroVideo + '\'' +
                     ", simliId='" + simliId + '\'' +
                     ", title='" + title + '\'' +
                     ", useYN=" + useYN +
                     '}';
         }
-
-        public MentalListItem() { }
     }
+
+
+
+
+
+
+
+
 }

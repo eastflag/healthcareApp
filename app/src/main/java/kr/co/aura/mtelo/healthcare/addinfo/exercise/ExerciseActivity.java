@@ -2,8 +2,8 @@ package kr.co.aura.mtelo.healthcare.addinfo.exercise;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -34,34 +34,34 @@ public class ExerciseActivity extends SherlockActivity  implements  View.OnClick
 
         Intent intent = getIntent();
 
-
         init_ACtionBar();
 
-//        intiLayout(intent);  // 사용중지
+        intiLayout(intent);  // 사용중지
 
-        Button btnExeriseDetail = (Button) findViewById(R.id.btn_exercise_detail);
+        Log.e("!!!!", "!!!!! intent\n " +intent.getExtras() );
+
+        ImageButton btnExeriseDetail = (ImageButton) findViewById(R.id.btn_exercise_detail);
         btnExeriseDetail.setOnClickListener(this);
     }
 
 
 
-
     private void intiLayout(Intent intent) {
-        mDate = intent.getStringExtra("date"); //운동날짜
-        mName = intent.getStringExtra("name"); // 이름
-        mImg = intent.getStringExtra("img" ); //이미지 경로
-        mCalorie = intent.getStringExtra("calorie"); //칼로리
-        mStep = intent.getStringExtra("step"); //걸음수
-        mDistance = intent.getStringExtra("distance"); //이동거리
-        mBodyType =  intent.getStringExtra("bodyType"); //체형
+        mDate        = intent.getStringExtra("date"); //운동날짜
+        mName        = intent.getStringExtra("name"); // 이름
+        mImg         = intent.getStringExtra("img" ); //이미지 경로
+        mCalorie     = intent.getStringExtra("calorie"); //칼로리
+        mStep        = intent.getStringExtra("step"); //걸음수
+        mDistance    = intent.getStringExtra("distance"); //이동거리
+        mBodyType    = intent.getStringExtra("bodyType"); //체형
 
-        mClass = intent.getStringExtra("class"); // 반랭킹
-        mGrade = intent.getStringExtra("grade"); //학년랭킹
-        mExetices = intent.getStringExtra("exercise"); // 종목랭킹
+        mClass       = intent.getStringExtra("class"); // 반랭킹
+        mGrade       = intent.getStringExtra("grade"); //학년랭킹
+        mExetices    = intent.getStringExtra("exercise"); // 종목랭킹
 
 //        mUser = intent.getStringExtra("user"); //사용자 운동량 , 칼로리로 대체
-        mAverage = intent.getStringExtra("average"); //평군 운동량
-        mAverageMax = intent.getStringExtra("averageMax"); //평군 운동량 맥스
+        mAverage     = intent.getStringExtra("average"); //평군 운동량
+        mAverageMax  = intent.getStringExtra("averageMax"); //평군 운동량 맥스
 
         // 날짜
         mExerciseDate = (TextView) findViewById(R.id.exercise_date_txt);
@@ -70,7 +70,7 @@ public class ExerciseActivity extends SherlockActivity  implements  View.OnClick
 
         //운동종목
         mExerciseName = (TextView) findViewById(R.id.exercise_left_top_txt);
-        mExerciseName.setText(mDate);
+        mExerciseName.setText(mName);
 
 
         //운동이미지
@@ -109,10 +109,6 @@ public class ExerciseActivity extends SherlockActivity  implements  View.OnClick
 
 
         //평균운동량 계산
-        mCalorie ="240"; // 테스트 코드
-        mAverage ="260"; // 테스트 코드
-        mAverageMax = "280"; // 테스트 코드
-
         int user = Integer.parseInt(mCalorie);
         int aver = Integer.parseInt(mAverage);
         int result = aver - user;
@@ -122,7 +118,7 @@ public class ExerciseActivity extends SherlockActivity  implements  View.OnClick
 
         mExerciseAverImg = (ImageView) findViewById(R.id.exercise_average_sub_img);
         if(user > aver){
-            mExerciseAverImg.setBackgroundResource(R.drawable.arrow_down);
+            mExerciseAverImg.setBackgroundResource(R.drawable.arrow_up);
         }else{
             mExerciseAverImg.setBackgroundResource(R.drawable.arrow_down);  //up이미지가 필요하다
         }

@@ -60,7 +60,7 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
     private final String EX2_VIDEO = "http://210.127.55.205/psychology_contents/sample/an/AN_E13_01_2.mp4";
 
 
-    private String mSimliId, mIntro, mOutro;
+    private String mSimliId, mIntroImg ,mIntroVideo, mOutroImg,  mOutroVideo;
     private ImageView mBG ;
 
     private String mLastPlayVideo;
@@ -73,10 +73,14 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
 
         Intent in = getIntent();
         mSimliId = in.getStringExtra("simliId");
-        mIntro   = in.getStringExtra("intro");
-        mOutro   = in.getStringExtra("outro");
+        mIntroImg     = in.getStringExtra("introImg");
+        mIntroVideo   = in.getStringExtra("introVideo");
+        mOutroImg     = in.getStringExtra("outroImg");
+        mOutroVideo   = in.getStringExtra("outroVideo");
 
-        Log.e("###", "###### msimliId " + mSimliId + ", intro " + mIntro + ", outro " + mOutro);
+
+
+        Log.e("###", "###### msimliId " + mSimliId + ", introIMG " + mIntroImg + ", outroImg " + mOutroImg+" introVideo " + mIntroVideo + ", outroVideo " + mOutroVideo);
 
 
         mImgLayout = (LinearLayout)findViewById(R.id.btnLayout);
@@ -86,9 +90,9 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
         getMenetalTestList();
 
         //test
-        mIntro = INTRO_VIDEO;
+        mIntroVideo = INTRO_VIDEO;
         videoInit();
-        VideoPlay(mIntro);
+        VideoPlay(mIntroVideo);
 
 
     }
