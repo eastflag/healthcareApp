@@ -96,10 +96,10 @@
             android:layout_weight="1"
             android:drawableLeft="@drawable/icon_01_kcal"
             android:drawablePadding="10dp"
-            android:background="#d76257"
+            android:background="#8d99c3"
             android:gravity="center"
             android:text="소모 칼로리"
-            style="@style/exercise_text"
+            style="@style/exercise_text_white"
             android:padding="5dip"/>
 
         <TextView
@@ -107,7 +107,7 @@
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="#cccfe4"
+            android:background="#dce0f0"
             android:gravity="center"
             android:text="160Kcal"
             style="@style/exercise_text"
@@ -128,9 +128,9 @@
             android:layout_weight="1"
             android:drawableLeft="@drawable/icon_02_foot"
             android:gravity="center"
-            android:background="#d76257"
+            android:background="#6d779b"
             android:text="걸음수"
-            style="@style/exercise_text"
+            style="@style/exercise_text_white"
             android:padding="5dip"/>
 
         <TextView
@@ -138,7 +138,7 @@
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="#cccfe4"
+            android:background="#dce0f0"
             android:gravity="center"
             android:text="6000"
             style="@style/exercise_text"
@@ -160,9 +160,9 @@
             android:drawableLeft="@drawable/icon_03_km"
             android:drawablePadding="10dp"
             android:gravity="center"
-            android:background="#d76257"
+            android:background="#61657c"
             android:text="이동거리"
-            style="@style/exercise_text"
+            style="@style/exercise_text_white"
             android:padding="5dip"/>
 
         <TextView
@@ -170,7 +170,7 @@
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="#cccfe4"
+            android:background="#dce0f0"
             android:gravity="center"
             android:text="4km"
             style="@style/exercise_text"
@@ -179,35 +179,35 @@
 
 
     <!-- 4번쨰 항목 -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="1dp">
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="horizontal"-->
+        <!--android:layout_marginBottom="1dp">-->
 
-        <TextView
-            android:id="@+id/exercise_detail_bottom_left_tx4"
-            android:layout_width="0dip"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:drawableLeft="@drawable/icon_speed"
-            android:drawablePadding="10dp"
-            android:gravity="center"
-            android:background="#d76257"
-            android:text="평균속도"
-            style="@style/exercise_text"
-            android:padding="5dip"/>
+        <!--<TextView-->
+            <!--android:id="@+id/exercise_detail_bottom_left_tx4"-->
+            <!--android:layout_width="0dip"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="1"-->
+            <!--android:drawableLeft="@drawable/icon_speed"-->
+            <!--android:drawablePadding="10dp"-->
+            <!--android:gravity="center"-->
+            <!--android:background="#484b5f"-->
+            <!--android:text="평균속도"-->
+            <!--style="@style/exercise_text_white"-->
+            <!--android:padding="5dip"/>-->
 
-        <TextView
-            android:id="@+id/exercise_detail_bottom_right_tx4"
-            android:layout_width="0dip"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="#cccfe4"
-            android:text="66m/min"
-            style="@style/exercise_text"
-            android:padding="5dip"/>
-    </LinearLayout>
+        <!--<TextView-->
+            <!--android:id="@+id/exercise_detail_bottom_right_tx4"-->
+            <!--android:layout_width="0dip"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="1"-->
+            <!--android:background="#dce0f0"-->
+            <!--android:text="66m/min"-->
+            <!--style="@style/exercise_text"-->
+            <!--android:padding="5dip"/>-->
+    <!--</LinearLayout>-->
 
 
     <!-- 5번쨰 항목 -->
@@ -225,9 +225,9 @@
             android:drawableLeft="@drawable/icon_04_body"
             android:drawablePadding="10dp"
             android:gravity="center"
-            android:background="#d76257"
+            android:background="#484b5f"
             android:text="체형"
-            style="@style/exercise_text"
+            style="@style/exercise_text_white"
             android:padding="5dip"/>
 
         <TextView
@@ -235,7 +235,7 @@
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="#cccfe4"
+            android:background="#dce0f0"
             android:text="정상"
             style="@style/exercise_text"
             android:padding="5dip"/>

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="40dip" 
+        android:text="2016/03/10 <축구>"
+        style="@style/exercise_text"
+        android:background="#d7dcde"
+        />
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:background="#f6f6f6"
+            >
+
+            <!-- 왼쪽 텍스트-->
+            <RelativeLayout
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                >
+                <!--운동시간-->
+                <TextView
+                    android:id="@+id/history_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/exercise_text"
+                    android:text="운동 시간 :"
+                    />
+                <TextView
+                    android:id="@+id/history_time_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/history_time"
+                    style="@style/exercise_text"
+                    android:text="50분"
+                    />
+
+
+                <!-- 소모칼로리-->
+                <TextView
+                    android:id="@+id/history_calorie"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/history_time"
+                    style="@style/exercise_text"
+                    android:text="소모 칼로리 :"
+                    />
+                <TextView
+                    android:id="@+id/history_calorie_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/history_calorie"
+                    android:layout_below="@+id/history_time"
+                    style="@style/exercise_text"
+                    android:text="240 Kcal"
+
+                <!-- 걸음수-->
+                <TextView
+                    android:id="@+id/history_step"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/history_calorie"
+                    style="@style/exercise_text"
+                    android:text="걸음수 :"
+                    />
+                <TextView
+                    android:id="@+id/history_step_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/history_step"
+                    android:layout_below="@+id/history_calorie"
+                    style="@style/exercise_text"
+                    android:text="6000 보"
+
+                <!-- 이동거리-->
+                <TextView
+                    android:id="@+id/history_distance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/history_step"
+                    style="@style/exercise_text"
+                    android:text="이동거리 :"
+                    />
+                <TextView
+                    android:id="@+id/history_distance_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/history_distance"
+                    android:layout_below="@+id/history_step"
+                    style="@style/exercise_text"
+                    android:text="3.05 Km"
+            </RelativeLayout>
+
+            <!-- 오른쪽 이미지 -->
+            <LinearLayout
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                >
+                <ImageView
+                    android:layout_width="92dp"
+                    android:layout_height="110dp"
+                    android:background="@drawable/pic_football"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+
+</LinearLayout>
