@@ -141,6 +141,7 @@
         <activity   android:name=".addinfo.exercise.ExerciseActivity" />
         <activity   android:name=".addinfo.exercise.ExerciseDetailTabActivity" />
         <activity   android:name=".addinfo.exercise.ExerciseDetailActivity" />
+        <activity   android:name=".addinfo.exercise.ExerciseHistory" />
 
         <!-- <activity android:name=".VideoSplash_Simli" android:screenOrientation="landscape" android:launchMode="singleInstance"/> -->
 

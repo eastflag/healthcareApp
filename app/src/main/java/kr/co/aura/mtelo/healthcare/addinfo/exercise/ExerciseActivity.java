@@ -38,10 +38,15 @@ public class ExerciseActivity extends SherlockActivity  implements  View.OnClick
 
         intiLayout(intent);  // 사용중지
 
-        Log.e("!!!!", "!!!!! intent\n " +intent.getExtras() );
+        Log.e("!!!!", "!!!!! intent\n " + intent.getExtras());
 
         ImageButton btnExeriseDetail = (ImageButton) findViewById(R.id.btn_exercise_detail);
         btnExeriseDetail.setOnClickListener(this);
+
+        ImageButton btnExeriseHistory = (ImageButton) findViewById(R.id.btn_exercise_history);
+        btnExeriseHistory.setOnClickListener(this);
+
+
     }
 
 
@@ -165,7 +170,7 @@ public class ExerciseActivity extends SherlockActivity  implements  View.OnClick
 
                 break;
             case R.id.btn_exercise_history:
-
+                intent = new Intent(ExerciseActivity.this , ExerciseHistory.class);
                 break;
 
         }

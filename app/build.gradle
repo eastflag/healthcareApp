@@ -81,4 +81,5 @@ dependencies {
     compile 'com.android.support:support-v13:23.1.1'
     //차트
     compile 'com.github.PhilJay:MPAndroidChart:v2.2.3'
+    compile 'com.android.support:recyclerview-v7:24.0.0-alpha1'
 }

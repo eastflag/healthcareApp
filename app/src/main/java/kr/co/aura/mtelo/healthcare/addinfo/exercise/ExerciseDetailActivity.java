@@ -33,6 +33,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import kr.co.aura.mtelo.healthcare.R;
+import kr.co.aura.mtelo.healthcare.network.JSONNetWork_Manager;
+import kr.co.aura.mtelo.healthcare.network.NetWork;
 import kr.co.aura.mtelo.healthcare.preferences.CPreferences;
 import kr.co.aura.mtelo.healthcare.util.MLog;
 
@@ -61,7 +63,9 @@ public class ExerciseDetailActivity extends SherlockActivity implements View.OnC
 
         setContentView(R.layout.exerics_detail);
 
+
         init_ACtionBar();
+        getDate();
 
         Button topBtn1 = (Button) findViewById(R.id.exercise_detail_top_tx1);
         topBtn1.setOnClickListener(this);
@@ -77,7 +81,7 @@ public class ExerciseDetailActivity extends SherlockActivity implements View.OnC
         mCalorieText  = (TextView) findViewById(R.id.exercise_detail_bottom_right_tx1);
         mStepText     = (TextView) findViewById(R.id.exercise_detail_bottom_right_tx2);
         mDistanceText = (TextView) findViewById(R.id.exercise_detail_bottom_right_tx3);
-        mSpeedText    = (TextView) findViewById(R.id.exercise_detail_bottom_right_tx4);
+//        mSpeedText    = (TextView) findViewById(R.id.exercise_detail_bottom_right_tx4);
         mBodyTypeText = (TextView) findViewById(R.id.exercise_detail_bottom_right_tx5);
 
 
@@ -97,18 +101,6 @@ public class ExerciseDetailActivity extends SherlockActivity implements View.OnC
         mChart.getAxisRight().setEnabled(false);
 
 
-        //Y축 설정
-        YAxis leftAxis = mChart.getAxisLeft();
-        leftAxis.removeAllLimitLines(); // reset all limit linesto avoid overlapping lines
-        leftAxis.setAxisMaxValue(400f);
-        leftAxis.setAxisMinValue(0f);
-        // limit lines are drawn behind data (and not on top)
-        leftAxis.setDrawLimitLinesBehindData(false);
-        leftAxis.setDrawZeroLine(false);
-        leftAxis.enableGridDashedLine(10f, 10f, 0f);
-        leftAxis.setXOffset(20f);
-
-
 
         //테스트 코드
         testCOde();
@@ -117,12 +109,22 @@ public class ExerciseDetailActivity extends SherlockActivity implements View.OnC
         XAxis xAxis = mChart.getXAxis();
         xAxis.setValueFormatter(new MyValueFormatter(mCheatDatas));
 
-        //데이터 설정
-        setData(mCheatDatas.size() , mCheatDatas, mChartStatus);
 
 
     }
 
+    private void setupChart() {
+        //Y축 설정
+        YAxis leftAxis = mChart.getAxisLeft();
+        leftAxis.removeAllLimitLines(); // reset all limit linesto avoid overlapping lines
+        leftAxis.setAxisMaxValue(Float.parseFloat(mStepMax));
+        leftAxis.setAxisMinValue(0f);
+        // limit lines are drawn behind data (and not on top)
+        leftAxis.setDrawLimitLinesBehindData(false);
+        leftAxis.setDrawZeroLine(false);
+        leftAxis.enableGridDashedLine(10f, 10f, 0f);
+        leftAxis.setXOffset(20f);
+    }
 
 
     private void init_ACtionBar() {
@@ -178,11 +180,67 @@ public class ExerciseDetailActivity extends SherlockActivity implements View.OnC
     }
 
 
-//JSON데이터를 가공
+
+    private void getDate(){
+        JSONNetWork_Manager.request_Get_Exercise_Detail_Info("123", "", this, new NetWork.Call_Back() {
+            @Override
+            public void onError(String error) {
+            }
+
+            @Override
+            public void onGetResponsData(byte[] data) {
+            }
+
+            @Override
+            public void onGetResponsString(String data) {
+                try {
+                    if (data != null) {
+                        data = data.substring(1, data.length());
+                        data = data.substring(0, data.length() - 1);
+                        Log.e("!!!!", "!!! request_Get_Exercise_Detail_Info()\n " + data);
+
+                        JSONObject object = new JSONObject(data);
+                        JSONArray array = object.optJSONArray("cart");
+
+                        mCalorie  = object.optString("calorie");
+                        mStep     = object.optString("step");
+                        mDistance = object.optString("distance");
+                        mBodyType = object.optString("bodyType");
+
+                        mCalorieMax  = object.optString("calorieMax");
+                        mStepMax     = object.optString("stepMax");
+                        mDistanceMax = object.optString("distanceMax");
+                        mBodyTypeMax = object.optString("bodyTypeMax");
+                        mSpeedMax    = object.optString("speedMax");
+
+                        buildData(array);
+                        setupText();
+                    } else {
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+
+            @Override
+            public void onRoaming(String message) {
+            }
+        });
+    }
+
+
+    //하단 텍스트상자를 체워넣는다
+    private void setupText() {
+        mCalorieText.setText(mCalorie +" Kcal");
+        mStepText.setText(mStep +" 보");
+        mDistanceText.setText(mDistance + " Km");
+        mBodyTypeText.setText(mBodyType);
+    }
+
+    //JSON데이터를 가공
     public void buildData(JSONArray array){
         try {
-
-
             if (array.length() == 0) return;
             for (int i = 0; i < array.length(); i++) {
                 MLog.write(Log.ERROR, this.toString(), "array= i " + array.get(i));
@@ -196,8 +254,14 @@ public class ExerciseDetailActivity extends SherlockActivity implements View.OnC
                         object.getString("distance")
                 );
 
+
                 mCheatDatas.add(data);
+
             }
+
+            setupChart();
+            //데이터 설정
+            setData(mCheatDatas.size() , mCheatDatas, mChartStatus);
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -231,9 +295,9 @@ public class ExerciseDetailActivity extends SherlockActivity implements View.OnC
 
                     break;
 
-                case SPEED:
-                    yVals.add(new Entry(Float.parseFloat(data.speed), i));
-                    break;
+//                case SPEED:
+//                    yVals.add(new Entry(Float.parseFloat(data.speed), i));
+//                    break;
             }
 
         }
@@ -258,18 +322,18 @@ public class ExerciseDetailActivity extends SherlockActivity implements View.OnC
         // Y축 최대값을 설정한다
         YAxis leftAxis = mChart.getAxisLeft();
         if (status == CALORIE) {
-            leftAxis.setAxisMaxValue(430f);
-
+            leftAxis.setAxisMaxValue(Float.parseFloat(mCalorieMax));
+            set1.setLabel("킬로리");
         } else if (status == STEP) {
-            leftAxis.setAxisMaxValue(7500f);
-            set1.setLabel("칼로리");
+            leftAxis.setAxisMaxValue(Float.parseFloat(mStepMax));
+            set1.setLabel("걸음수");
         } else if (status == DISTANCE) {
             set1.setLabel("걸음수");
-            leftAxis.setAxisMaxValue(7f);
+            leftAxis.setAxisMaxValue(Float.parseFloat(mDistanceMax));
             set1.setLabel("이동거리");
-        } else if (status == SPEED) {
-            leftAxis.setAxisMaxValue(60f);
-            set1.setLabel("속도");
+//        } else if (status == SPEED) {
+//            leftAxis.setAxisMaxValue(Float.parseFloat(mSpeedMax));
+//            set1.setLabel("속도");
         }
 
 
@@ -314,8 +378,8 @@ public class ExerciseDetailActivity extends SherlockActivity implements View.OnC
         Log.e("!!!!", "!!! onChartSingleTapped "+ mChartStatus);
         if(mChartStatus == CALORIE)         setData(mCheatDatas.size() , mCheatDatas , STEP);
         else if(mChartStatus == STEP)       setData(mCheatDatas.size() , mCheatDatas , DISTANCE);
-        else if(mChartStatus == DISTANCE)   setData(mCheatDatas.size() , mCheatDatas , SPEED);
-        else if(mChartStatus == SPEED)      setData(mCheatDatas.size() , mCheatDatas , CALORIE);
+        else if(mChartStatus == DISTANCE)   setData(mCheatDatas.size() , mCheatDatas , CALORIE);
+//        else if(mChartStatus == SPEED)      setData(mCheatDatas.size() , mCheatDatas , CALORIE);
 
         mChart.invalidate();
         mChart.animateXY(3000, 3000);
