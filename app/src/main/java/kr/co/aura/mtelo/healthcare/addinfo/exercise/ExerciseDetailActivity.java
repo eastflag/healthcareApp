@@ -65,7 +65,6 @@ public class ExerciseDetailActivity extends SherlockActivity implements View.OnC
 
 
         init_ACtionBar();
-        getDate();
 
         Button topBtn1 = (Button) findViewById(R.id.exercise_detail_top_tx1);
         topBtn1.setOnClickListener(this);
@@ -100,7 +99,8 @@ public class ExerciseDetailActivity extends SherlockActivity implements View.OnC
         //오른쪽 Y축을 삭제한
         mChart.getAxisRight().setEnabled(false);
 
-
+        //데이터 획득
+        getDate();
 
         //테스트 코드
         testCOde();
@@ -195,12 +195,14 @@ public class ExerciseDetailActivity extends SherlockActivity implements View.OnC
             public void onGetResponsString(String data) {
                 try {
                     if (data != null) {
-                        data = data.substring(1, data.length());
-                        data = data.substring(0, data.length() - 1);
+                        if (data.startsWith("[")) {
+                            data = data.substring(1, data.length());
+                            data = data.substring(0, data.length() - 1);
+                        }
                         Log.e("!!!!", "!!! request_Get_Exercise_Detail_Info()\n " + data);
 
                         JSONObject object = new JSONObject(data);
-                        JSONArray array = object.optJSONArray("cart");
+                        JSONArray array = object.optJSONArray("chart");
 
                         mCalorie  = object.optString("calorie");
                         mStep     = object.optString("step");
@@ -248,7 +250,7 @@ public class ExerciseDetailActivity extends SherlockActivity implements View.OnC
 
                 ChartData data = new ChartData(
                         object.getString("date"),
-                        object.getString("exercise"),
+                        object.getString("exerciseName"),
                         object.getString("calorie"),
                         object.getString("step"),
                         object.getString("distance")

@@ -146,15 +146,11 @@ public class AddInfoActivity extends SherlockActivity implements View.OnClickLis
 
             @Override
             public void onGetResponsString(String data) {
-
-//                data = "[{'bodyType':'정상','calorie':'240', 'calorieAverage':'260', 'calorieMax':'300', 'distance':'6',   'exerciseDate' : '2016.03.10(목)','exerciseId':'201603101234', 'exerciseIdNext':'' , " +
-//                        "'exerciseIdPrev':'201603091234','exerciseImg':'http://210.127.55.205/exercise_contents/soccer.png'," +
-//                        "'exerciseName':'축구', 'rangkingClass':'3' , 'rangkingExercise': '250' , 'rangkingGrade':'50', 'step':'600'  }]";
-
-
                 Log.e("!!!!", "!!! request_Get_Exercise_Info()\n " + data);
                 try {
                     if (data != null) {
+
+                        data = "["+data+"]";
                         Log.e("!!!!", "!!! request_Get_Exercise_Info()");
                         JSONArray array = new JSONArray(data);
                         btnSetting(array);

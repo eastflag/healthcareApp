@@ -128,8 +128,10 @@ public class ExerciseHistory extends SherlockActivity {
             public void onGetResponsString(String data) {
                 try {
                     if (data != null) {
-                        data = data.substring(1, data.length());
-                        data = data.substring(0 , data.length() -1 );
+                        if (data.startsWith("[")) {
+                            data = data.substring(1, data.length());
+                            data = data.substring(0, data.length() - 1);
+                        }
                         Log.e("!!!!", "!!! request_Get_Exercise_History()\n " + data);
 
                         JSONObject object = new JSONObject(data);

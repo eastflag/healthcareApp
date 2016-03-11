@@ -123,7 +123,8 @@ public class ExerciseActivity extends SherlockActivity  implements  View.OnClick
 
         mExerciseAverImg = (ImageView) findViewById(R.id.exercise_average_sub_img);
         if(user > aver){
-            mExerciseAverImg.setBackgroundResource(R.drawable.arrow_up);
+            mExerciseAverImg.setBackgroundResource(R.drawable.arrow_up
+            );
         }else{
             mExerciseAverImg.setBackgroundResource(R.drawable.arrow_down);  //up이미지가 필요하다
         }
