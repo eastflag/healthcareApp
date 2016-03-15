@@ -60,10 +60,24 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
     private final String EX2_VIDEO = "http://210.127.55.205/psychology_contents/sample/an/AN_E13_01_2.mp4";
 
 
-    private String mSimliId, mIntroImg ,mIntroVideo, mOutroImg,  mOutroVideo;
+    private String mSimliId, mIntroType, mIntroImg ,mIntroVideo, mOutroType, mOutroImg, mOutroVideo;
     private ImageView mBG ;
 
     private String mLastPlayVideo;
+
+    @Override
+    public String toString() {
+        return "VideoTest{" +
+                "mSimliId='" + mSimliId + '\'' +
+                ", mIntroType='" + mIntroType + '\'' +
+                ", mIntroImg='" + mIntroImg + '\'' +
+                ", mIntroVideo='" + mIntroVideo + '\'' +
+                ", mOutroType='" + mOutroType + '\'' +
+                ", mOutroImg='" + mOutroImg + '\'' +
+                ", mOutroVideo='" + mOutroVideo + '\'' +
+                '}';
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -72,22 +86,24 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
         setContentView(R.layout.activity_video_test);
 
         Intent in = getIntent();
-        mSimliId = in.getStringExtra("simliId");
-        mIntroImg     = in.getStringExtra("introImg");
-        mIntroVideo   = in.getStringExtra("introVideo");
-        mOutroImg     = in.getStringExtra("outroImg");
-        mOutroVideo   = in.getStringExtra("outroVideo");
+        mSimliId     = in.getStringExtra("simliId");
+        mIntroType   = in.getStringExtra("introType");
+        mIntroImg    = in.getStringExtra("introImg");
+        mIntroVideo  = in.getStringExtra("introVideo");
+        mOutroType   = in.getStringExtra("outroType");
+        mOutroImg    = in.getStringExtra("outroImg");
+        mOutroVideo  = in.getStringExtra("outroVideo");
 
 
 
-        Log.e("###", "###### msimliId " + mSimliId + ", introIMG " + mIntroImg + ", outroImg " + mOutroImg+" introVideo " + mIntroVideo + ", outroVideo " + mOutroVideo);
+        Log.e("###", "######" + toString());
 
 
         mImgLayout = (LinearLayout)findViewById(R.id.btnLayout);
         //배경이미지
         mBG= (ImageView) findViewById(R.id.image_bg);
 
-        getMenetalTestList();
+        getMenetalTestList(mSimliId);
 
         //test
         mIntroVideo = INTRO_VIDEO;
@@ -122,8 +138,8 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
 
     }
 
-    private void getMenetalTestList() {
-        JSONNetWork_Manager.request_Get_Mental_TestList(mSimliId, this, new NetWork.Call_Back() {
+    private void getMenetalTestList(String simliid) {
+        JSONNetWork_Manager.request_Get_Mental_TestList(simliid, this, new NetWork.Call_Back() {
             @Override
             public void onError(String error) {
             }
@@ -184,6 +200,7 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
                 }
 
                 mTestList.add(item);
+                item.toString();
             }
         } catch (JSONException e) {
             e.printStackTrace();

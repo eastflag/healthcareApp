@@ -32,30 +32,11 @@
                 android:layout_weight="1"
                 android:gravity="left|center_vertical"
                 >
-                <!--운동시간-->
-                <TextView
-                    android:id="@+id/history_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/exercise_text"
-                    android:text="운동 시간 :"
-                    />
-                <TextView
-                    android:id="@+id/history_time_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/history_time"
-                    style="@style/exercise_text"
-                    android:text="50분"
-                    />
-
-
-                <!-- 소모칼로리-->
+                       <!-- 소모칼로리-->
                 <TextView
                     android:id="@+id/history_calorie"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/history_time"
                     style="@style/exercise_text"
                     android:text="소모 칼로리 :"
                     />
@@ -64,7 +45,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@+id/history_calorie"
-                    android:layout_below="@+id/history_time"
                     style="@style/exercise_text"
                     android:text="240 Kcal"/>
 
@@ -117,8 +97,8 @@
                     android:id="@+id/history_image"
                     android:layout_width="92dp"
                     android:layout_height="110dp"
-                    android:background="@drawable/pic_football"
-                android:layout_marginLeft="30dip"
+                    android:src="@drawable/pic_football"
+                    android:layout_marginLeft="30dip"
                     />
             </LinearLayout>
         </LinearLayout>

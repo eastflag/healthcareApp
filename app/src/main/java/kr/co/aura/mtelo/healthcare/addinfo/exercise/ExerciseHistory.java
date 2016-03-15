@@ -2,6 +2,8 @@ package kr.co.aura.mtelo.healthcare.addinfo.exercise;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -36,6 +38,8 @@ public class ExerciseHistory extends SherlockActivity {
 
     private ArrayList<HistoryListItem> mHistoryItems = new ArrayList<HistoryListItem>();
     private String mNextYN;
+    private RecyclerView mRecyclerView;
+    private RecyclerAdapter mRecyclerAdapter ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,14 +50,15 @@ public class ExerciseHistory extends SherlockActivity {
         init_ACtionBar();
         getDate();
 
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
+
+        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview);
+        mRecyclerAdapter = new RecyclerAdapter(ExerciseHistory.this, mHistoryItems);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(layoutManager);
-
-
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setLayoutManager(layoutManager);
+        mRecyclerView.setAdapter(mRecyclerAdapter);
 //        ArrayList<HistoryListItem> items = testCode();
-        recyclerView.setAdapter(new RecyclerAdapter(getApplicationContext(), mHistoryItems));
+
     }
 
 
@@ -78,19 +83,21 @@ public class ExerciseHistory extends SherlockActivity {
         });
     }
 
+
+    //차후 삭제할것
     private ArrayList<HistoryListItem> testCode() {
 
-        HistoryListItem item = new HistoryListItem("20160310123", "2016.03.10", "축국", "50", "240", "6000", "4.05", "http://210.127.55.205/exercise_contents/soccer.png");
-        HistoryListItem item2 = new HistoryListItem("20160310123", "2016.03.03", "농구", "750", "340", "6500", "4.05", "http://210.127.55.205/exercise_contents/soccer.png");
-        HistoryListItem item3 = new HistoryListItem("20160310123", "2016.03.04", "탁구", "550", "200", "2000", "4", "http://210.127.55.205/exercise_contents/soccer.png");
-        HistoryListItem item4 = new HistoryListItem("20160310123", "2016.03.06", "배구", "250", "1140", "8000", "1.05", "http://210.127.55.205/exercise_contents/soccer.png");
-        HistoryListItem item5 = new HistoryListItem("20160310123", "2016.03.08", "당구", "150", "640", "1000", "5", "http://210.127.55.205/exercise_contents/soccer.png");
+        HistoryListItem item = new HistoryListItem("20160310123", "2016.03.10", "축국",  "240", "6000", "4.05", "http://210.127.55.205/exercise_contents/soccer.png");
+        HistoryListItem item2 = new HistoryListItem("20160310123", "2016.03.03", "농구",  "340", "6500", "4.05", "http://210.127.55.205/exercise_contents/soccer.png");
+        HistoryListItem item3 = new HistoryListItem("20160310123", "2016.03.04", "탁구",  "200", "2000", "4", "http://210.127.55.205/exercise_contents/soccer.png");
+        HistoryListItem item4 = new HistoryListItem("20160310123", "2016.03.06", "배구",  "1140", "8000", "1.05", "http://210.127.55.205/exercise_contents/soccer.png");
+        HistoryListItem item5 = new HistoryListItem("20160310123", "2016.03.08", "당구",  "640", "1000", "5", "http://210.127.55.205/exercise_contents/soccer.png");
 
-        HistoryListItem item6 = new HistoryListItem("20160310123", "2016.03.10", "축국", "50", "240", "6000", "4.05", "http://210.127.55.205/exercise_contents/soccer.png");
-        HistoryListItem item7 = new HistoryListItem("20160310123", "2016.03.03", "농구", "750", "340", "6500", "4.05", "http://210.127.55.205/exercise_contents/soccer.png");
-        HistoryListItem item8 = new HistoryListItem("20160310123", "2016.03.04", "탁구", "550", "200", "2000", "4", "http://210.127.55.205/exercise_contents/soccer.png");
-        HistoryListItem item9 = new HistoryListItem("20160310123", "2016.03.06", "배구", "250", "1140", "8000", "1.05", "http://210.127.55.205/exercise_contents/soccer.png");
-        HistoryListItem item10 = new HistoryListItem("20160310123", "2016.03.08", "당구", "150", "640", "1000", "5", "http://210.127.55.205/exercise_contents/soccer.png");
+        HistoryListItem item6 = new HistoryListItem("20160310123", "2016.03.10", "축국",  "240", "6000", "4.05", "http://210.127.55.205/exercise_contents/soccer.png");
+        HistoryListItem item7 = new HistoryListItem("20160310123", "2016.03.03", "농구",  "340", "6500", "4.05", "http://210.127.55.205/exercise_contents/soccer.png");
+        HistoryListItem item8 = new HistoryListItem("20160310123", "2016.03.04", "탁구",  "200", "2000", "4", "http://210.127.55.205/exercise_contents/soccer.png");
+        HistoryListItem item9 = new HistoryListItem("20160310123", "2016.03.06", "배구",  "1140", "8000", "1.05", "http://210.127.55.205/exercise_contents/soccer.png");
+        HistoryListItem item10 = new HistoryListItem("20160310123", "2016.03.08", "당구", "640", "1000", "5", "http://210.127.55.205/exercise_contents/soccer.png");
 
         mHistoryItems.add(item);
         mHistoryItems.add(item2);
@@ -159,29 +166,36 @@ public class ExerciseHistory extends SherlockActivity {
         try {
             if (array.length() == 0) return;
             for (int i = 0; i < array.length(); i++) {
-                MLog.write(Log.ERROR, this.toString(), "array= i " + array.get(i));
+                MLog.write(Log.ERROR, this.toString(), "array="+ i +", " + array.get(i));
                 JSONObject object = array.getJSONObject(i);  // JSONObject 추출
 
                 HistoryListItem item = new HistoryListItem(
                         object.getString("exerciseId"),
                         object.getString("date"),
                         object.getString("exerciseName"),
-                        object.getString("time"),
                         object.getString("calorie"),
                         object.getString("step"),
                         object.getString("distance"),
                         object.getString("img")
                 );
                 mHistoryItems.add(item);
-                item.toString();
+//                item.toString();
             }
-
+            mHandler.sendEmptyMessage(0);
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
+
+    private Handler mHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+          mRecyclerAdapter.notifyDataSetChanged();
+        }
+    };
 
     public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
         Context context;
@@ -232,7 +246,7 @@ public class ExerciseHistory extends SherlockActivity {
 
 
     private class HistoryListItem {
-        private String id, date, name, time, calorie, step, distance, image;
+        private String id, date, name, calorie, step, distance, image;
 
         @Override
         public String toString() {
@@ -240,7 +254,6 @@ public class ExerciseHistory extends SherlockActivity {
                     "id='" + id + '\'' +
                     ", date='" + date + '\'' +
                     ", name='" + name + '\'' +
-                    ", time='" + time + '\'' +
                     ", calorie='" + calorie + '\'' +
                     ", step='" + step + '\'' +
                     ", distance='" + distance + '\'' +
@@ -248,11 +261,10 @@ public class ExerciseHistory extends SherlockActivity {
                     '}';
         }
 
-        public HistoryListItem(String id, String date, String name, String time, String calorie, String step, String distance, String image) {
+        public HistoryListItem(String id, String date, String name, String calorie, String step, String distance, String image) {
             this.id = id;
             this.date = date;
             this.name = name;
-            this.time = time;
             this.calorie = calorie;
             this.step = step;
             this.distance = distance;

@@ -48,8 +48,8 @@ public class AddInfoActivity extends SherlockActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_info);
 
-        Button btn1 = (Button) findViewById(R.id.add_info_btn1);
-        Button btn2 = (Button) findViewById(R.id.add_info_btn2);
+        ImageButton btn1 = (ImageButton) findViewById(R.id.add_info_btn1);
+        ImageButton btn2 = (ImageButton) findViewById(R.id.add_info_btn2);
         Button btn3 = (Button) findViewById(R.id.add_info_btn3);
 
         btn1.setOnClickListener(this);
@@ -96,18 +96,17 @@ public class AddInfoActivity extends SherlockActivity implements View.OnClickLis
 
         switch (v.getId()) {
             case R.id.add_info_btn1:  //활동량 조회intent = new Intent(AddInfoActivity.this, VideoTest.class);
-                intent = mExerciseIntent ;
-                Answers.getInstance().logContentView(new ContentViewEvent()
-                        .putContentName("활동량 체크")
-                        .putContentId("01040239227"));
-
-                break;
-
-            case R.id.add_info_btn2:    //심리검사
                 intent = new Intent(AddInfoActivity.this, MentalTestListActivity.class);
                 Answers.getInstance().logContentView(new ContentViewEvent()
                         .putContentName("심리검사 시작")
                         .putContentType("Video")
+                        .putContentId("01040239227"));
+                break;
+
+            case R.id.add_info_btn2:    //심리검사
+                intent = mExerciseIntent ;
+                Answers.getInstance().logContentView(new ContentViewEvent()
+                        .putContentName("활동량 체크")
                         .putContentId("01040239227"));
                 break;
 
