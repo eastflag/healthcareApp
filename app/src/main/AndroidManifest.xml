@@ -11,6 +11,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <!-- GCM을 받으려면 구글 계정 필요 -->
@@ -137,11 +138,11 @@
             android:name=".addinfo.mentaltest.VideoTest"
             android:launchMode="singleInstance"
             android:screenOrientation="landscape" />
-        <activity   android:name=".addinfo.mentaltest.MentalTestListActivity" />
-        <activity   android:name=".addinfo.exercise.ExerciseActivity" />
-        <activity   android:name=".addinfo.exercise.ExerciseDetailTabActivity" />
-        <activity   android:name=".addinfo.exercise.ExerciseDetailActivity" />
-        <activity   android:name=".addinfo.exercise.ExerciseHistory" />
+        <activity   android:name=".addinfo.mentaltest.MentalTestListActivity"     android:screenOrientation="portrait" />
+        <activity   android:name=".addinfo.exercise.ExerciseActivity"    android:screenOrientation="portrait"  />
+        <activity   android:name=".addinfo.exercise.ExerciseDetailTabActivity"     android:screenOrientation="portrait" />
+        <activity   android:name=".addinfo.exercise.ExerciseDetailActivity"     android:screenOrientation="portrait" />
+        <activity   android:name=".addinfo.exercise.ExerciseHistory"    android:screenOrientation="portrait" />
 
         <!-- <activity android:name=".VideoSplash_Simli" android:screenOrientation="landscape" android:launchMode="singleInstance"/> -->
 
