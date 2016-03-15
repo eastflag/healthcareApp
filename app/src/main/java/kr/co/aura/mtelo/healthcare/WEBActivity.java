@@ -352,12 +352,19 @@ public class WEBActivity extends SherlockActivity {
 
 		private class myWebViewClient extends WebViewClient 
 	{
-//		   public boolean shouldOverrideUrlLoading(WebView view, String url) { 
-////			   if(progressBar.getVisibility() == View.GONE) progressBar.setVisibility(View.VISIBLE);
-//	            view.loadUrl(url); 
-//	            return true; 
-//	        }
-//		   
+		   public boolean shouldOverrideUrlLoading(WebView view, String url) {
+
+			   // WebView link click or windows open open default browser
+			   if (url != null && url.startsWith("http://")) {
+				   view.getContext().startActivity(
+						   new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+				   return true;
+			   } else {
+				   return false;
+			   }
+
+	        }
+
 		   @Override
 			public void onPageFinished(WebView view, String url) {			}
 		   
