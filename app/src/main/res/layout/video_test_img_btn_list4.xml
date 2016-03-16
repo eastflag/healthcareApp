@@ -4,7 +4,6 @@
     android:id="@+id/btnMode4"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#781f1f"
     android:orientation="vertical">
 
 
@@ -12,7 +11,8 @@
     <ImageView
         android:id="@+id/image_bg"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+/>
 
 
     <LinearLayout
@@ -40,7 +40,8 @@
                     android:id="@+id/example_image1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/imagebtn_bg" />
+                    android:background="@drawable/imagebtn_bg"
+                    />
 
                 <Button
                     android:id="@+id/dubleBtn1"
@@ -64,7 +65,8 @@
                     android:id="@+id/example_image2"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/imagebtn_bg" />
+                    android:background="@drawable/imagebtn_bg"
+                    />
 
                 <Button
                     android:id="@+id/dubleBtn2"
@@ -89,7 +91,8 @@
                     android:id="@+id/example_image3"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/imagebtn_bg" />
+                    android:background="@drawable/imagebtn_bg"
+                    />
 
                 <Button
                     android:id="@+id/dubleBtn3"
@@ -113,7 +116,8 @@
                     android:id="@+id/example_image4"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/imagebtn_bg" />
+                    android:background="@drawable/imagebtn_bg"
+                    />
 
                 <Button
                     android:id="@+id/dubleBtn4"

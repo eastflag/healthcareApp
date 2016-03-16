@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    >
+
+    <Button
+        android:id="@+id/test_list_btn1"
+        android:layout_width="320dp"
+        android:layout_height="100dp"
+        android:contentDescription="결과보기"
+        android:layout_marginTop="20dip"
+        android:text="결과보기"
+
+        />
+
+
+    <Button
+        android:id="@+id/test_list_btn2"
+        android:layout_width="320dp"
+        android:layout_height="100dp"
+
+        android:layout_marginTop="60dip"
+        android:contentDescription="학부모"
+        android:text="학부모"
+        />
+
+    <Button
+        android:id="@+id/test_list_btn3"
+        android:layout_width="320dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="10dip"
+        android:contentDescription="학생"
+        android:text="학생"
+         />
+
+</LinearLayout>
