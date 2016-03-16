@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="/Users/young-kchoi/Documents/workspace/healthcareApp/ARCA_Library/assets"/></dataSet><dataSet config="debug"><source path="/Users/young-kchoi/Documents/workspace/healthcareApp/ARCA_Library/build-types/debug/assets"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="D:\StudioProjects\healthcareApp\ARCA_Library\assets"/></dataSet><dataSet config="debug"><source path="D:\StudioProjects\healthcareApp\ARCA_Library\build-types\debug\assets"/></dataSet></merger>
