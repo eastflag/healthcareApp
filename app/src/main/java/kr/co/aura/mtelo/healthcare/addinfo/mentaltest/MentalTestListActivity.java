@@ -161,10 +161,17 @@ public class MentalTestListActivity extends SherlockActivity implements View.OnC
             mBtn[i].setTag(item);
 //            mBtn[i].setText(item.title);
 
-            if (item.useYN)
-                mBtn[i].setVisibility(View.VISIBLE);
-            else
+            if (item.useYN){
+
+                // 인터넷 중독 Gone 처리
+                if(i != 2){
+                    mBtn[i].setVisibility(View.VISIBLE);
+                }
+            }
+            else {
                 mBtn[i].setVisibility(View.GONE);
+            }
+
         }
     }
 

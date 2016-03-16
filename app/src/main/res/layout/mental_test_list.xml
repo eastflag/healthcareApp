@@ -27,21 +27,22 @@
         />
 
     <ImageButton
-        android:id="@+id/test_list_btn3"
-        android:layout_width="320dp"
-        android:layout_height="100dp"
-        android:background="@drawable/btn_internet"
-        android:layout_marginTop="20dip"
-        android:contentDescription="인터넷중독"
-         />
-
-    <ImageButton
         android:id="@+id/test_list_btn4"
         android:layout_width="320dp"
         android:layout_height="100dp"
         android:background="@drawable/btn_self"
         android:layout_marginTop="20dip"
         android:contentDescription="자아존중감"
+        />
+
+    <ImageButton
+        android:id="@+id/test_list_btn3"
+        android:layout_width="320dp"
+        android:layout_height="100dp"
+        android:background="@drawable/btn_internet"
+        android:layout_marginTop="20dip"
+        android:contentDescription="인터넷중독"
+        android:visibility="gone"
         />
 
 </LinearLayout>
