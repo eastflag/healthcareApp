@@ -2,10 +2,7 @@ package kr.co.aura.mtelo.healthcare.addinfo.mentaltest;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
@@ -23,7 +20,6 @@ import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -62,7 +58,7 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
     private String mSimliId, mIntroType, mIntroImg ,mIntroVideo, mOutroType, mOutroImg, mOutroVideo;
     private ImageView mBG ;
 
-    private boolean isFirstTest = true;
+    private final int REFASH_LAYOUT = 100;
 
     @Override
     public String toString() {
@@ -134,20 +130,20 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
             }
         }
 
-
         //배경화면 이미지
-        Picasso.with(VideoTest.this).load(item.img).into(new Target() {
-            @Override
-            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                mImgLayout.setBackground(new BitmapDrawable(getApplicationContext().getResources(), bitmap));
-                mImgLayout.bringToFront();
-            }
-
-            @Override
-            public void onBitmapFailed(Drawable errorDrawable) {}
-            @Override
-            public void onPrepareLoad(Drawable placeHolderDrawable) {}
-        });
+        Picasso.with(VideoTest.this).load(item.img).fit().into(mBG);
+//        Picasso.with(VideoTest.this).load(item.img).into(new Target() {
+//            @Override
+//            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+//                mImgLayout.setBackground(new BitmapDrawable(getApplicationContext().getResources(), bitmap));
+//                mImgLayout.bringToFront();
+//            }
+//
+//            @Override
+//            public void onBitmapFailed(Drawable errorDrawable) {}
+//            @Override
+//            public void onPrepareLoad(Drawable placeHolderDrawable) {}
+//        });
 
     }
 
@@ -220,7 +216,7 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
             e.printStackTrace();
         }finally {
 //            UI는 통신스레드에서 손댈수 없으니 핸들러를 이용해서 UI를 변경한다
-            mHandler.sendEmptyMessage(0);
+            mHandler.sendEmptyMessage(REFASH_LAYOUT);
         }
     }
 
@@ -229,7 +225,6 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-
             BtnLayuoutInit(mTestList.get(0).answers.size());
         }
     };
@@ -239,6 +234,7 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
         mImgLayout.removeAllViews();
         mImgLayout.addView(layout);
 
+        mBG= (ImageView) layout.findViewById(R.id.image_bg);
         if (count >= 2) {
             mImgBtn1 = (ImageView) layout.findViewById(R.id.example_image1);
             mImgBtn2 = (ImageView) layout.findViewById(R.id.example_image2);
@@ -356,7 +352,7 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
                 Log.e("$$", "@@@@@@ 버튼 더들클릭 " + mTestList.size());
 
 
-                //문재리스트 초기화
+                //문재리스트에서 현재 문제의 동영상 플레이
                 TestList item = mTestList.get(0);
 
                 switch (v.getId()) {
@@ -384,12 +380,6 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
 
                 preTestItemDelete();   //선택한 문재를 삭제
 
-                if (mTestList.size() != 0) {
-                    BtnLayuoutInit(mTestList.get(0).answers.size());
-                } else {
-                    //  문제리스트가 0개면 결과창으로
-                    Toast.makeText(VideoTest.this, "결과창으로 간다", Toast.LENGTH_SHORT).show();
-                }
 
             }
 
@@ -445,6 +435,16 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
 
     @Override
     public void onPrepared(final MediaPlayer mp) {
+        //문제 레이아웃을 표시한다
+        if (mTestList.size() != 0) {
+            mHandler.sendEmptyMessage(REFASH_LAYOUT);
+        } else {
+            //  문제리스트가 0개면 결과창으로
+            Toast.makeText(VideoTest.this, "결과창으로 이동", Toast.LENGTH_SHORT).show();
+        }
+
+
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             mVideoView.setSystemUiVisibility(VideoView.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
         }
@@ -462,6 +462,17 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
 
     @Override
     public void onCompletion(MediaPlayer mp) {
+
+        //문제를 풀고 결과값을 넘겨준다
+        if(mTestList.size() == 0 ) {
+            Intent intent = new Intent(VideoTest.this, VideoTestResult.class);
+            intent.putStringArrayListExtra("answer", mAnswer);
+            startActivity(intent);
+            finish();
+        }
+
+        reserCheckButton();
+
         mImgLayout.setVisibility(View.VISIBLE);
         mImgLayout.bringToFront();
         mVideoView.setVisibility(View.GONE);
@@ -472,14 +483,6 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
         }
 
 
-        reserCheckButton();
-
-        //문제를 풀고 결과값을 넘겨준다
-        if(mTestList.size() == 0 ) {
-            Intent intent = new Intent(VideoTest.this, VideoTestResult.class);
-            intent.putStringArrayListExtra("answer", mAnswer);
-            startActivity(intent);
-        }
     }
 
     @Override
