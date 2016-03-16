@@ -124,6 +124,7 @@ public class WEBActivity extends SherlockActivity {
 			web.getSettings().setAppCacheEnabled(true);
 		}
 
+
 		// http://10.10.106.79:8080/HealthCare/
 		// "http://210.127.55.205:82/HealthCare/front-views/view?p=food&userId=408&ver=1.1.9"
 		web.loadUrl(mURL);
