@@ -34,6 +34,8 @@ public class VideoTestResult extends SherlockActivity {
 
 
         StringBuilder sb = new StringBuilder();
+        sb.append("문제들이 답은 다음과 같다");
+
         for (int i=0 ; i < answerList.size() ; i++){
             Log.e("!!!!!!" , "!!!!!! answer "+ i +", " + answerList.get(i));
             sb.append( i+ "번 답 " + answerList.get(i) +"\n");

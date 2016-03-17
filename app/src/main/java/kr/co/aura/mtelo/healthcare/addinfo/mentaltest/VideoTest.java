@@ -90,7 +90,6 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
         mOutroVideo  = in.getStringExtra("outroVideo");
 
 
-
         Log.e("###", "######" + toString());
 
 

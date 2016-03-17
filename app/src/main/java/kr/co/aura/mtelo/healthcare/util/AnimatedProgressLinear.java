@@ -2,6 +2,7 @@ package kr.co.aura.mtelo.healthcare.util;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.media.Image;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.util.AttributeSet;
@@ -13,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import io.fabric.sdk.android.services.concurrency.Task;
 import kr.co.aura.mtelo.healthcare.R;
 
 /**
@@ -30,6 +32,8 @@ public class AnimatedProgressLinear extends LinearLayout {
     private TextView mSubText, mMainText;
     private Context mContext;
     private int Xvalue = 500;
+    private final int DEFAULT_XVALUE = 500;
+    private CheckTypesTask mTask;
 
     public AnimatedProgressLinear(Context context) {
         super(context);
@@ -88,6 +92,12 @@ public class AnimatedProgressLinear extends LinearLayout {
         addView(view);  // 불러온 뷰를 실제로 삽입한다
     }
 
+    public void aniReset(){
+        setXValue(DEFAULT_XVALUE);
+
+        if(mTask != null )
+            mTask.cancel(false);
+    }
 
     public void setMode(int mode){
         mMode = mode;
@@ -103,32 +113,35 @@ public class AnimatedProgressLinear extends LinearLayout {
     public void setMainMessage(String str ){
         mMainText.setText(str);
     }
-
     public void setSubMessage(String str){
         mSubText.setText(str);
     }
-
-
     public void setAveProgressbar (int sec_pro){
-        mProgressBar.setSecondaryProgress( sec_pro);
+        mProgressBar.setSecondaryProgress(sec_pro);
     }
 
 
-
+    public ImageView getAniImage(){
+        return  mAniImage;
+    }
     public void startImgAnim(){
         //단위는 필셀
         TranslateAnimation anim = new TranslateAnimation
-                (0,   // fromXDelta
+                        (0,   // fromXDelta
                         Xvalue,  // toXDelta
                         0,    // fromYDelta
                         0);// toYDelta
         anim.setDuration(2000);
         anim.setFillAfter(true);
 
-        mAniImage.setAnimation(anim);
+        mAniImage.startAnimation(anim);
 
-        CheckTypesTask task = new CheckTypesTask();
-        task.execute();
+        if(mTask != null )
+            mTask.cancel(false);
+
+
+        mTask = new CheckTypesTask();
+        mTask.execute();
     }
 
 
