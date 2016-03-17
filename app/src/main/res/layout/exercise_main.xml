@@ -48,8 +48,9 @@
         android:layout_width="match_parent"
         android:layout_height="0dip"
         android:layout_weight="3"
-        android:padding="10dip"
-        >
+        android:padding="4dip"
+        android:orientation="horizontal"
+        android:weightSum="10">
 
         <!--왼쪽 이미지-->
         <LinearLayout
@@ -73,8 +74,8 @@
 
             <ImageView
                 android:id="@+id/exercise_left_img"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
                 android:src="@drawable/pic_football"
                 android:padding="10dip"/>
         </LinearLayout>
@@ -94,7 +95,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:background="#6d779b"
+                android:background="#6D779B"
                 android:padding="5dip"
                 >
 
@@ -219,7 +220,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="0dip"
                         android:layout_weight="1"
-                        android:text="페형" />
+                        android:text="체형" />
 
                     <TextView
                         android:id="@+id/exercise_right_txt_4"
@@ -245,16 +246,19 @@
         android:layout_width="match_parent"
         android:layout_height="0dip"
         android:layout_weight="3"
-        >
+        android:weightSum="10"
+        android:orientation="horizontal"
+        android:padding="4dp">
+
         <!--하단 왼쪽-->
         <LinearLayout
             android:layout_width="0dip"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight="5.5"
             android:orientation="vertical"
             android:padding="10dip"
 
-            android:layout_margin="5dip"
+            android:layout_marginRight="5dip"
             android:background="@drawable/stroke_bg"
             android:gravity="center"
             >
@@ -308,6 +312,7 @@
                 android:layout_height="60dip"
                 android:orientation="vertical"
                 >
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -396,18 +401,15 @@
         <LinearLayout
             android:layout_width="0dip"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:layout_margin="10dip"
-            >
+            android:layout_weight="4.5"
+            android:orientation="vertical">
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="180dp"
+                android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="10dip"
                 android:background="@drawable/stroke_bg"
                 android:gravity="center"
-                >
+                android:padding="10dip">
                 <TextView
                     android:id="@+id/exercise_average_text"
                     android:layout_width="match_parent"
@@ -452,22 +454,19 @@
                     android:contentDescription="상세보기버튼"
                     android:textColor="@color/white"
                     android:background="@drawable/btn_detail"
-                    />
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="10dp" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="10dip"
-                >
-
-            <ImageButton
-                android:id="@+id/btn_exercise_history"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:contentDescription="히스토리 버튼"
-                android:background="@drawable/btn_history"
-                android:layout_margin="10dip"
-                />
+                android:layout_height="wrap_content">
+                <ImageButton
+                    android:id="@+id/btn_exercise_history"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:contentDescription="히스토리 버튼"
+                    android:background="@drawable/btn_history"
+                    android:layout_marginTop="10dp" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
