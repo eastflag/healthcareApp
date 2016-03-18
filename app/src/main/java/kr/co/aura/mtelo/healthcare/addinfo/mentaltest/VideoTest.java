@@ -95,9 +95,11 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
         getMenetalTestList(mSimliId);
 
         if(mIntroType.toLowerCase().equals("video")){
+            //동영상일떄
             videoInit();
             VideoPlay(mIntroVideo);
         }else{
+            //이미지일떄
             Picasso.with(getApplicationContext()).load(mIntroImg).into(mBG);
         }
 
@@ -209,8 +211,9 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
         } catch (JSONException e) {
             e.printStackTrace();
         }finally {
+            //변경
 //            UI는 통신스레드에서 손댈수 없으니 핸들러를 이용해서 UI를 변경한다
-            mHandler.sendEmptyMessage(REFASH_LAYOUT);
+//            mHandler.sendEmptyMessage(REFASH_LAYOUT);
         }
     }
 
@@ -219,7 +222,10 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
+
             BtnLayuoutInit(mTestList.get(0).answers.size());
+            VideoPlay(mTestList.get(0).video);
+
         }
     };
 
@@ -275,6 +281,7 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
 
 
     private void VideoPlay(String url){
+        Log.e("!!!!!!!!" , "!!!!! VideoPlay "+ url );
         mImgLayout.setVisibility(View.GONE);
         mVideoView.setVisibility(View.VISIBLE);
         if(mVideoView != null){
@@ -338,70 +345,66 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
 
 
     //16.02.01 더블버튼 체크로직
-    private void checkChkButton(View v){
+    private void checkChkButton(View v) {
 
+        double id = 0;
         if (v.getTag() != null) {
-            double id = (Integer) v.getTag();
-            if (id == R.drawable.dublebtn_bg_click) {
-                Log.e("$$", "@@@@@@ 버튼 더들클릭 " + mTestList.size());
+            id = (Integer) v.getTag();
+        }
 
+        if (id == R.drawable.dublebtn_bg_click) {
+            Log.e("$$", "@@@@@@ 버튼 더들클릭 " + mTestList.size());
 
-                //문재리스트에서 현재 문제의 동영상 플레이
-                TestList item = mTestList.get(0);
+            preTestItemDelete();   //선택한 문재를 삭제
 
-                switch (v.getId()) {
-                    case R.id.dubleBtn1:
-                        VideoPlay(item.answers.get(0).video);
-                        mAnswer.add(item.answers.get(0).answerId);
-                        break;
-
-                    case R.id.dubleBtn2:
-                        VideoPlay(item.answers.get(1).video);
-                        mAnswer.add(item.answers.get(1).answerId);
-                        break;
-
-                    case R.id.dubleBtn3:
-                        VideoPlay(item.answers.get(2).video);
-                        mAnswer.add(item.answers.get(2).answerId);
-                        break;
-
-                    case R.id.dubleBtn4:
-                        VideoPlay(item.answers.get(3).video);
-                        mAnswer.add(item.answers.get(3).answerId);
-                        break;
-
+            if (mTestList.size() != 0) {
+                mHandler.sendEmptyMessage(REFASH_LAYOUT);  // 다음문제로 이동
+            }else{
+                //문제를 풀고 결과값을 넘겨준다
+                    Intent intent = new Intent(VideoTest.this, VideoTestResultList.class);
+                    intent.putStringArrayListExtra("answer", mAnswer);
+                    intent.putExtra("simliId", mSimliId);
+                    startActivity(intent);
+                    finish();
                 }
-
-                preTestItemDelete();   //선택한 문재를 삭제
-            }
-
-            //체크버튼의 상태를 리셋한다
-            reserCheckButton();
+        }
 
 
+        if (mTestList.size() != 0) {
+            reserCheckButton();    //체크버튼의 상태를 리셋한다
+            TestList item = mTestList.get(0);  //문재리스트에서 현재 문제의 동영상 플레이
+            Log.e("!!!!!", "!!!!! TestItem size " + mTestList.size() + ", item = " + item.toString());
             switch (v.getId()) {
                 case R.id.example_image1:
                 case R.id.dubleBtn1:
                     mCheckBtn1.setBackgroundResource(R.drawable.dublebtn_bg_click);
                     mCheckBtn1.setTag(R.drawable.dublebtn_bg_click);
+                    VideoPlay(item.answers.get(0).video);
+                    mAnswer.add(item.answers.get(0).answerId);
                     break;
 
                 case R.id.example_image2:
                 case R.id.dubleBtn2:
                     mCheckBtn2.setBackgroundResource(R.drawable.dublebtn_bg_click);
                     mCheckBtn2.setTag(R.drawable.dublebtn_bg_click);
+                    VideoPlay(item.answers.get(1).video);
+                    mAnswer.add(item.answers.get(1).answerId);
                     break;
 
                 case R.id.example_image3:
                 case R.id.dubleBtn3:
                     mCheckBtn3.setBackgroundResource(R.drawable.dublebtn_bg_click);
                     mCheckBtn3.setTag(R.drawable.dublebtn_bg_click);
+                    VideoPlay(item.answers.get(2).video);
+                    mAnswer.add(item.answers.get(2).answerId);
                     break;
 
                 case R.id.example_image4:
                 case R.id.dubleBtn4:
                     mCheckBtn4.setBackgroundResource(R.drawable.dublebtn_bg_click);
                     mCheckBtn4.setTag(R.drawable.dublebtn_bg_click);
+                    VideoPlay(item.answers.get(3).video);
+                    mAnswer.add(item.answers.get(3).answerId);
                     break;
             }
         }
@@ -427,10 +430,9 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
 
     @Override
     public void onPrepared(final MediaPlayer mp) {
-
         //문제 레이아웃을 표시한다
         if (mTestList.size() != 0) {
-            mHandler.sendEmptyMessage(REFASH_LAYOUT);
+//            mHandler.sendEmptyMessage(REFASH_LAYOUT);
         } else {
             //  문제리스트가 0개면 결과창으로
             Toast.makeText(VideoTest.this, "결과창으로 이동", Toast.LENGTH_SHORT).show();
@@ -456,16 +458,12 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
     @Override
     public void onCompletion(MediaPlayer mp) {
 
-        //문제를 풀고 결과값을 넘겨준다
-        if(mTestList.size() == 0 ) {
-            Intent intent = new Intent(VideoTest.this, VideoTestResultList.class);
-            intent.putStringArrayListExtra("answer", mAnswer);
-            intent.putExtra("simliId", mSimliId);
-            startActivity(intent);
-            finish();
+        //인트로후 1회만 동작하도록 한다
+        if(mNowMode == MODE_QUESTION){
+            mHandler.sendEmptyMessage(REFASH_LAYOUT);
+            mNowMode = MODE_ANSWER;
         }
 
-        reserCheckButton();
 
         mImgLayout.setVisibility(View.VISIBLE);
         mImgLayout.bringToFront();

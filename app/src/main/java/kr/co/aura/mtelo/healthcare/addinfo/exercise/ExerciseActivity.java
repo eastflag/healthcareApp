@@ -80,7 +80,7 @@ public class ExerciseActivity extends SherlockActivity  implements  View.OnClick
 
         //운동이미지
         mExerciseImg = (ImageView) findViewById(R.id.exercise_left_img);
-        Picasso.with(this).load(mImg).into(mExerciseImg);
+        Picasso.with(ExerciseActivity.this).load(mImg).into(mExerciseImg);
 
         //기본운동정보
         mExerciseCalorie = (TextView) findViewById(R.id.exercise_right_txt_1);  //칼로리
