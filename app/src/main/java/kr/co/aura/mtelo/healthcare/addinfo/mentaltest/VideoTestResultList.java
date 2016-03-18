@@ -1,7 +1,5 @@
 package kr.co.aura.mtelo.healthcare.addinfo.mentaltest;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -46,28 +44,8 @@ public class VideoTestResultList extends SherlockActivity implements  View.OnCli
         imgBtn.setOnClickListener(this);
         imgBtn2.setOnClickListener(this);
 
-
-
-
-        StringBuilder sb = new StringBuilder();
-        sb.append("문제들이 답은 다음과 같다");
-
-        for (int i=0 ; i < answerList.size() ; i++){
-            Log.e("!!!!!!" , "!!!!!! answer "+ i +", " + answerList.get(i));
-            sb.append( i+ "번 답 " + answerList.get(i) +"\n");
-        }
-
-        AlertDialog.Builder dialog = new AlertDialog.Builder(VideoTestResultList.this);
-        dialog.setMessage(sb);
-        dialog.setPositiveButton("확인", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-        dialog.create().show();
-
     }
+
 
     private void init_ACtionBar() {
         ActionBar mActionBar;

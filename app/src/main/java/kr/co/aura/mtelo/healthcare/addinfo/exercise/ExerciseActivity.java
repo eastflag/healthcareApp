@@ -1,5 +1,7 @@
 package kr.co.aura.mtelo.healthcare.addinfo.exercise;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -35,7 +37,6 @@ public class ExerciseActivity extends SherlockActivity  implements  View.OnClick
         Intent intent = getIntent();
 
         init_ACtionBar();
-
         intiLayout(intent);  // 사용중지
 
         Log.e("!!!!", "!!!!! intent\n " + intent.getExtras());
@@ -48,8 +49,6 @@ public class ExerciseActivity extends SherlockActivity  implements  View.OnClick
 
 
     }
-
-
 
     private void intiLayout(Intent intent) {
         mDate        = intent.getStringExtra("date"); //운동날짜
@@ -68,74 +67,92 @@ public class ExerciseActivity extends SherlockActivity  implements  View.OnClick
         mAverage     = intent.getStringExtra("average"); //평군 운동량
         mAverageMax  = intent.getStringExtra("averageMax"); //평군 운동량 맥스
 
-        // 날짜
-        mExerciseDate = (TextView) findViewById(R.id.exercise_date_txt);
-        mExerciseDate.setText(mDate);
+
+        if (mImg != null && mName != null && mDate != null) {  //정보가 있을경우 - 정상실행
 
 
-        //운동종목
-        mExerciseName = (TextView) findViewById(R.id.exercise_left_top_txt);
-        mExerciseName.setText(mName);
+            // 날짜
+            mExerciseDate = (TextView) findViewById(R.id.exercise_date_txt);
+            mExerciseDate.setText(mDate);
 
 
-        //운동이미지
-        mExerciseImg = (ImageView) findViewById(R.id.exercise_left_img);
-        Picasso.with(ExerciseActivity.this).load(mImg).into(mExerciseImg);
-
-        //기본운동정보
-        mExerciseCalorie = (TextView) findViewById(R.id.exercise_right_txt_1);  //칼로리
-        mExerciseCalorie.setText(mCalorie +" Kcal");
-
-        mExerciseStep = (TextView) findViewById(R.id.exercise_right_txt_2);     //걸음수
-        mExerciseStep.setText(mStep+" 보");
-
-        mExerciseDistance = (TextView) findViewById(R.id.exercise_right_txt_3);  //이동거리
-        mExerciseDistance.setText(mDistance +" km");
-
-        mExerciseBodyType = (TextView) findViewById(R.id.exercise_right_txt_4);  //체형
-        mExerciseBodyType.setText(mBodyType);
+            //운동종목
+            mExerciseName = (TextView) findViewById(R.id.exercise_left_top_txt);
+            mExerciseName.setText(mName);
 
 
+            //운동이미지
+            mExerciseImg = (ImageView) findViewById(R.id.exercise_left_img);
+            Picasso.with(ExerciseActivity.this).load(mImg).fit().into(mExerciseImg);
 
-        //등수
-        mExerciseClass = (TextView) findViewById(R.id.exercise_class_number);    //반 등수
-        mExerciseClass.setText(mClass);
+            //기본운동정보
+            mExerciseCalorie = (TextView) findViewById(R.id.exercise_right_txt_1);  //칼로리
+            mExerciseCalorie.setText(mCalorie + " Kcal");
 
-        mExerciseGrade = (TextView) findViewById(R.id.exercise_student_number);    // 학년등수
-        mExerciseGrade.setText(mGrade);
+            mExerciseStep = (TextView) findViewById(R.id.exercise_right_txt_2);     //걸음수
+            mExerciseStep.setText(mStep + " 보");
 
-        mExercicesEntries = (TextView) findViewById(R.id.exercise_entries_number); //종목등수
-        mExercicesEntries.setText(mExetices);
+            mExerciseDistance = (TextView) findViewById(R.id.exercise_right_txt_3);  //이동거리
+            mExerciseDistance.setText(mDistance + " km");
 
-
-        //칼로리 계산
-        mExerciseUser  = (TextView) findViewById(R.id.exercise_average_text);   //사용자 운동량
-        mExerciseUser.setText(mBodyType +" - "+mCalorie + " Kcal"); // 바디타임과 사용자의 운동량을 추가한다
+            mExerciseBodyType = (TextView) findViewById(R.id.exercise_right_txt_4);  //체형
+            mExerciseBodyType.setText(mBodyType);
 
 
-        //평균운동량 계산
-        int user = Integer.parseInt(mCalorie);
-        int aver = Integer.parseInt(mAverage);
-        int result = aver - user;
+            //등수
+            mExerciseClass = (TextView) findViewById(R.id.exercise_class_number);    //반 등수
+            mExerciseClass.setText(mClass);
 
-        mExerciseAverage = (TextView) findViewById(R.id.exercise_average_sub_text);   //평균 운동량
-        mExerciseAverage.setText(result +" Kcal" );
+            mExerciseGrade = (TextView) findViewById(R.id.exercise_student_number);    // 학년등수
+            mExerciseGrade.setText(mGrade);
 
-        mExerciseAverImg = (ImageView) findViewById(R.id.exercise_average_sub_img);
-        if(user > aver){
-            mExerciseAverImg.setBackgroundResource(R.drawable.arrow_up
-            );
-        }else{
-            mExerciseAverImg.setBackgroundResource(R.drawable.arrow_down);  //up이미지가 필요하다
+            mExercicesEntries = (TextView) findViewById(R.id.exercise_entries_number); //종목등수
+            mExercicesEntries.setText(mExetices);
+
+
+            //칼로리 계산
+            mExerciseUser = (TextView) findViewById(R.id.exercise_average_text);   //사용자 운동량
+            mExerciseUser.setText(mBodyType + " - " + mCalorie + " Kcal"); // 바디타임과 사용자의 운동량을 추가한다
+
+
+            //평균운동량 계산
+            int user = Integer.parseInt(mCalorie);
+            int aver = Integer.parseInt(mAverage);
+            int result = aver - user;
+
+            mExerciseAverage = (TextView) findViewById(R.id.exercise_average_sub_text);   //평균 운동량
+            mExerciseAverage.setText(result + " Kcal");
+
+            mExerciseAverImg = (ImageView) findViewById(R.id.exercise_average_sub_img);
+            if (user > aver) {
+                mExerciseAverImg.setBackgroundResource(R.drawable.arrow_up
+                );
+            } else {
+                mExerciseAverImg.setBackgroundResource(R.drawable.arrow_down);  //up이미지가 필요하다
+            }
+
+
+            //프로그래스바
+            mProgressBar = (ProgressBar) findViewById(R.id.exercise_average_prog);
+            mProgressBar.setMax(Integer.parseInt(mAverageMax));
+            mProgressBar.setProgress(user);
+            mProgressBar.setSecondaryProgress(aver);
+
+        } else { //정보가 없을경우 - 팝업팡 표시
+
+            AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+            dialog.setMessage("정보가 잘못되었습니다 ");
+            dialog.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                    finish();
+                }
+            });
+            dialog.create().show();
         }
 
 
-
-        //프로그래스바
-        mProgressBar = (ProgressBar) findViewById(R.id.exercise_average_prog);
-        mProgressBar.setMax(Integer.parseInt(mAverageMax) );
-        mProgressBar.setProgress(user);
-        mProgressBar.setSecondaryProgress(aver);
 
     }
 

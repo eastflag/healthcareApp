@@ -124,11 +124,7 @@ public class AddInfoActivity extends SherlockActivity implements View.OnClickLis
 
     private void getDate(){
         //학교 정보 추출
-//        String url = Define.getNetUrl() + Define.MENTAL_LIST+"?" +JSONNetWork.KEY_USER_ID+ "=123";;
-        String url = "http://210.127.55.205:82/HealthCare/simli/type_list?userId=123";
-        Log.e("LDK", "############# url: " + url);
-
-        JSONNetWork_Manager.request_Get_Exercise_Info("123", "", this, new NetWork.Call_Back() {
+        JSONNetWork_Manager.request_Get_Exercise_Info("7001", "", this, new NetWork.Call_Back() {
             @Override
             public void onError(String error) {
             }
