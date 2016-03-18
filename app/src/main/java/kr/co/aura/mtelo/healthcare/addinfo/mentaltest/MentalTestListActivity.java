@@ -31,14 +31,20 @@ public class MentalTestListActivity extends SherlockActivity implements View.OnC
 
     private ImageButton mBtn[] = new ImageButton[4];
     private ArrayList<MentalListItem> mListItem = new ArrayList<MentalListItem>();
+    private String mUserId;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.mental_test_list);
+
+        Intent intent = getIntent();
+        mUserId = intent.getStringExtra("userId");
+
+
         init_ACtionBar();
-        getDate();
+        getDate(mUserId);
 
 
         mBtn[0] = (ImageButton) findViewById(R.id.test_list_btn1);
@@ -78,13 +84,9 @@ public class MentalTestListActivity extends SherlockActivity implements View.OnC
             }
         });
     }
-      private void getDate(){
+      private void getDate(String userId){
         //학교 정보 추출
-//        String url = Define.getNetUrl() + Define.MENTAL_LIST+"?" +JSONNetWork.KEY_USER_ID+ "=123";;
-        String url = "http://210.127.55.205:82/HealthCare/simli/type_list?userId=123";
-        Log.e("LDK", "############# url: " + url);
-
-        JSONNetWork_Manager.request_Get_Mental_Info("123", this, new NetWork.Call_Back() {
+        JSONNetWork_Manager.request_Get_Mental_Info( userId , this, new NetWork.Call_Back() {
             @Override
             public void onError(String error) {}
 
@@ -187,6 +189,7 @@ public class MentalTestListActivity extends SherlockActivity implements View.OnC
         intent.putExtra("outroType" ,    item.outroType);
         intent.putExtra("outroImg" ,    item.outroImg);
         intent.putExtra("outroVideo" ,  item.outroVideo);
+        intent.putExtra("userId", mUserId);
 
 
 

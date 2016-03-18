@@ -36,6 +36,7 @@ public class AddInfoActivity extends SherlockActivity implements View.OnClickLis
 
     private Context mCon = this;
     private Intent mExerciseIntent ;
+    private String mName , mSex, mUserId;
 
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -55,6 +56,12 @@ public class AddInfoActivity extends SherlockActivity implements View.OnClickLis
         btn1.setOnClickListener(this);
         btn2.setOnClickListener(this);
         btn3.setOnClickListener(this);
+
+        Intent intent = getIntent();
+        mSex    = intent.getStringExtra("sex");
+        mUserId = intent.getStringExtra("userId");
+        mName   = intent.getStringExtra("name");
+
 
         init_ACtionBar();
 
@@ -115,6 +122,7 @@ public class AddInfoActivity extends SherlockActivity implements View.OnClickLis
         }
 
         if (intent != null) {
+            intent.putExtra("userId", mUserId); //userId
             startActivity(intent);
             finish();
         }
@@ -124,7 +132,7 @@ public class AddInfoActivity extends SherlockActivity implements View.OnClickLis
 
     private void getDate(){
         //학교 정보 추출
-        JSONNetWork_Manager.request_Get_Exercise_Info("7001", "", this, new NetWork.Call_Back() {
+        JSONNetWork_Manager.request_Get_Exercise_Info(mUserId, "", this, new NetWork.Call_Back() {
             @Override
             public void onError(String error) {
             }
@@ -163,7 +171,6 @@ public class AddInfoActivity extends SherlockActivity implements View.OnClickLis
 
            MLog.write(Log.ERROR, this.toString(), "array= i " + array.get(0));
            JSONObject object = array.getJSONObject(0);  // JSONObject 추출
-
 
            mExerciseIntent.putExtra("date", object.getString("exerciseDate")); //운동날짜
            mExerciseIntent.putExtra("name", object.getString("exerciseName")); // 이름

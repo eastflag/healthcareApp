@@ -35,7 +35,7 @@ public class VideoTestResultList extends SherlockActivity implements  View.OnCli
         Intent intent = getIntent();
         ArrayList<String> answerList =  intent.getStringArrayListExtra("answer");
         mSimliId = intent.getStringExtra("simliId");   //심리ID
-        mUserId  = new CPreferences(VideoTestResultList.this).getNowPosition();
+        mUserId  = intent.getStringExtra("userId");   //유저ID
 
         Log.e("!!!!!!!! " , "!!!!!! video_testreuslt_list  simliId "+ mSimliId);;
 

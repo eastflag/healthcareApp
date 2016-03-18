@@ -45,7 +45,7 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
     private ArrayList<TestList> mTestList = new ArrayList<TestList>();
     private ArrayList<String> mAnswer = new ArrayList<String>();
 
-    private String mSimliId, mIntroType, mIntroImg ,mIntroVideo, mOutroType, mOutroImg, mOutroVideo;
+    private String mSimliId, mIntroType, mIntroImg ,mIntroVideo, mOutroType, mOutroImg, mOutroVideo, mUserId;
     private ImageView mBG ;
 
     private final int REFASH_LAYOUT = 100;
@@ -83,6 +83,7 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
         mOutroType   = in.getStringExtra("outroType");
         mOutroImg    = in.getStringExtra("outroImg");
         mOutroVideo  = in.getStringExtra("outroVideo");
+        mUserId      = in.getStringExtra("userId");
 
 
         Log.e("###", "######" + toString());
@@ -364,6 +365,7 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
                     Intent intent = new Intent(VideoTest.this, VideoTestResultList.class);
                     intent.putStringArrayListExtra("answer", mAnswer);
                     intent.putExtra("simliId", mSimliId);
+                    intent.putExtra("userId", mUserId);
                     startActivity(intent);
                     finish();
                 }

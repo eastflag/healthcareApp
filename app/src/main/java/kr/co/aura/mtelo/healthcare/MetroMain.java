@@ -970,7 +970,7 @@ public class MetroMain extends SherlockActivity implements OnClickListener{
 	
 	
 	//URL 주소의 끝에 userID를 달아둔다
-	public String getUserId() {
+	private String getUserId() {
 		return "&userId="+mUserId;
 	}
 
