@@ -104,6 +104,8 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
             Picasso.with(getApplicationContext()).load(mIntroImg).into(mBG);
         }
 
+        Picasso.with(getApplicationContext()).setLoggingEnabled(false);
+
 
     }
 
@@ -282,12 +284,27 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
 
 
     private void VideoPlay(String url){
-        Log.e("!!!!!!!!" , "!!!!! VideoPlay "+ url );
-        mImgLayout.setVisibility(View.GONE);
-        mVideoView.setVisibility(View.VISIBLE);
-        if(mVideoView != null){
-            mVideoView.bringToFront();
-            mVideoView.setVideoURI(Uri.parse(url));
+        if(url == null) return;
+
+        try {
+            Log.e("!!!!!!!!", "!!!!! VideoPlay " + url);
+            mImgLayout.setVisibility(View.GONE);
+            mVideoView.setVisibility(View.VISIBLE);
+            if (mVideoView != null) {
+                mVideoView.bringToFront();
+                mVideoView.setVideoURI(Uri.parse(url));
+                mVideoView.setOnErrorListener(new MediaPlayer.OnErrorListener() {
+                    @Override
+                    public boolean onError(MediaPlayer mp, int what, int extra) {
+                        Log.e("!!!!!" , "!!!!!! onError "+ what +", extra "+ extra);
+                        resetVideoView();
+                        return true;
+                    }
+                });
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -457,6 +474,10 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
         }
 
 
+       resetVideoView();
+    }
+
+    private void resetVideoView() {
         mImgLayout.setVisibility(View.VISIBLE);
         mImgLayout.bringToFront();
         mVideoView.setVisibility(View.GONE);
@@ -465,8 +486,6 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             mVideoView.setSystemUiVisibility(VideoView.SYSTEM_UI_FLAG_FULLSCREEN);
         }
-
-
     }
 
     @Override
