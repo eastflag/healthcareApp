@@ -1,39 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/video_result_bg"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:gravity="center_horizontal"
-    >
+    android:orientation="vertical">
 
-    <Button
+    <ImageButton
         android:id="@+id/test_list_btn1"
-        android:layout_width="320dp"
-        android:layout_height="100dp"
-        android:contentDescription="결과보기"
+        android:layout_width="340dp"
+        android:layout_height="110dp"
         android:layout_marginTop="20dip"
-        android:text="결과보기"
+        android:background="@drawable/btn_self"
+        android:contentDescription="검사 아이콘"
 
         />
 
 
-    <Button
-        android:id="@+id/test_list_btn2"
-        android:layout_width="320dp"
-        android:layout_height="100dp"
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/btn_video_test_restlt"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="10dp">
 
-        android:layout_marginTop="60dip"
-        android:contentDescription="학부모"
-        android:text="학부모"
-        />
+        <ScrollView
+            android:id="@+id/video_result_scroll"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical">
 
-    <Button
-        android:id="@+id/test_list_btn3"
-        android:layout_width="320dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="10dip"
-        android:contentDescription="학생"
-        android:text="학생"
-         />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <TextView
+                    android:id="@+id/video_result_text"
+                    style="@style/exercise_text"
+                    android:layout_width="320dp"
+                    android:layout_height="420dp"
+                    android:gravity="left"
+                    android:paddingTop="5dp"
+                    android:paddingLeft="10dp"
+                    />
+            </LinearLayout>
+
+        </ScrollView>
+    </LinearLayout>
 
 </LinearLayout>

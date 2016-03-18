@@ -171,7 +171,6 @@ public class MentalTestListActivity extends SherlockActivity implements View.OnC
             else {
                 mBtn[i].setVisibility(View.GONE);
             }
-
         }
     }
 

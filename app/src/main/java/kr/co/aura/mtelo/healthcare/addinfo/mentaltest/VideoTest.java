@@ -45,20 +45,15 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
     private ArrayList<TestList> mTestList = new ArrayList<TestList>();
     private ArrayList<String> mAnswer = new ArrayList<String>();
 
-    private final String INTRO_VIDEO ="http://210.127.55.205/psychology_contents/sample/an/AN_IN.mp4";
-    private final String OUTRO_VIDEO ="http://210.127.55.205/psychology_contents/sample/an/AN_OUT.mp4";
-    private final String BG_IMAGE ="http://210.127.55.205/psychology_contents/sample/an/AN_E13_01_Q.png";
-    private final String EX1_IMAGE ="http://210.127.55.205/psychology_contents/sample/an/AN_E13_01_A_1.png";
-    private final String EX2_IMAGE ="http://210.127.55.205/psychology_contents/sample/an/AN_E13_01_A_2.png";
-
-    private final String EX1_VIDEO = "http://210.127.55.205/psychology_contents/sample/an/AN_E13_01_1.mp4";
-    private final String EX2_VIDEO = "http://210.127.55.205/psychology_contents/sample/an/AN_E13_01_2.mp4";
-
-
     private String mSimliId, mIntroType, mIntroImg ,mIntroVideo, mOutroType, mOutroImg, mOutroVideo;
     private ImageView mBG ;
 
     private final int REFASH_LAYOUT = 100;
+
+    private final int MODE_QUESTION = 1000;
+    private final int MODE_ANSWER   = 1001;
+    private int mNowMode = MODE_QUESTION;
+
 
     @Override
     public String toString() {
@@ -378,8 +373,6 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
                 }
 
                 preTestItemDelete();   //선택한 문재를 삭제
-
-
             }
 
             //체크버튼의 상태를 리셋한다
@@ -434,6 +427,7 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
 
     @Override
     public void onPrepared(final MediaPlayer mp) {
+
         //문제 레이아웃을 표시한다
         if (mTestList.size() != 0) {
             mHandler.sendEmptyMessage(REFASH_LAYOUT);
@@ -452,7 +446,7 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
         mVideoView.setBackgroundColor(Color.TRANSPARENT);
         mVideoView.setVisibility(View.VISIBLE);
 
-        mp.seekTo(10000);
+//        mp.seekTo(10000);
         mp.start();
 
 
@@ -464,8 +458,9 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
 
         //문제를 풀고 결과값을 넘겨준다
         if(mTestList.size() == 0 ) {
-            Intent intent = new Intent(VideoTest.this, VideoTestResult.class);
+            Intent intent = new Intent(VideoTest.this, VideoTestResultList.class);
             intent.putStringArrayListExtra("answer", mAnswer);
+            intent.putExtra("simliId", mSimliId);
             startActivity(intent);
             finish();
         }

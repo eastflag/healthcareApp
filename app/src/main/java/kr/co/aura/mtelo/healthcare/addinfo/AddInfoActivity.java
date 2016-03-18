@@ -122,12 +122,6 @@ public class AddInfoActivity extends SherlockActivity implements View.OnClickLis
 
 
 
-
-
-
-
-
-
     private void getDate(){
         //학교 정보 추출
 //        String url = Define.getNetUrl() + Define.MENTAL_LIST+"?" +JSONNetWork.KEY_USER_ID+ "=123";;

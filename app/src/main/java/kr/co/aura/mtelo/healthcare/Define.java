@@ -80,6 +80,7 @@ public class Define {
 	public static String TEST_URL ="http://210.127.55.205:82/HealthCare/";
 	public static String MENTAL_LIST ="simli/type_list";
 	public static String MENTAL_TEST_LIST ="simli/qna_list";
+	public static String MENTAL_TEST_RESULT ="simli/simli_review";
 
 	//운동량
 	public static String EXERCISE_INFO ="exercise/main";

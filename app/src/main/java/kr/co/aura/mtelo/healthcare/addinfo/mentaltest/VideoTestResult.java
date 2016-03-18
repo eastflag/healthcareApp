@@ -1,26 +1,42 @@
 package kr.co.aura.mtelo.healthcare.addinfo.mentaltest;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 import kr.co.aura.mtelo.healthcare.R;
+import kr.co.aura.mtelo.healthcare.network.JSONNetWork_Manager;
+import kr.co.aura.mtelo.healthcare.network.NetWork;
 import kr.co.aura.mtelo.healthcare.preferences.CPreferences;
 
 /**
- * Created by young-kchoi on 16. 3. 16..
+ * Created by young-kchoi on 16. 3. 17..
  */
 public class VideoTestResult extends SherlockActivity {
+    private  String mSimliId = null;
+    private String mUserId = null;
+    private ArrayList<ResultList> mResultList = new ArrayList<ResultList>();
+    private final int REFASH_LAYOUT = 100;
+    private LinearLayout mBG;
+    private TextView mResultView;
+    private StringBuilder mResultText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,28 +46,22 @@ public class VideoTestResult extends SherlockActivity {
         init_ACtionBar();
 
         Intent intent = getIntent();
-        ArrayList<String> answerList =  intent.getStringArrayListExtra("answer");
+        mSimliId = intent.getStringExtra("simliId");   //심리ID
+        mUserId  = new CPreferences(VideoTestResult.this).getNowPosition();
+        Log.e("!!!!!!!! " , "!!!!!! video_test_result  simliId "+ mSimliId);;
 
 
-        StringBuilder sb = new StringBuilder();
-        sb.append("문제들이 답은 다음과 같다");
+        mBG = (LinearLayout) findViewById(R.id.video_result_bg);
+        mResultView = (TextView) findViewById(R.id.video_result_text);
+        mResultView.setMovementMethod(new ScrollingMovementMethod());
 
-        for (int i=0 ; i < answerList.size() ; i++){
-            Log.e("!!!!!!" , "!!!!!! answer "+ i +", " + answerList.get(i));
-            sb.append( i+ "번 답 " + answerList.get(i) +"\n");
-        }
-
-        AlertDialog.Builder dialog = new AlertDialog.Builder(VideoTestResult.this);
-        dialog.setMessage(sb);
-        dialog.setPositiveButton("확인", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-        dialog.create().show();
-
+        getResultData("7001", mSimliId);
     }
+
+
+
+
+
 
     private void init_ACtionBar() {
         ActionBar mActionBar;
@@ -61,7 +71,7 @@ public class VideoTestResult extends SherlockActivity {
         mActionBar.setCustomView(R.layout.custom_actionbar);
 
         String str = new CPreferences(this).getUserName();
-        ((TextView) mActionBar.getCustomView().findViewById(R.id.actionbar_center_tx1)).setText(str);        //타이틀
+        ((TextView) mActionBar.getCustomView().findViewById(R.id.actionbar_center_tx1)).setText(str);     //타이틀
 
         String date = new CPreferences(this).getTitleLastDate();
         ((TextView) mActionBar.getCustomView().findViewById(R.id.actionbar_right_tx1)).setText(date);    //날짜
@@ -72,5 +82,163 @@ public class VideoTestResult extends SherlockActivity {
                 finish();
             }
         });
+    }
+
+
+
+
+
+
+//데이터 획득
+    private void getResultData(String userId, String simliid) {
+        JSONNetWork_Manager.request_Get_Simli_Result(userId, simliid, this, new NetWork.Call_Back() {
+            @Override
+            public void onError(String error) {
+            }
+
+            @Override
+            public void onGetResponsData(byte[] data) {
+            }
+
+            @Override
+            public void onGetResponsString(String data) {
+//                Log.e("$$$", "$$$ request_Get_Mental_Info()\n " + data);
+                String Result = null, errMsg = null;
+                JSONObject jsonObject = null;
+
+                try {
+                    if (data != null) {
+                        JSONArray array = new JSONArray(data);
+                        makeTestList(array);
+                    } else {
+                        Toast.makeText(VideoTestResult.this, "다시 시도해주세요.", Toast.LENGTH_LONG).show();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onRoaming(String message) {
+            }
+        });
+    }
+
+    //전체 문항리스트를 획득하여 ArrayList로 만든다
+    private void makeTestList(JSONArray array) {
+
+        try {
+            for (int i = 0; i < array.length(); i++) {
+                JSONObject object = array.getJSONObject(i);
+                ResultList item = new ResultList();
+                item.content = object.getString("content");
+                item.questId = object.getString("questId");
+
+                JSONArray answer = new JSONArray(object.getString("answer"));
+
+                for (int j = 0; j < answer.length(); j++) {
+                    JSONObject answerObject = answer.getJSONObject(j);
+                    ResultListAnswer Answer = new ResultListAnswer();
+                    Answer.answerId = answerObject.getString("answerId");
+                    Answer.content  = answerObject.getString("content");
+                    Answer.setectYN = answerObject.getString("selectYN");
+                    item.answers.add(Answer);
+                }
+                mResultList.add(item);
+
+                Log.e("!!!!!", "###### " + item.toString());
+
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }finally {
+//            UI는 통신스레드에서 손댈수 없으니 핸들러를 이용해서 UI를 변경한다
+            mHandler.sendEmptyMessage(REFASH_LAYOUT);
+        }
+    }
+
+
+
+
+    private Handler mHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            buildBuildText();
+        }
+    };
+
+
+
+    private void buildBuildText(){
+        Log.e("!!!!!", "###### start build text" );
+        mResultText = new StringBuilder();
+
+        for (int i = 0 ; i < mResultList.size() ; i++){
+            ResultList item = mResultList.get(i);
+
+            mResultText.append( (i +1) +".\n");
+            ArrayList<ResultListAnswer> answers =  item.answers;
+
+            for (int j = 0 ; j < answers.size() ; j++){
+                ResultListAnswer answer = answers.get(j);
+
+                if (answer.setectYN.toUpperCase().equals("Y")) {
+                    mResultText.append("■ " + answer.content + "\n");
+                } else {
+                    mResultText.append("□ " + answer.content + "\n");
+                }
+            }
+            mResultText.append("\n\n\n");
+        }
+
+        mResultView.setText(mResultText.toString());
+        Log.e("!!!!!", "###### start build text \n"+ mResultText.toString());
+
+    }
+
+
+    class ResultList {
+        private  String questId , content;
+        private ArrayList<ResultListAnswer> answers = new ArrayList<ResultListAnswer>();
+
+        public ResultList(){}
+
+        public ResultList(String questId, String content, ArrayList<ResultListAnswer> answers) {
+            this.questId = questId;
+            this.content = content;
+            this.answers = answers;
+        }
+
+        @Override
+        public String toString() {
+            return "ResultList{" +
+                    "questId='" + questId + '\'' +
+                    ", content='" + content + '\'' +
+                    ", answers=" + answers +
+                    '}';
+        }
+    }
+
+    class ResultListAnswer{
+        private String answerId , content , setectYN;
+
+        public ResultListAnswer() {}
+
+        @Override
+        public String toString() {
+            return "ResultListAnswer{" +
+                    "answerId='" + answerId + '\'' +
+                    ", content='" + content + '\'' +
+                    ", setectYN='" + setectYN + '\'' +
+                    '}';
+
+        }
+
+        public ResultListAnswer(String answerId, String content, String setectYN) {
+            this.answerId = answerId;
+            this.content = content;
+            this.setectYN = setectYN;
+        }
     }
 }

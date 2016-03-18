@@ -140,8 +140,10 @@
             android:screenOrientation="landscape" />
 
         <activity
+            android:name=".addinfo.mentaltest.VideoTestResultList"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".addinfo.mentaltest.VideoTestResult"
-            android:launchMode="singleInstance"
             android:screenOrientation="portrait" />
 
 
