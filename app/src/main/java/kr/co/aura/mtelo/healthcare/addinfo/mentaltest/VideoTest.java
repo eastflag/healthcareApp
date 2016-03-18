@@ -432,16 +432,6 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
 
     @Override
     public void onPrepared(final MediaPlayer mp) {
-        //문제 레이아웃을 표시한다
-        if (mTestList.size() != 0) {
-//            mHandler.sendEmptyMessage(REFASH_LAYOUT);
-        } else {
-            //  문제리스트가 0개면 결과창으로
-            Toast.makeText(VideoTest.this, "결과창으로 이동", Toast.LENGTH_SHORT).show();
-        }
-
-
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             mVideoView.setSystemUiVisibility(VideoView.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
         }
@@ -494,6 +484,14 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
         if(mVideoView != null &&  mImgLayout.getVisibility() == View.GONE && !mVideoView.isPlaying()){
             mVideoView.resume();
         }
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        Log.e("!!!!" , "!!!!!!! onBackPressed");
     }
 
     private class TestList {

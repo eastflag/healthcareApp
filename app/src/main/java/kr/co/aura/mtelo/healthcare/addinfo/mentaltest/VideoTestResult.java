@@ -8,6 +8,7 @@ import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,11 +33,14 @@ import kr.co.aura.mtelo.healthcare.preferences.CPreferences;
 public class VideoTestResult extends SherlockActivity {
     private  String mSimliId = null;
     private String mUserId = null;
+    private String mMode = null;
     private ArrayList<ResultList> mResultList = new ArrayList<ResultList>();
     private final int REFASH_LAYOUT = 100;
     private LinearLayout mBG;
     private TextView mResultView;
     private StringBuilder mResultText;
+    private ImageView mImageView ;
+    private LinearLayout mLinear;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,19 +51,54 @@ public class VideoTestResult extends SherlockActivity {
 
         Intent intent = getIntent();
         mSimliId = intent.getStringExtra("simliId");   //심리ID
-        mUserId  = new CPreferences(VideoTestResult.this).getNowPosition();
-        Log.e("!!!!!!!! " , "!!!!!! video_test_result  simliId "+ mSimliId);;
+        mUserId  =  intent.getStringExtra("userId");   //유저ID
+        mMode    = intent.getStringExtra("mode");      //부모 자식 모등
+        Log.e("!!!!!!!! " , "!!!!!! VideoTestResult{" +
+            "mMode='" + mMode + '\'' +
+                    ", mUserId='" + mUserId + '\'' +
+                    ", mSimliId='" + mSimliId + '\'' +
+                    '}') ;
 
 
         mBG = (LinearLayout) findViewById(R.id.video_result_bg);
+        mLinear = (LinearLayout) findViewById(R.id.video_result_layout);
+        mImageView = (ImageView) findViewById(R.id.video_result_img);
         mResultView = (TextView) findViewById(R.id.video_result_text);
         mResultView.setMovementMethod(new ScrollingMovementMethod());
 
-        getResultData("7001", mSimliId);
+        if(mSimliId.toUpperCase().startsWith("AN")){ //불안척도
+            setWorryMode();
+        }else if(mSimliId.toUpperCase().startsWith("GL")){ //우울척도
+            setGloomMode();
+        }else if(mSimliId.toUpperCase().startsWith("SE")) { //자아존중감
+            setSelfMode();
+        }
+        getResultData(mUserId, mSimliId);
+
     }
 
 
 
+    //우울척도
+    private void setGloomMode(){
+        mBG.setBackgroundResource(R.color.video_test_result_gloom_bg);
+        mImageView.setBackgroundResource(R.drawable.btn_gloom);
+        mLinear.setBackgroundResource(R.drawable.btn_video_test_restlt_gloom);
+    }
+
+    //불안척도
+    private void setWorryMode(){
+        mBG.setBackgroundResource(R.color.video_test_result_worry_bg);
+        mImageView.setBackgroundResource(R.drawable.btn_worry);
+        mLinear.setBackgroundResource(R.drawable.btn_video_test_restlt_worry);
+    }
+
+    //자아존중감 모드
+    private void setSelfMode(){
+        mBG.setBackgroundResource(R.color.video_test_result_self_bg);
+        mImageView.setBackgroundResource(R.drawable.btn_self);
+        mLinear.setBackgroundResource(R.drawable.btn_video_test_restlt_self);
+    }
 
 
 
