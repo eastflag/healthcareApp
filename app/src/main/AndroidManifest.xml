@@ -148,6 +148,8 @@
 
 
         <activity   android:name=".addinfo.mentaltest.MentalTestListActivity"     android:screenOrientation="portrait" />
+        <activity   android:name=".addinfo.mentaltest.VideoTestSelectView"     android:screenOrientation="portrait" />
+
         <activity   android:name=".addinfo.exercise.ExerciseActivity"    android:screenOrientation="portrait"  />
         <activity   android:name=".addinfo.exercise.ExerciseDetailTabActivity"     android:screenOrientation="portrait" />
         <activity   android:name=".addinfo.exercise.ExerciseDetailActivity"     android:screenOrientation="portrait" />

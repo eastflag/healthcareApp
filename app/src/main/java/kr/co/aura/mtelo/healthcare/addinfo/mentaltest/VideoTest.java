@@ -55,6 +55,8 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
     private final int MODE_ANSWER   = 1001;
     private int mNowMode = MODE_QUESTION;
 
+    private boolean isOutroVideo = false;
+
 
     @Override
     public String toString() {
@@ -76,19 +78,18 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_test);
 
-        Intent in = getIntent();
-        mSimliId     = in.getStringExtra("simliId");
-        mIntroType   = in.getStringExtra("introType");
-        mIntroImg    = in.getStringExtra("introImg");
-        mIntroVideo  = in.getStringExtra("introVideo");
-        mOutroType   = in.getStringExtra("outroType");
-        mOutroImg    = in.getStringExtra("outroImg");
-        mOutroVideo  = in.getStringExtra("outroVideo");
-        mUserId      = in.getStringExtra("userId");
-
+        Intent intent = getIntent();
+        MentalListItem item = (MentalListItem)intent.getSerializableExtra("mentalListItem");
+        mSimliId     = item.getSimliId();
+        mIntroType   = item.getIntroType();
+        mIntroImg    = item.getIntroImg();
+        mIntroVideo  = item.getIntroVideo();
+        mOutroType   = item.getOutroType();
+        mOutroImg    = item.getOutroImg();
+        mOutroVideo  = item.getOutroVideo();
+        mUserId      = intent.getStringExtra("userId");
 
         Log.e("###", "######" + toString());
-
 
         mImgLayout = (LinearLayout)findViewById(R.id.btnLayout);
         //배경이미지
@@ -106,8 +107,6 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
         }
 
         Picasso.with(getApplicationContext()).setLoggingEnabled(false);
-
-
     }
 
 
@@ -229,8 +228,9 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
 
-            BtnLayuoutInit(mTestList.get(0).answers.size());
-            VideoPlay(mTestList.get(0).video);
+            TestList item =  mTestList.get(0);
+            BtnLayuoutInit(item.answers.size());
+            VideoPlay(item.video);
 
         }
     };
@@ -299,11 +299,29 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
                 mVideoView.setOnErrorListener(new MediaPlayer.OnErrorListener() {
                     @Override
                     public boolean onError(MediaPlayer mp, int what, int extra) {
-                        Log.e("!!!!!" , "!!!!!! onError "+ what +", extra "+ extra);
+                        Log.e("!!!!!", "!!!!!! onError " + what + ", extra " + extra);
                         resetVideoView();
                         return true;
                     }
                 });
+
+//                mVideoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+//                    @Override
+//                    public void onCompletion(MediaPlayer mp) {
+//                        Log.e("VideoPlay", "PlayCompete : ================== ");
+//                        mp.stop();
+//
+//                        if(isOutroVideo){
+//                            //문제를 풀고 결과값을 넘겨준다
+//                            Intent intent = new Intent(VideoTest.this, VideoTestResultList.class);
+//                            intent.putStringArrayListExtra("answer", mAnswer);
+//                            intent.putExtra("simliId", mSimliId);
+//                            intent.putExtra("userId", mUserId);
+//                            startActivity(intent);
+//                            finish();
+//                        }
+//                    }
+//                });
             }
 
         } catch (Exception e) {
@@ -386,15 +404,12 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
 
             if (mTestList.size() != 0) {
                 mHandler.sendEmptyMessage(REFASH_LAYOUT);  // 다음문제로 이동
-            }else{
-                //문제를 풀고 결과값을 넘겨준다
-                    Intent intent = new Intent(VideoTest.this, VideoTestResultList.class);
-                    intent.putStringArrayListExtra("answer", mAnswer);
-                    intent.putExtra("simliId", mSimliId);
-                    intent.putExtra("userId", mUserId);
-                    startActivity(intent);
-                    finish();
-                }
+            } else {
+
+                // TODO outro 영상을 display 한다.
+                isOutroVideo = true;
+                VideoPlay(mOutroVideo);
+            }
         }
 
 
@@ -495,8 +510,18 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
             mNowMode = MODE_ANSWER;
         }
 
+        resetVideoView();
+        Log.e("VideoPlay", "PlayCompete : ================== ");
 
-       resetVideoView();
+        if(isOutroVideo){
+            //문제를 풀고 결과값을 넘겨준다
+            Intent intent = new Intent(VideoTest.this, VideoTestResultList.class);
+            intent.putStringArrayListExtra("answer", mAnswer);
+            intent.putExtra("simliId", mSimliId);
+            intent.putExtra("userId", mUserId);
+            startActivity(intent);
+            finish();
+        }
     }
 
     private void resetVideoView() {

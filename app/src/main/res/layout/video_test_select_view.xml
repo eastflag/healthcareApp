@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    >
+
+    <ImageButton
+        android:id="@+id/test_kind_img"
+        android:layout_width="340dp"
+        android:layout_height="110dp"
+        android:layout_marginTop="20dip"
+        android:background="@drawable/btn_self"
+        android:contentDescription="검사 아이콘"
+
+        />
+
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/btn_video_test_restlt_center"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="10dp"
+    android:layout_marginTop="20dp"
+    >
+
+
+    <Button
+        android:id="@+id/btn_test_start"
+        android:layout_width="320dp"
+        android:layout_height="100dp"
+        android:contentDescription="검사하기"
+        android:background="#484b5f"
+        android:text="검사 하기"
+        android:textColor="#FFFFFF"
+        android:textAlignment="center"
+        android:textSize="24dp"
+        android:textStyle="bold"
+        android:gravity="center"
+        />
+
+    <Button
+        android:id="@+id/btn_test_result"
+        android:layout_width="320dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="10dip"
+        android:contentDescription="결과보기"
+        android:background="#8d99c3"
+        android:text="결과 보기"
+        android:textColor="#FFFFFF"
+        android:textAlignment="center"
+        android:textSize="24dp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:visibility="gone"
+         />
+</LinearLayout>
+
+</LinearLayout>

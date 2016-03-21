@@ -29,10 +29,11 @@ public class VideoTestResultList extends SherlockActivity implements  View.OnCli
 
     private final int BTN_PARENT = R.id.btn_video_test_result_parent ;
     private final int BTN_CHILD = R.id.btn_video_test_result_child ;
+
     private  String mSimliId = null;
     private String mUserId = null;
-
     private String resultMessage = "";
+    private  boolean existResult = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +46,7 @@ public class VideoTestResultList extends SherlockActivity implements  View.OnCli
         ArrayList<String> answerList =  intent.getStringArrayListExtra("answer");
         mSimliId = intent.getStringExtra("simliId");   //심리ID
         mUserId  = intent.getStringExtra("userId");   //유저ID
+        existResult = intent.getBooleanExtra("existResult", false);
 
         Log.e("!!!!!!!! " , "!!!!!! video_testreuslt_list  simliId "+ mSimliId);;
 
@@ -53,52 +55,53 @@ public class VideoTestResultList extends SherlockActivity implements  View.OnCli
         imgBtn.setOnClickListener(this);
         imgBtn2.setOnClickListener(this);
 
-        // TODO 결과 등록 하기
-        JSONNetWork_Manager.request_insert_Simli_Result(mUserId, answerList, this, new NetWork.Call_Back(){
-            @Override
-            public void onError(String error) {
-            }
-
-            @Override
-            public void onGetResponsData(byte[] data) {
-
-            }
-
-            @Override
-            public void onGetResponsString(String data) {
-
-                Log.e("$$$", "$$$ request_Get_Mental_Info()\n " + data);
-
-                try {
-
-                    if (data != null) {
-                        if(data.equals("0")){
-                            resultMessage = "검사결과 등록 성공";
-
-                        } else if(data.equals("1")){
-                            resultMessage = "검사결과 등록 실패";
-                        } else {
-                            resultMessage = "검사결과 등록 실패";
-                        }
-                    } else {
-                        resultMessage = "결과값이 없습니다.";
-                    }
-                    runOnUiThread(new Runnable() {
-                        public void run() {
-
-                            Toast.makeText(getApplicationContext(), resultMessage, Toast.LENGTH_LONG).show();
-                        }
-                    });
-                } catch (Exception e) {
-                    e.printStackTrace();
+        if(!existResult) {
+            // TODO 결과 등록 하기
+            JSONNetWork_Manager.request_insert_Simli_Result(mUserId, answerList, this, new NetWork.Call_Back(){
+                @Override
+                public void onError(String error) {
                 }
-            }
 
-            @Override
-            public void onRoaming(String message) {
-            }
-        } );
+                @Override
+                public void onGetResponsData(byte[] data) {
 
+                }
+
+                @Override
+                public void onGetResponsString(String data) {
+
+                    Log.e("$$$", "$$$ request_Get_Mental_Info()\n " + data);
+
+                    try {
+
+                        if (data != null) {
+                            if(data.equals("0")){
+                                resultMessage = "검사결과 등록 성공";
+
+                            } else if(data.equals("1")){
+                                resultMessage = "검사결과 등록 실패";
+                            } else {
+                                resultMessage = "검사결과 등록 실패";
+                            }
+                        } else {
+                            resultMessage = "결과값이 없습니다.";
+                        }
+                        runOnUiThread(new Runnable() {
+                            public void run() {
+
+                                Toast.makeText(getApplicationContext(), resultMessage, Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onRoaming(String message) {
+                }
+            } );
+        }
     }
 
 

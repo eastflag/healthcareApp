@@ -84,7 +84,8 @@ public class MentalTestListActivity extends SherlockActivity implements View.OnC
             }
         });
     }
-      private void getDate(String userId){
+
+    private void getDate(String userId){
         //학교 정보 추출
         JSONNetWork_Manager.request_Get_Mental_Info( userId , this, new NetWork.Call_Back() {
             @Override
@@ -130,15 +131,15 @@ public class MentalTestListActivity extends SherlockActivity implements View.OnC
                 JSONObject object = array.getJSONObject(i);  // JSONObject 추출
 
                 MentalListItem item = new MentalListItem();
-                item.introType      = object.getString("introType");
-                item.introImg       = object.getString("introImg");
-                item.introVideo     = object.getString("introVideo");
-                item.introType      = object.getString("introType");
-                item.outroImg       = object.getString("outroImg");
-                item.outroVideo     = object.getString("outroVideo");
-                item.simliId        = object.getString("simliId");
-                item.title          = object.getString("simliNm");
-                item.useYN          = object.getString("useYN").equals("Y")? true: false;
+                item.setIntroType(object.getString("introType"));
+                item.setIntroImg(object.getString("introImg"));
+                item.setIntroVideo(object.getString("introVideo"));
+                item.setIntroType(object.getString("introType"));
+                item.setOutroImg(object.getString("outroImg"));
+                item.setOutroVideo(object.getString("outroVideo"));
+                item.setSimliId(object.getString("simliId"));
+                item.setTitle(object.getString("simliNm"));
+                item.setUseYN(object.getString("useYN").equals("Y")? true: false);
                 mListItem.add(item);
             }
             mHandler.sendEmptyMessage(0);
@@ -163,7 +164,7 @@ public class MentalTestListActivity extends SherlockActivity implements View.OnC
             mBtn[i].setTag(item);
 //            mBtn[i].setText(item.title);
 
-            if (item.useYN){
+            if (item.isUseYN()){
 
                 // 인터넷 중독 Gone 처리
                 if(i != 2){
@@ -181,17 +182,18 @@ public class MentalTestListActivity extends SherlockActivity implements View.OnC
     public void onClick(View v) {
         MentalListItem item = (MentalListItem)v.getTag();
 
-        Intent intent = new Intent(MentalTestListActivity.this, VideoTest.class);
-        intent.putExtra("simliId",      item.simliId);
-        intent.putExtra("introType" ,    item.introType);
-        intent.putExtra("introImg" ,    item.introImg);
-        intent.putExtra("introVideo" ,  item.introVideo);
-        intent.putExtra("outroType" ,    item.outroType);
-        intent.putExtra("outroImg" ,    item.outroImg);
-        intent.putExtra("outroVideo" ,  item.outroVideo);
+        //Intent intent = new Intent(MentalTestListActivity.this, VideoTest.class);
+        Intent intent = new Intent(this, VideoTestSelectView.class);
+//        intent.putExtra("simliId",      item.getSimliId());
+//        intent.putExtra("introType" ,    item.getIntroType());
+//        intent.putExtra("introImg" ,    item.getIntroImg());
+//        intent.putExtra("introVideo" ,  item.getIntroVideo());
+//        intent.putExtra("outroType" ,    item.getOutroType());
+//        intent.putExtra("outroImg" ,    item.getIntroImg());
+//        intent.putExtra("outroVideo" ,  item.getOutroVideo());
         intent.putExtra("userId", mUserId);
 
-
+        intent.putExtra("mentalListItem", item);
 
         switch (v.getId()){
             case R.id.test_list_btn1:
@@ -205,55 +207,6 @@ public class MentalTestListActivity extends SherlockActivity implements View.OnC
         }
         startActivity(intent);
     }
-
-
-    class MentalListItem {
-        String introType =null;
-        String introImg = null;
-        String introVideo = null;
-        String outroType = null;
-        String outroImg = null;
-        String outroVideo = null;
-        String simliId = null;
-        String title = null;
-        boolean useYN = false;
-
-        public MentalListItem(){
-
-        }
-
-        public MentalListItem(String introType, String introImg, String introVideo, String outroType, String outroImg, String outroVideo, String simliId, String title, boolean useYN) {
-            this.introType = introType;
-            this.introImg = introImg;
-            this.introVideo = introVideo;
-            this.outroType = outroType;
-            this.outroImg = outroImg;
-            this.outroVideo = outroVideo;
-            this.simliId = simliId;
-            this.title = title;
-            this.useYN = useYN;
-        }
-
-        @Override
-        public String toString() {
-            return "MentalListItem{" +
-                    "introType='" + introType + '\'' +
-                    ", introImg='" + introImg + '\'' +
-                    ", introVideo='" + introVideo + '\'' +
-                    ", outroType='" + outroType + '\'' +
-                    ", outroImg='" + outroImg + '\'' +
-                    ", outroVideo='" + outroVideo + '\'' +
-                    ", simliId='" + simliId + '\'' +
-                    ", title='" + title + '\'' +
-                    ", useYN=" + useYN +
-                    '}';
-        }
-    }
-
-
-
-
-
 
 
 
