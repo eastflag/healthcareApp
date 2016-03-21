@@ -81,6 +81,7 @@ public class Define {
 	public static String MENTAL_LIST ="simli/type_list";
 	public static String MENTAL_TEST_LIST ="simli/qna_list";
 	public static String MENTAL_TEST_RESULT ="simli/simli_review";
+	public static String MENTAL_TEST_INSERT ="simli/insert_simli_result";
 
 	//운동량
 	public static String EXERCISE_INFO ="exercise/main";

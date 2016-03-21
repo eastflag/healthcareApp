@@ -216,8 +216,9 @@ public class VideoTestResult extends SherlockActivity {
         for (int i = 0 ; i < mResultList.size() ; i++){
             ResultList item = mResultList.get(i);
 
-            mResultText.append( (i +1) +".\n");
+            mResultText.append( (i +1) + ". " + item.getContent()  +"\n");
             ArrayList<ResultListAnswer> answers =  item.answers;
+
 
             for (int j = 0 ; j < answers.size() ; j++){
                 ResultListAnswer answer = answers.get(j);
@@ -228,7 +229,7 @@ public class VideoTestResult extends SherlockActivity {
                     mResultText.append("□ " + answer.content + "\n");
                 }
             }
-            mResultText.append("\n\n\n");
+            mResultText.append("\n\n");
         }
 
         mResultView.setText(mResultText.toString());
@@ -246,6 +247,30 @@ public class VideoTestResult extends SherlockActivity {
         public ResultList(String questId, String content, ArrayList<ResultListAnswer> answers) {
             this.questId = questId;
             this.content = content;
+            this.answers = answers;
+        }
+
+        public String getQuestId() {
+            return questId;
+        }
+
+        public void setQuestId(String questId) {
+            this.questId = questId;
+        }
+
+        public String getContent() {
+            return content;
+        }
+
+        public void setContent(String content) {
+            this.content = content;
+        }
+
+        public ArrayList<ResultListAnswer> getAnswers() {
+            return answers;
+        }
+
+        public void setAnswers(ArrayList<ResultListAnswer> answers) {
             this.answers = answers;
         }
 

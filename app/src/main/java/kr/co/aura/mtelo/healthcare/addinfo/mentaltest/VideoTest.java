@@ -44,6 +44,7 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
 
     private ArrayList<TestList> mTestList = new ArrayList<TestList>();
     private ArrayList<String> mAnswer = new ArrayList<String>();
+    private String selectedAnswer = null;
 
     private String mSimliId, mIntroType, mIntroImg ,mIntroVideo, mOutroType, mOutroImg, mOutroVideo, mUserId;
     private ImageView mBG ;
@@ -185,7 +186,9 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
     private void makeTestList(JSONArray array) {
 
         try {
-            for (int i = 0; i < array.length(); i++) {
+            // TODO 임시로 2개만 처리 하도록 구성
+            //for (int i = 0; i < array.length(); i++) {
+            for (int i = 0; i < 2; i++) {
                 JSONObject object = array.getJSONObject(i);
                 TestList item = new TestList();
                 item.content = object.getString("content");
@@ -373,6 +376,12 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
         if (id == R.drawable.dublebtn_bg_click) {
             Log.e("$$", "@@@@@@ 버튼 더들클릭 " + mTestList.size());
 
+            if(selectedAnswer != null) {
+                mAnswer.add(selectedAnswer);
+                selectedAnswer = null;
+            }
+
+
             preTestItemDelete();   //선택한 문재를 삭제
 
             if (mTestList.size() != 0) {
@@ -393,38 +402,51 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
             reserCheckButton();    //체크버튼의 상태를 리셋한다
             TestList item = mTestList.get(0);  //문재리스트에서 현재 문제의 동영상 플레이
             Log.e("!!!!!", "!!!!! TestItem size " + mTestList.size() + ", item = " + item.toString());
+            String videoUrl = "";
             switch (v.getId()) {
                 case R.id.example_image1:
                 case R.id.dubleBtn1:
                     mCheckBtn1.setBackgroundResource(R.drawable.dublebtn_bg_click);
                     mCheckBtn1.setTag(R.drawable.dublebtn_bg_click);
-                    VideoPlay(item.answers.get(0).video);
-                    mAnswer.add(item.answers.get(0).answerId);
+                    videoUrl = item.answers.get(0).video;
+                    //VideoPlay(item.answers.get(0).video);
+                    selectedAnswer = item.answers.get(0).answerId;
+                    //mAnswer.add(item.answers.get(0).answerId);
                     break;
 
                 case R.id.example_image2:
                 case R.id.dubleBtn2:
                     mCheckBtn2.setBackgroundResource(R.drawable.dublebtn_bg_click);
                     mCheckBtn2.setTag(R.drawable.dublebtn_bg_click);
-                    VideoPlay(item.answers.get(1).video);
-                    mAnswer.add(item.answers.get(1).answerId);
+                    videoUrl = item.answers.get(1).video;
+                    //VideoPlay(item.answers.get(1).video);
+                    selectedAnswer = item.answers.get(1).answerId;
+                    //mAnswer.add(item.answers.get(1).answerId);
                     break;
 
                 case R.id.example_image3:
                 case R.id.dubleBtn3:
                     mCheckBtn3.setBackgroundResource(R.drawable.dublebtn_bg_click);
                     mCheckBtn3.setTag(R.drawable.dublebtn_bg_click);
-                    VideoPlay(item.answers.get(2).video);
-                    mAnswer.add(item.answers.get(2).answerId);
+                    //VideoPlay(item.answers.get(2).video);
+                    videoUrl = item.answers.get(2).video;
+                    selectedAnswer = item.answers.get(2).answerId;
+                    //mAnswer.add(item.answers.get(2).answerId);
                     break;
 
                 case R.id.example_image4:
                 case R.id.dubleBtn4:
                     mCheckBtn4.setBackgroundResource(R.drawable.dublebtn_bg_click);
                     mCheckBtn4.setTag(R.drawable.dublebtn_bg_click);
-                    VideoPlay(item.answers.get(3).video);
-                    mAnswer.add(item.answers.get(3).answerId);
+                    //VideoPlay(item.answers.get(3).video);
+                    videoUrl = item.answers.get(3).video;
+                    selectedAnswer = item.answers.get(3).answerId;
+                    //mAnswer.add(item.answers.get(3).answerId);
                     break;
+            }
+
+            if(videoUrl.length() > 0) {
+                VideoPlay(videoUrl);
             }
         }
 

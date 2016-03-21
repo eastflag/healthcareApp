@@ -102,6 +102,7 @@ public class JSONNetWork
 
 	//심리검사
 	public final static String KEY_MENTAL_ID= "simliId";
+	public final static String KEY_MENTAL_ANSWER= "answer";
 
 	//운동량 보기
 	public final static String KEY_EXERCISE_ID= "exerciseId";
