@@ -14,9 +14,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.flyco.tablayout.SegmentTabLayout;
 import com.flyco.tablayout.listener.OnTabSelectListener;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.common.api.GoogleApiClient;
 
 import org.json.JSONObject;
 
@@ -30,25 +33,32 @@ import kr.co.aura.mtelo.healthcare.util.AnimatedProgressLinear;
 /**
  * Created by young-kchoi on 2016. 2. 24..
  */
-public class ExerciseDetailTabActivity extends Activity{
+public class ExerciseDetailTabActivity extends Activity {
     private SegmentTabLayout mTabLayout;
-    private String[] mTitles = {"반","학년", "학교", "전국"};
+    private String[] mTitles = {"반", "학년", "학교", "전국"};
     private ArrayList<Fragment> mFragments = new ArrayList<Fragment>();
-    private final int PAGE_ONE = 0, PAGE_TWO= 1, PAGE_THREE=2, PAGE_FOUL= 3;
+    private final int PAGE_ONE = 0, PAGE_TWO = 1, PAGE_THREE = 2, PAGE_FOUL = 3;
     private String mUser, mAll, mAverageCnt, mAverageType, mBodyType, mBodyType1, mBodyType1Max, mBodyType2, mBodyType2Max, mBodyType3, mBodyType3Max, mBodyType4,
             mBodyType4Max, mBodyType5, mBodyType5Max, mBodyType6, mBodyType6Max, mGroupType;
 
-    private String UserId, ExerciseId, AverageType , GroupType;
+    private String UserId, ExerciseId, AverageType, GroupType;
     private int SEND_MASSAGE = 100;
-
-
+    private TextView mTextBodyTYpe, mTextCalorie;
 
     private ArrayList<ExerciseData> mExerciseDataList = new ArrayList<ExerciseData>();
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.exerics_detail_tab);
+
+        mTextBodyTYpe = (TextView) findViewById(R.id.txt_my_body_type);
+        mTextCalorie  = (TextView) findViewById(R.id.txt_my_body_calorie);
 
         mTabLayout = (SegmentTabLayout) findViewById(R.id.exercise_detail_tab);
         mFragments.add(new TabItemFragment());
@@ -59,24 +69,27 @@ public class ExerciseDetailTabActivity extends Activity{
 
         Intent intent = getIntent();
 
-        UserId ="7001";
+        UserId = "7001";
         ExerciseId = "137";
         AverageType = intent.getStringExtra("averageType");
         GroupType = "class";
-        getDate(UserId, ExerciseId , AverageType , GroupType);
-        getDate(UserId, ExerciseId , AverageType , "grade");
-        getDate(UserId, ExerciseId , AverageType , "school");
+        getDate(UserId, ExerciseId, AverageType, GroupType);
+        getDate(UserId, ExerciseId, AverageType, "grade");
+        getDate(UserId, ExerciseId, AverageType, "school");
         getDate(UserId, ExerciseId, AverageType, "all");
 
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
 
-    private  Handler mHandler = new Handler(){
+    private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
 
-            if(mExerciseDataList.size() == 4){
+            if (mExerciseDataList.size() == 4) {
                 Log.e("!!!!!!", "!!!! 모든 리스트데이터 " + mExerciseDataList);
 
                 //레이아웃 초기화
@@ -87,7 +100,7 @@ public class ExerciseDetailTabActivity extends Activity{
     };
 
 
-    private void getDate(String userId, String exerciseId, String averageType , String groupType){
+    private void getDate(String userId, String exerciseId, String averageType, String groupType) {
         JSONNetWork_Manager.request_Get_User_Exercise_Data(userId, exerciseId, averageType, groupType, this, new NetWork.Call_Back() {
             @Override
             public void onError(String error) {
@@ -130,7 +143,7 @@ public class ExerciseDetailTabActivity extends Activity{
                                 object.optString("groupType")
                         );
 
-                        Log.e( "!!!! " , "!!!"+exdata.toString());
+                        Log.e("!!!! ", "!!!" + exdata.toString());
                         mExerciseDataList.add(exdata);
                         mHandler.sendEmptyMessage(SEND_MASSAGE);
                     } else {
@@ -147,9 +160,11 @@ public class ExerciseDetailTabActivity extends Activity{
     }
 
 
+    private MyPagerAdapter mAdapter = new MyPagerAdapter(getFragmentManager());
+
     private void initTabLayout() {
         final ViewPager vp_3 = (ViewPager) findViewById(R.id.exercise_detail_tab_pager);
-        vp_3.setAdapter(new MyPagerAdapter(getFragmentManager()));
+        vp_3.setAdapter(mAdapter);
 
         mTabLayout.setTabData(mTitles);
         mTabLayout.setOnTabSelectListener(new OnTabSelectListener() {
@@ -166,21 +181,45 @@ public class ExerciseDetailTabActivity extends Activity{
         vp_3.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-//                Log.e("!!!!" , "onPageScrolled!!!!!! "+ position);
-                if (position == mTabLayout.getCurrentTab()) {
-                    TabItemFragment v = (TabItemFragment) mFragments.get(position);
-//                    v.resetAni();
-                }
             }
 
             @Override
             public void onPageSelected(int position) {
                 Log.e("!!!!!!", "!!!!!! 현재 페이지 " + position);
                 mTabLayout.setCurrentTab(position);
-                TabItemFragment v = (TabItemFragment) mFragments.get(position);
-                v.setData(mExerciseDataList.get(position));
+                ExerciseData data = null;
+                TabItemFragment v =  null;
+
+
+                switch (position){
+                    case PAGE_ONE:
+                        data = mExerciseDataList.get(0);
+                        v = (TabItemFragment) mFragments.get(PAGE_ONE);
+                        break;
+                    case PAGE_TWO:
+                        data = mExerciseDataList.get(1);
+                        v = (TabItemFragment) mFragments.get(PAGE_TWO);
+                        break;
+                    case PAGE_THREE:
+                        data = mExerciseDataList.get(2);
+                        v = (TabItemFragment) mFragments.get(PAGE_THREE);
+                        break;
+                    case PAGE_FOUL:
+                        data = mExerciseDataList.get(3);
+                        v = (TabItemFragment) mFragments.get(PAGE_FOUL);
+                        break;
+
+
+                }
+
+                mTextBodyTYpe.setText("나의 체형 : " + data.bodyType);
+                mTextCalorie.setText("나의 칼로리 : " + data.user + "Kcal");
+
+                v.setData(data);
+                mAdapter.notifyDataSetChanged();
                 v.startAni();
-                mTabLayout.notifyDataSetChanged();
+
+
             }
 
             @Override
@@ -189,9 +228,12 @@ public class ExerciseDetailTabActivity extends Activity{
             }
         });
 
-        mTabLayout.setCurrentTab(1);
-        mTabLayout.notifyDataSetChanged();
+        vp_3.setCurrentItem(1);
+        mAdapter.notifyDataSetChanged();
+
     }
+
+
 
     private class MyPagerAdapter extends FragmentPagerAdapter {
         public MyPagerAdapter(FragmentManager fm) {
@@ -218,8 +260,7 @@ public class ExerciseDetailTabActivity extends Activity{
     }
 
 
-
-    class TabItemFragment extends Fragment{
+  private class TabItemFragment extends Fragment {
         private String mTitle;
         private AnimatedProgressLinear mAniPro;
         private ExerciseData mData;
@@ -240,7 +281,7 @@ public class ExerciseDetailTabActivity extends Activity{
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-            View v =   inflater.inflate(R.layout.exercise_detail_tab_item, null);
+            View v = inflater.inflate(R.layout.exercise_detail_tab_item, null);
             mAniPro = (AnimatedProgressLinear) v.findViewById(R.id.ani_layout_2);
 
             pro1 = (ProgressBar) v.findViewById(R.id.detail_tab_item_pro1);
@@ -260,7 +301,7 @@ public class ExerciseDetailTabActivity extends Activity{
         @Override
         public void onDestroyView() {
             super.onDestroyView();
-            if(mAniPro != null) mAniPro.aniReset();
+            if (mAniPro != null) mAniPro.aniReset();
         }
 
         private void startAni() {
@@ -272,37 +313,41 @@ public class ExerciseDetailTabActivity extends Activity{
             }
         }
 
-        private void resetAni(){
+        private void resetAni() {
             mAniPro.aniReset();
         }
 
         private void setData(ExerciseData data) {
             if (data != null) {
-
                 //저체중
                 pro1.setProgress(Integer.parseInt(data.bodyType1));
                 pro1.setMax(Integer.parseInt(data.bodyType1Max));
 
                 //과체중
-                pro3.setProgress(Integer.parseInt(data.bodyType1));
+                pro3.setProgress(Integer.parseInt(data.bodyType3));
                 pro3.setMax(Integer.parseInt(data.bodyType3Max));
 
                 //중도비만
-                pro4.setProgress(Integer.parseInt(data.bodyType1));
+                pro4.setProgress(Integer.parseInt(data.bodyType5));
                 pro4.setMax(Integer.parseInt(data.bodyType5Max));
 
                 //고도비만
-                pro5.setProgress(Integer.parseInt(data.bodyType1));
+                pro5.setProgress(Integer.parseInt(data.bodyType6));
                 pro5.setMax(Integer.parseInt(data.bodyType6Max));
 
-                Log.e("!!!!!!", "!!!! progressbar 설정 " + mTabLayout.getCurrentTab() + ", " + data.bodyType1 +", "+ data.bodyType1Max);
+                String log = String.format("pro1 %s, pro1max %s, pro3 %s, pro3max %s, pro4 %s, pro4max %s,pro5 %s, pro5max %s",
+                        pro1.getProgress(), pro1.getMax(), pro3.getProgress(), pro3.getMax(), pro4.getProgress(), pro4.getMax(), pro5.getProgress(), pro5.getMax());
+//                Log.e("!!!!!!", "!!!! progressbar 설정 페이지수  " + mTabLayout.getCurrentTab()+ ", " + data.bodyType1 + ", " + data.bodyType1Max +
+//                        ", pross:"+ pro1.getProgress() +", max "+ pro1.getMax());
+                Log.e("!!!!!!", "!!!! progressbar 총 데이터 " + data.toString() );
+                Log.e("!!!!!!", "!!!! progressbar 총 데이터 " + log );
+
             }
         }
     }
 
 
-
-    private class ExerciseData{
+    private class ExerciseData {
         private String user;
         private String all;
         private String averageCnt;
