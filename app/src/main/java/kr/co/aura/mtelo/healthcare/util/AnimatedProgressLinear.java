@@ -109,10 +109,19 @@ public class AnimatedProgressLinear extends LinearLayout {
 
     public void setProgress(int pro){
         mProgress = pro;
+        mProgressBar.setProgress(mProgress);
     }
     public void setMax(int proMax){
         mProgressBar.setMax(proMax);
     }
+
+    public int getmProgress(){
+        return mProgressBar.getProgress();
+    }
+    public  int getMax(){
+        return mProgressBar.getMax();
+    }
+
 
     public void setMainMessage(String str ){
         mMainText.setText(str);
