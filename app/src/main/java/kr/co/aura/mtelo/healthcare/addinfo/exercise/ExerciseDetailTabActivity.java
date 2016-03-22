@@ -13,12 +13,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.flyco.tablayout.SegmentTabLayout;
 import com.flyco.tablayout.listener.OnTabSelectListener;
 
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -27,7 +26,6 @@ import kr.co.aura.mtelo.healthcare.R;
 import kr.co.aura.mtelo.healthcare.network.JSONNetWork_Manager;
 import kr.co.aura.mtelo.healthcare.network.NetWork;
 import kr.co.aura.mtelo.healthcare.util.AnimatedProgressLinear;
-import kr.co.aura.mtelo.healthcare.util.MLog;
 
 /**
  * Created by young-kchoi on 2016. 2. 24..
@@ -58,8 +56,6 @@ public class ExerciseDetailTabActivity extends Activity{
         mFragments.add(new TabItemFragment());
         mFragments.add(new TabItemFragment());
 
-        initTabLayout();
-
 
         Intent intent = getIntent();
 
@@ -81,9 +77,12 @@ public class ExerciseDetailTabActivity extends Activity{
             super.handleMessage(msg);
 
             if(mExerciseDataList.size() == 4){
-                Log.e("!!!!!!" , "!!!! 모든 리스트데이터 "+ mExerciseDataList);;
+                Log.e("!!!!!!", "!!!! 모든 리스트데이터 " + mExerciseDataList);
+
+                //레이아웃 초기화
+                initTabLayout();
             }
-            Log.e("!!!!!!" , "!!!! 리스트데이터 사이즈"+ mExerciseDataList.size());;
+
         }
     };
 
@@ -147,41 +146,6 @@ public class ExerciseDetailTabActivity extends Activity{
         });
     }
 
-    //JSON데이터를 가공
-    public void buildData(JSONArray array){
-        try {
-            if (array.length() == 0) return;
-            for (int i = 0; i < array.length(); i++) {
-                MLog.write(Log.ERROR, this.toString(), "array= i " + array.get(i));
-                JSONObject object = array.getJSONObject(i);  // JSONObject 추출
-                ExerciseData data = new ExerciseData(
-                        object.optString("user"),
-                        object.optString("all"),
-                        object.optString("averageCnt"),
-                        object.optString("averageType"),
-                        object.optString("bodyType"),
-                        object.optString("bodyType1"),
-                        object.optString("bodyType1Max"),
-                        object.optString("bodyType2"),
-                        object.optString("bodyType2Max"),
-                        object.optString("bodyType3"),
-                        object.optString("bodyType3Max"),
-                        object.optString("bodyType4"),
-                        object.optString("bodyType4Max"),
-                        object.optString("bodyType5"),
-                        object.optString("bodyType5Max"),
-                        object.optString("bodyType6"),
-                        object.optString("bodyType6Max"),
-                        object.optString("groupType")
-                );
-
-                data.toString();
-                mExerciseDataList.add(data);
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
 
     private void initTabLayout() {
         final ViewPager vp_3 = (ViewPager) findViewById(R.id.exercise_detail_tab_pager);
@@ -192,7 +156,6 @@ public class ExerciseDetailTabActivity extends Activity{
             @Override
             public void onTabSelect(int position) {
                 vp_3.setCurrentItem(position);
-                Log.e("!!!!!!", "!!!!!! 현재 페이지 tab" + position);
             }
 
             @Override
@@ -215,7 +178,9 @@ public class ExerciseDetailTabActivity extends Activity{
                 Log.e("!!!!!!", "!!!!!! 현재 페이지 " + position);
                 mTabLayout.setCurrentTab(position);
                 TabItemFragment v = (TabItemFragment) mFragments.get(position);
+                v.setData(mExerciseDataList.get(position));
                 v.startAni();
+                mTabLayout.notifyDataSetChanged();
             }
 
             @Override
@@ -224,9 +189,8 @@ public class ExerciseDetailTabActivity extends Activity{
             }
         });
 
-        mTabLayout.setCurrentTab(0);
         mTabLayout.setCurrentTab(1);
-        mTabLayout.setCurrentTab(0);
+        mTabLayout.notifyDataSetChanged();
     }
 
     private class MyPagerAdapter extends FragmentPagerAdapter {
@@ -259,12 +223,9 @@ public class ExerciseDetailTabActivity extends Activity{
         private String mTitle;
         private AnimatedProgressLinear mAniPro;
         private ExerciseData mData;
+        private ProgressBar pro1, pro3, pro4, pro5;
 
         public TabItemFragment() {
-        }
-
-        public TabItemFragment(ExerciseData data) {
-            mData = data;
         }
 
         @Override
@@ -281,6 +242,11 @@ public class ExerciseDetailTabActivity extends Activity{
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
             View v =   inflater.inflate(R.layout.exercise_detail_tab_item, null);
             mAniPro = (AnimatedProgressLinear) v.findViewById(R.id.ani_layout_2);
+
+            pro1 = (ProgressBar) v.findViewById(R.id.detail_tab_item_pro1);
+            pro3 = (ProgressBar) v.findViewById(R.id.detail_tab_item_pro3);
+            pro4 = (ProgressBar) v.findViewById(R.id.detail_tab_item_pro4);
+            pro5 = (ProgressBar) v.findViewById(R.id.detail_tab_item_pro5);
 
             return v;
         }
@@ -310,6 +276,28 @@ public class ExerciseDetailTabActivity extends Activity{
             mAniPro.aniReset();
         }
 
+        private void setData(ExerciseData data) {
+            if (data != null) {
+
+                //저체중
+                pro1.setProgress(Integer.parseInt(data.bodyType1));
+                pro1.setMax(Integer.parseInt(data.bodyType1Max));
+
+                //과체중
+                pro3.setProgress(Integer.parseInt(data.bodyType1));
+                pro3.setMax(Integer.parseInt(data.bodyType3Max));
+
+                //중도비만
+                pro4.setProgress(Integer.parseInt(data.bodyType1));
+                pro4.setMax(Integer.parseInt(data.bodyType5Max));
+
+                //고도비만
+                pro5.setProgress(Integer.parseInt(data.bodyType1));
+                pro5.setMax(Integer.parseInt(data.bodyType6Max));
+
+                Log.e("!!!!!!", "!!!! progressbar 설정 " + mTabLayout.getCurrentTab() + ", " + data.bodyType1 +", "+ data.bodyType1Max);
+            }
+        }
     }
 
 
