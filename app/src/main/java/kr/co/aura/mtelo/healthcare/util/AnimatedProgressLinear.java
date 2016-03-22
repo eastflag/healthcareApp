@@ -102,6 +102,7 @@ public class AnimatedProgressLinear extends LinearLayout {
     public void setMode(int mode){
         mMode = mode;
     }
+
     public void setXValue(int value){
         Xvalue = value;
     }
@@ -109,13 +110,18 @@ public class AnimatedProgressLinear extends LinearLayout {
     public void setProgress(int pro){
         mProgress = pro;
     }
+    public void setMax(int proMax){
+        mProgressBar.setMax(proMax);
+    }
 
     public void setMainMessage(String str ){
         mMainText.setText(str);
     }
+
     public void setSubMessage(String str){
         mSubText.setText(str);
     }
+
     public void setAveProgressbar (int sec_pro){
         mProgressBar.setSecondaryProgress(sec_pro);
     }

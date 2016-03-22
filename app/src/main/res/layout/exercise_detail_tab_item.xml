@@ -21,14 +21,27 @@
         android:orientation="vertical"
         android:padding="20dip">
 
-        <TextView
-            android:id="@+id/detail_tab_item_tx1"
-            style="@style/exercise_text"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dip"
-            android:gravity="left"
-            android:text="저체중 215Kcal" />
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/exercise_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dip"
+                android:gravity="left"
+                android:text="저체중 " />
+            <TextView
+                android:id="@+id/detail_tab_item_tx1"
+                style="@style/exercise_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dip"
+                android:gravity="left"
+                android:text="215Kcal" />
+        </LinearLayout>
 
         <ProgressBar
             android:id="@+id/detail_tab_item_pro1"
@@ -73,14 +86,27 @@
         android:orientation="vertical"
         android:padding="20dip">
 
-        <TextView
-            android:id="@+id/detail_tab_item_tx3"
-            style="@style/exercise_text"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dip"
-            android:gravity="left"
-            android:text="과체중 215Kcal" />
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/exercise_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dip"
+                android:gravity="left"
+                android:text="과체중 " />
+            <TextView
+                android:id="@+id/detail_tab_item_tx3"
+                style="@style/exercise_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dip"
+                android:gravity="left"
+                android:text="215Kcal" />
+        </LinearLayout>
 
         <ProgressBar
             android:id="@+id/detail_tab_item_pro3"
@@ -96,14 +122,27 @@
         android:orientation="vertical"
         android:padding="20dip">
 
-        <TextView
-            android:id="@+id/detail_tab_item_tx4"
-            style="@style/exercise_text"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dip"
-            android:gravity="left"
-            android:text="중도비만 215Kcal" />
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/exercise_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dip"
+                android:gravity="left"
+                android:text="중도비만 " />
+            <TextView
+                android:id="@+id/detail_tab_item_tx4"
+                style="@style/exercise_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dip"
+                android:gravity="left"
+                android:text="215Kcal" />
+        </LinearLayout>
 
         <ProgressBar
             android:id="@+id/detail_tab_item_pro4"
@@ -119,14 +158,27 @@
         android:orientation="vertical"
         android:padding="20dip">
 
-        <TextView
-            android:id="@+id/detail_tab_item_tx5"
-            style="@style/exercise_text"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dip"
-            android:gravity="left"
-            android:text="고도비만 215Kcal" />
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/exercise_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dip"
+                android:gravity="left"
+                android:text="고도비만 " />
+            <TextView
+                android:id="@+id/detail_tab_item_tx5"
+                style="@style/exercise_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dip"
+                android:gravity="left"
+                android:text="215Kcal" />
+        </LinearLayout>
 
         <ProgressBar
             android:id="@+id/detail_tab_item_pro5"
