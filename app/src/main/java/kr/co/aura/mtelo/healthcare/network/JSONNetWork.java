@@ -106,6 +106,9 @@ public class JSONNetWork
 
 	//운동량 보기
 	public final static String KEY_EXERCISE_ID= "exerciseId";
+	public final static String KEY_EXERCISE_AVERAGE_TYPE= "averageType";
+	public final static String KEY_EXERCISE_GROUP_TYPE	= "groupType";
+
 
 	private String mServerUrl = null; // 서버 url 정보
 	private int mRequestType;

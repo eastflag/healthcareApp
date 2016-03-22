@@ -88,5 +88,7 @@ public class Define {
 	public static String EXERCISE_INFO ="exercise/main";
 	public static String EXERCISE_DETAIL_INFO ="exercise/view";
 	public static String EXERCISE_HISTORY ="exercise/history";
+	public static String EXERCISE_DATA ="exercise/tab";
+
 
 }

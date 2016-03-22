@@ -535,4 +535,33 @@ public class JSONNetWork_Manager //implements Call_Back
 		jn.set_Call_Back(call_back);
 		jn.start_Request();
 	}
+
+
+
+	/**
+	 * 16.3.10 신규
+	 * 운동량 히스토리  정보 조회
+	 * @param type
+	 * @param call_back
+	 */
+	public static void request_Get_User_Exercise_Data(String userid, String exerciseId, String averageType, String groupType, Context context, final Call_Back call_back)
+	{
+
+		StringBuffer strbuff = new StringBuffer();
+//		strbuff.append((String)Define.getNetUrl());
+		strbuff.append( Define.TEST_URL);
+		strbuff.append(Define.EXERCISE_DATA);
+		strbuff.append("?" + JSONNetWork.KEY_USER_ID +"=" + userid+ "&" + JSONNetWork.KEY_EXERCISE_ID+"="+ exerciseId +"&"+
+				JSONNetWork.KEY_EXERCISE_AVERAGE_TYPE +"="+ averageType +"&"+ JSONNetWork.KEY_EXERCISE_GROUP_TYPE +"="+ groupType);
+
+		MLog.write(Log.ERROR, "request_Get_User_Exercise_Data", "url :" + strbuff);
+
+		JSONNetWork jn = new JSONNetWork(context);
+		jn.setMRequestType(JSONNetWork.REQUESTTYPE_GET);
+		jn.setMRequestUrl(strbuff.toString());
+		jn.set_Call_Back(call_back);
+		jn.start_Request();
+	}
+
+
 }

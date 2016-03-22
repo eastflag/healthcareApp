@@ -150,13 +150,19 @@ public class ExerciseDetailActivity extends SherlockActivity implements View.OnC
 
     @Override
     public void onClick(View v) {
-        Intent intent = null;
-        switch (v.getId()){
+        Intent intent = new Intent(ExerciseDetailActivity.this, ExerciseDetailTabActivity.class);
+        switch (v.getId()) {
 
             case R.id.exercise_detail_top_tx1:
+                intent.putExtra("averageType", "calorie");
+                break;
             case R.id.exercise_detail_top_tx2:
+                intent.putExtra("averageType", "step");
+                break;
             case R.id.exercise_detail_top_tx3:
-                intent = new Intent(ExerciseDetailActivity.this, ExerciseDetailTabActivity.class);
+                intent.putExtra("averageType", "distance");
+                break;
+
         }
 
         startActivity(intent);
@@ -182,7 +188,7 @@ public class ExerciseDetailActivity extends SherlockActivity implements View.OnC
 
 
     private void getDate(){
-        JSONNetWork_Manager.request_Get_Exercise_Detail_Info("123", "", this, new NetWork.Call_Back() {
+        JSONNetWork_Manager.request_Get_Exercise_Detail_Info("7001", "", this, new NetWork.Call_Back() {
             @Override
             public void onError(String error) {
             }

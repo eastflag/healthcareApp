@@ -186,6 +186,7 @@ public class ExerciseActivity extends SherlockActivity  implements  View.OnClick
             case R.id.btn_exercise_detail:
                 intent = new Intent(ExerciseActivity.this , ExerciseDetailActivity.class);
 
+
                 break;
             case R.id.btn_exercise_history:
                 intent = new Intent(ExerciseActivity.this , ExerciseHistory.class);
