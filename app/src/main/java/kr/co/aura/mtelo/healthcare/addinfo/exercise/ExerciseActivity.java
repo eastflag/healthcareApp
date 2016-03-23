@@ -96,7 +96,6 @@ public class ExerciseActivity extends SherlockActivity  implements  View.OnClick
             mExerciseDistance.setText(mDistance + " km");
 
             mExerciseBodyType = (TextView) findViewById(R.id.exercise_right_txt_4);  //체형
-            mExerciseBodyType.setText(mBodyType);
 
 
             //등수

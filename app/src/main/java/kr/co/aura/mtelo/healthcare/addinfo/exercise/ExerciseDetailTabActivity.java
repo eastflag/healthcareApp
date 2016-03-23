@@ -395,8 +395,6 @@ public class ExerciseDetailTabActivity extends Activity {
 
                 String log = String.format("pro1 %s, pro1max %s, pro2 %s, pro2max %s, pro3 %s, pro3max %s, pro4 %s, pro4max %s,pro5 %s, pro5max %s",
                         pro1.getProgress(), pro1.getMax(), mAniPro.getmProgress(), mAniPro.getMax(), pro3.getProgress(), pro3.getMax(), pro4.getProgress(), pro4.getMax(), pro5.getProgress(), pro5.getMax());
-//                Log.e("!!!!!!", "!!!! progressbar 설정 페이지수  " + mTabLayout.getCurrentTab()+ ", " + data.bodyType1 + ", " + data.bodyType1Max +
-//                        ", pross:"+ pro1.getProgress() +", max "+ pro1.getMax());
                 Log.e("!!!!!!", "!!!! progressbar 총 데이터 " + data.toString() );
                 Log.e("!!!!!!", "!!!! progressbar 총 데이터 "+mTabLayout.getCurrentTab() +", " + log );
 

@@ -280,6 +280,7 @@
                         android:layout_width="120dip"
                         android:layout_height="wrap_content"
                         android:gravity="left"
+                        android:layout_marginLeft="30dp"
                         android:text="반" />
 
                     <TextView
@@ -294,15 +295,17 @@
                         android:id="@+id/exercise_class_no"
                         android:layout_width="20dip"
                         android:layout_height="wrap_content"
+                        style="@style/exercise_text"
                         android:gravity="right"
                         android:text="등"
-                        android:textSize="16sp" />
+                         />
                 </LinearLayout>
                 <ProgressBar
                     android:layout_width="match_parent"
                     android:layout_height="20dip"
                     android:gravity="bottom"
                     style="@android:style/Widget.ProgressBar.Horizontal"
+                    android:visibility="invisible"
                     />
             </LinearLayout>
 
@@ -326,6 +329,7 @@
                         android:layout_width="120dip"
                         android:layout_height="wrap_content"
                         android:gravity="left"
+                        android:layout_marginLeft="30dp"
                         android:text="학년" />
 
                     <TextView
@@ -340,6 +344,7 @@
                         android:id="@+id/exercise_student_no"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        style="@style/exercise_text"
                         android:text="등" />
                 </LinearLayout>
                 <ProgressBar
@@ -347,6 +352,7 @@
                     android:layout_height="20dip"
                     android:gravity="bottom"
                     style="@android:style/Widget.ProgressBar.Horizontal"
+                    android:visibility="invisible"
                     />
             </LinearLayout>
 
@@ -354,7 +360,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dip"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone"
+                >
 
                 <LinearLayout
                     android:layout_width="match_parent"
