@@ -46,10 +46,10 @@ public class ExerciseDetailActivity extends SherlockActivity implements View.OnC
     private final int CALORIE = 1000;
     private final int STEP = 1001;
     private final int DISTANCE = 1002;
-    private final int SPEED = 1003;
     private int mChartStatus  = CALORIE;
 
     private String mUserId;
+    private String mExerciseId;
 
     private LineChart mChart;
     private ArrayList<ChartData> mCheatDatas = new ArrayList<ChartData>();
@@ -58,6 +58,7 @@ public class ExerciseDetailActivity extends SherlockActivity implements View.OnC
     private String mCalorieMax, mStepMax, mDistanceMax, mSpeedMax, mBodyTypeMax;
 
     private TextView mCalorieText, mStepText, mSpeedText, mBodyTypeText, mDistanceText;
+    private TextView mTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +68,7 @@ public class ExerciseDetailActivity extends SherlockActivity implements View.OnC
 
         Intent intent = getIntent();
         mUserId = intent.getStringExtra("userId");
+        mExerciseId = intent.getStringExtra("exerciseId");
 
         init_ACtionBar();
 
@@ -79,41 +81,53 @@ public class ExerciseDetailActivity extends SherlockActivity implements View.OnC
         Button topBtn3 = (Button) findViewById(R.id.exercise_detail_top_tx3);
         topBtn3.setOnClickListener(this);
 
+        TextView tv = (TextView) findViewById(R.id.chart1_regend);
+        tv.setOnClickListener(this);
+        tv = (TextView) findViewById(R.id.chart2_regend);
+        tv.setOnClickListener(this);
+        tv = (TextView) findViewById(R.id.chart3_regend);
+        tv.setOnClickListener(this);
+
+
+        mTitle  = (TextView) findViewById(R.id.exercise_detail_title);
 
         //하단 텍스트박스
         mCalorieText  = (TextView) findViewById(R.id.exercise_detail_bottom_right_tx1);
         mStepText     = (TextView) findViewById(R.id.exercise_detail_bottom_right_tx2);
         mDistanceText = (TextView) findViewById(R.id.exercise_detail_bottom_right_tx3);
-//        mSpeedText    = (TextView) findViewById(R.id.exercise_detail_bottom_right_tx4);
         mBodyTypeText = (TextView) findViewById(R.id.exercise_detail_bottom_right_tx5);
 
 
         mChart = (LineChart) findViewById(R.id.chart1);
+
         mChart.setOnChartGestureListener(this);
         mChart.setOnChartValueSelectedListener(this);
+
         mChart.setDrawGridBackground(false);
-        mChart.setTouchEnabled(true);    // 터치동작 지원X
+        mChart.setTouchEnabled(false);    // 터치동작 지원X
         mChart.setDescription("");
 
         mChart.setDragEnabled(false);
-        mChart.setScaleEnabled(false);
+        mChart.setScaleEnabled(true);
         mChart.setPinchZoom(false);
         mChart.animateXY(3000, 3000);
 
         //오른쪽 Y축을 삭제한
         mChart.getAxisRight().setEnabled(false);
+        mChart.getAxisLeft().setEnabled(false);
+        mChart.getLegend().setEnabled(false);
+        mChart.getXAxis().setPosition(XAxis.XAxisPosition.TOP);
+        mChart.getXAxis().setTextSize(14f);
+        mChart.getXAxis().setAvoidFirstLastClipping(true);
+
+        mChart.setExtraLeftOffset(15);
+        mChart.setExtraRightOffset(40);
+        //X축 표시하기
+        //mChart.getXAxis().setValueFormatter(new MyValueFormatter(mCheatDatas));
+
 
         //데이터 획득
-        getDate();
-
-        //테스트 코드
-        testCOde();
-
-        //X축 표시하기
-        XAxis xAxis = mChart.getXAxis();
-        xAxis.setValueFormatter(new MyValueFormatter(mCheatDatas));
-
-
+        getDate(mUserId, mExerciseId);
 
     }
 
@@ -159,40 +173,107 @@ public class ExerciseDetailActivity extends SherlockActivity implements View.OnC
 
             case R.id.exercise_detail_top_tx1:
                 intent.putExtra("averageType", "calorie");
+                startActivity(intent);
                 break;
             case R.id.exercise_detail_top_tx2:
                 intent.putExtra("averageType", "step");
+                startActivity(intent);
                 break;
             case R.id.exercise_detail_top_tx3:
                 intent.putExtra("averageType", "distance");
+                startActivity(intent);
                 break;
 
+            case R.id.chart1_regend:
+                DrawChart(CALORIE);
+                break;
+            case R.id.chart2_regend:
+                DrawChart(STEP);
+                break;
+            case R.id.chart3_regend:
+                DrawChart(DISTANCE);
+                break;
+
+
+
+        }
+    }
+
+    private void DrawChart(int type){
+
+        if(mCheatDatas.size() <= 0) return;
+
+        if(mChart.getLineData() != null){
+            mChart.getLineData().clearValues();
         }
 
-        startActivity(intent);
+        ArrayList<ILineDataSet> dataSets = new ArrayList<ILineDataSet>();
+        ArrayList<String> xVals = new ArrayList<String>();
+
+        ArrayList<Entry> listEntry = new ArrayList<Entry>();
+
+
+
+        for (int i = 0; i < mCheatDatas.size(); i++) {
+
+            ChartData item =  mCheatDatas.get(i);
+
+            //xVals.add(String.format("%s\n(%s)", item.getDate(), item.getExercise()));
+            xVals.add(item.getDate());
+
+            String entryData = "0";
+            if(type == CALORIE){
+                entryData = item.getCalorie();
+
+            } else if (type == STEP) {
+                entryData = item.getStep();
+
+            } else if(type == DISTANCE) {
+                entryData = item.getDistance();
+
+            }
+
+            listEntry.add(new Entry(Float.parseFloat(entryData), i));
+        }
+
+        // create a dataset and give it a type
+        LineDataSet lineDataSet = new LineDataSet(listEntry, "");
+
+        YAxis leftAxis = mChart.getAxisLeft();
+        int color = Color.WHITE;
+        if(type == CALORIE){
+            color = Color.RED;
+            leftAxis.setAxisMaxValue(Float.parseFloat(mCalorieMax));
+
+        } else if (type == STEP) {
+            color = Color.GREEN;
+            leftAxis.setAxisMaxValue(Float.parseFloat(mStepMax));
+
+        } else if(type == DISTANCE) {
+            color = Color.BLUE;
+            leftAxis.setAxisMaxValue(Float.parseFloat(mDistanceMax));
+        }
+
+        lineDataSet.setColor(color);
+        lineDataSet.setCircleColor(color);
+        lineDataSet.setCircleColorHole(color);
+        lineDataSet.setLineWidth(4f);
+        lineDataSet.setValueTextSize(14f);
+        //lineDataSet.setDrawCubic(true);
+
+        dataSets.add(lineDataSet);
+
+        // create a data object with the datasets
+        LineData data = new LineData(xVals, dataSets);
+
+        mChart.setData(data);
+        mChart.notifyDataSetChanged();
+        mChart.invalidate();
     }
 
 
-
-
-    //테스트코드
-    public void testCOde(){
-
-        ChartData data1 = new ChartData("2/21", "축구",  "280", "6000", "4.05", "40");
-        ChartData data2 = new ChartData("2/28", "농구", "250" ,"7000",  "5.05" , "50");
-        ChartData data3 = new ChartData("3/2", "배구", "350","5000","6.05" , "20");
-        ChartData data4 = new ChartData("3/10", "축구","260", "4500","3.05", "40");
-        mCheatDatas.add(data1);
-        mCheatDatas.add(data2);
-        mCheatDatas.add(data3);
-        mCheatDatas.add(data4);
-
-    }
-
-
-
-    private void getDate(){
-        JSONNetWork_Manager.request_Get_Exercise_Detail_Info(mUserId, "", this, new NetWork.Call_Back() {
+    private void getDate(String userId, String exerciseId){
+        JSONNetWork_Manager.request_Get_Exercise_Detail_Info(userId, exerciseId, this, new NetWork.Call_Back() {
             @Override
             public void onError(String error) {
             }
@@ -214,19 +295,26 @@ public class ExerciseDetailActivity extends SherlockActivity implements View.OnC
                         JSONObject object = new JSONObject(data);
                         JSONArray array = object.optJSONArray("chart");
 
-                        mCalorie  = object.optString("calorie");
-                        mStep     = object.optString("step");
+                        mCalorie = object.optString("calorie");
+                        mStep = object.optString("step");
                         mDistance = object.optString("distance");
                         mBodyType = object.optString("bodyType");
 
-                        mCalorieMax  = object.optString("calorieMax");
-                        mStepMax     = object.optString("stepMax");
+                        mCalorieMax = object.optString("calorieMax");
+                        mStepMax = object.optString("stepMax");
                         mDistanceMax = object.optString("distanceMax");
                         mBodyTypeMax = object.optString("bodyTypeMax");
-                        mSpeedMax    = object.optString("speedMax");
+                        mSpeedMax = object.optString("speedMax");
 
                         buildData(array);
-                        setupText();
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                setupText();
+                            }
+                        });
+
                     } else {
                     }
                 } catch (Exception e) {
@@ -244,6 +332,9 @@ public class ExerciseDetailActivity extends SherlockActivity implements View.OnC
 
     //하단 텍스트상자를 체워넣는다
     private void setupText() {
+
+        mTitle.setText(String.format("체형 : %s : 평균( %s Kcal)", mBodyType, mCalorie));
+
         mCalorieText.setText(mCalorie +" Kcal");
         mStepText.setText(mStep +" 보");
         mDistanceText.setText(mDistance + " Km");
@@ -268,100 +359,15 @@ public class ExerciseDetailActivity extends SherlockActivity implements View.OnC
 
 
                 mCheatDatas.add(data);
-
             }
 
-            setupChart();
-            //데이터 설정
-            setData(mCheatDatas.size() , mCheatDatas, mChartStatus);
+            DrawChart(CALORIE);
+
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
-
-    //데이터를 차트에 추가
-    private void setData(int count, ArrayList<ChartData> list, int status) {
-        Log.e("!!!!", "!!! setData  status "+ status +", mChartStatus "+ mChartStatus);
-
-        ArrayList<ILineDataSet> dataSets = new ArrayList<ILineDataSet>();
-        ArrayList<String> xVals = new ArrayList<String>();
-
-        ArrayList<Entry> yVals = new ArrayList<Entry>();
-        for (int i = 0; i < count; i++) {
-            xVals.add((i) + "카운트 " + i);
-
-            ChartData data = list.get(i);
-
-            switch (status) {
-                case CALORIE:
-                    yVals.add(new Entry(Float.parseFloat(data.calorie), i));
-                    break;
-
-                case STEP:
-                    yVals.add(new Entry(Float.parseFloat(data.step), i));
-                    break;
-
-                case DISTANCE:
-                    yVals.add(new Entry(Float.parseFloat(data.distance), i));
-
-                    break;
-
-//                case SPEED:
-//                    yVals.add(new Entry(Float.parseFloat(data.speed), i));
-//                    break;
-            }
-
-        }
-
-
-
-            // create a dataset and give it a type
-            LineDataSet set1 = new LineDataSet(yVals, "이동거리");
-            // set1.setFillAlpha(110);
-            // set1.setFillColor(Color.RED);
-            // set the line to be drawn like this "- - - - - -"
-            set1.enableDashedLine(10f, 5f, 0f);
-            set1.enableDashedHighlightLine(10f, 5f, 0f);
-            set1.setColor(Color.BLACK);
-            set1.setCircleColor(Color.BLACK);
-            set1.setLineWidth(1f);
-            set1.setCircleRadius(3f);
-            set1.setDrawCircleHole(false);
-            set1.setValueTextSize(12f);
-
-
-        // Y축 최대값을 설정한다
-        YAxis leftAxis = mChart.getAxisLeft();
-        if (status == CALORIE) {
-            leftAxis.setAxisMaxValue(Float.parseFloat(mCalorieMax));
-            set1.setLabel("킬로리");
-        } else if (status == STEP) {
-            leftAxis.setAxisMaxValue(Float.parseFloat(mStepMax));
-            set1.setLabel("걸음수");
-        } else if (status == DISTANCE) {
-            set1.setLabel("걸음수");
-            leftAxis.setAxisMaxValue(Float.parseFloat(mDistanceMax));
-            set1.setLabel("이동거리");
-//        } else if (status == SPEED) {
-//            leftAxis.setAxisMaxValue(Float.parseFloat(mSpeedMax));
-//            set1.setLabel("속도");
-        }
-
-
-
-        dataSets.add(set1); // add the datasets
-
-        // create a data object with the datasets
-        LineData data = new LineData(xVals, dataSets);
-
-        // set data
-        mChart.setData(data);
-
-        mChartStatus = status;
-    }
-
-
 
 
     // 차크 메소드들
@@ -387,14 +393,8 @@ public class ExerciseDetailActivity extends SherlockActivity implements View.OnC
 
     @Override
     public void onChartSingleTapped(MotionEvent me) {
-        Log.e("!!!!", "!!! onChartSingleTapped "+ mChartStatus);
-        if(mChartStatus == CALORIE)         setData(mCheatDatas.size() , mCheatDatas , STEP);
-        else if(mChartStatus == STEP)       setData(mCheatDatas.size() , mCheatDatas , DISTANCE);
-        else if(mChartStatus == DISTANCE)   setData(mCheatDatas.size() , mCheatDatas , CALORIE);
-//        else if(mChartStatus == SPEED)      setData(mCheatDatas.size() , mCheatDatas , CALORIE);
-
-        mChart.invalidate();
-        mChart.animateXY(3000, 3000);
+//        mChart.invalidate();
+//        mChart.animateXY(3000, 3000);
 
     }
 
@@ -444,6 +444,66 @@ public class ExerciseDetailActivity extends SherlockActivity implements View.OnC
             this.calorie = calorie;
             this.step = step;
             this.distance = distance;
+        }
+
+        public String getDate() {
+            return date;
+        }
+
+        public void setDate(String date) {
+            this.date = date;
+        }
+
+        public String getExercise() {
+            return exercise;
+        }
+
+        public void setExercise(String exercise) {
+            this.exercise = exercise;
+        }
+
+        public String getCalorie() {
+            return calorie;
+        }
+
+        public void setCalorie(String calorie) {
+            this.calorie = calorie;
+        }
+
+        public String getStep() {
+            return step;
+        }
+
+        public void setStep(String step) {
+            this.step = step;
+        }
+
+        public String getDistance() {
+            return distance;
+        }
+
+        public void setDistance(String distance) {
+            this.distance = distance;
+        }
+
+        public String getSpeed() {
+            return speed;
+        }
+
+        public void setSpeed(String speed) {
+            this.speed = speed;
+        }
+
+        @Override
+        public String toString() {
+            return "ChartData{" +
+                    "date='" + date + '\'' +
+                    ", exercise='" + exercise + '\'' +
+                    ", calorie='" + calorie + '\'' +
+                    ", step='" + step + '\'' +
+                    ", distance='" + distance + '\'' +
+                    ", speed='" + speed + '\'' +
+                    '}';
         }
     }
 
