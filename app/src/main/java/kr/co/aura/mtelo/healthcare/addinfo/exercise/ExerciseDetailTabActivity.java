@@ -357,8 +357,8 @@ public class ExerciseDetailTabActivity extends Activity {
                 if (ori == 0) {
                     xvalue = 0;
                 }else{
-                    value = max / ori;
-                    xvalue = 1000 / value;
+                    value = max / ori;     //데이터의 비율
+                    xvalue = 1000 / value;  //애니메이션의 이동비율
                 }
 
                 mAniPro.setXValue(xvalue);

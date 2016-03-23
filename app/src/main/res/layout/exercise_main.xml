@@ -14,6 +14,7 @@
         android:gravity="center_horizontal"
         >
         <ImageButton
+            android:id="@+id/exercise_date_prev"
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -34,6 +35,7 @@
             android:textColor="@color/black"
             />
         <ImageButton
+            android:id="@+id/exercise_date_next"
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -260,99 +262,113 @@
 
             android:layout_marginRight="5dip"
             android:background="@drawable/stroke_bg"
-            android:gravity="center"
             >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="내랭킹"
+                android:textSize="36sp"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:layout_marginBottom="15dp"
+                />
             <!--반등-->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="60dip"
+                android:layout_height="wrap_content"
                 android:orientation="vertical"
                 >
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="35dip"
-                    android:orientation="horizontal"
-                    android:gravity="bottom"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
                     >
                     <TextView
                         android:id="@+id/exercise_class_text"
-                        style="@style/exercise_text"
-                        android:layout_width="120dip"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="left"
-                        android:layout_marginLeft="30dp"
-                        android:text="반" />
+                        android:gravity="center"
+                        android:textSize="24sp"
+                        android:text="반"
+                        android:textStyle="bold"/>
 
                     <TextView
                         android:id="@+id/exercise_class_number"
                         style="@style/exercise_text"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="10"
-                        android:textColor="#d60700" />
+                        android:text="10등"
+                        android:gravity="center"
+                        android:textColor="#d60700"
+                        android:textSize="48sp"
+                        android:textStyle="bold"/>
 
-                    <TextView
+                    <!--<TextView
                         android:id="@+id/exercise_class_no"
                         android:layout_width="20dip"
                         android:layout_height="wrap_content"
                         style="@style/exercise_text"
                         android:gravity="right"
                         android:text="등"
-                         />
+                         />-->
                 </LinearLayout>
                 <ProgressBar
                     android:layout_width="match_parent"
                     android:layout_height="20dip"
                     android:gravity="bottom"
                     style="@android:style/Widget.ProgressBar.Horizontal"
-                    android:visibility="invisible"
+                    android:visibility="gone"
                     />
             </LinearLayout>
 
             <!--학년등-->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="60dip"
+                android:layout_height="wrap_content"
                 android:orientation="vertical"
+                android:layout_marginTop="10dp"
                 >
-
-
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="35dip"
-                    android:orientation="horizontal"
-                    android:gravity="bottom">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    >
 
                     <TextView
                         android:id="@+id/exercise_student_text"
                         style="@style/exercise_text"
-                        android:layout_width="120dip"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="left"
-                        android:layout_marginLeft="30dp"
-                        android:text="학년" />
+                        android:gravity="center"
+                        android:textSize="24sp"
+                        android:text="학년"
+                        android:textStyle="bold"/>
 
                     <TextView
                         android:id="@+id/exercise_student_number"
                         style="@style/exercise_text"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="250"
-                        android:textColor="#d60700" />
+                        android:text="10등"
+                        android:gravity="center"
+                        android:textColor="#d60700"
+                        android:textSize="48sp"
+                        android:textStyle="bold"/>
 
-                    <TextView
-                        android:id="@+id/exercise_student_no"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        style="@style/exercise_text"
-                        android:text="등" />
+                    <!--<TextView-->
+                        <!--android:id="@+id/exercise_student_no"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--style="@style/exercise_text"-->
+                        <!--android:text="등" />-->
                 </LinearLayout>
                 <ProgressBar
                     android:layout_width="match_parent"
                     android:layout_height="20dip"
                     android:gravity="bottom"
                     style="@android:style/Widget.ProgressBar.Horizontal"
-                    android:visibility="invisible"
+                    android:visibility="gone"
                     />
             </LinearLayout>
 
