@@ -33,10 +33,14 @@ import kr.co.aura.mtelo.healthcare.util.MLog;
 public class ExerciseActivity extends SherlockActivity  implements  View.OnClickListener {
 
     private String mDate, mName, mImg, mCalorie, mStep, mDistance, mBodyType, mClass, mGrade, mExetices,  mAverage, mAverageMax, mUserId;
+    private String mExerciseId;
+
     private TextView mExerciseDate , mExerciseName,  mExerciseCalorie, mExerciseStep, mExerciseDistance,
             mExerciseBodyType, mExerciseClass, mExerciseGrade, mExercicesEntries, mExerciseUser, mExerciseAverage;
     private ImageView mExerciseImg, mExerciseAverImg;
     private ProgressBar mProgressBar ;
+
+    private ExerciseMain exerciseMain;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +48,8 @@ public class ExerciseActivity extends SherlockActivity  implements  View.OnClick
         setContentView(R.layout.exercise_main);
 
         Intent intent = getIntent();
+
+        exerciseMain = (ExerciseMain)intent.getSerializableExtra("exercise_main");
 
         init_ACtionBar();
         intiLayout(intent);
@@ -205,12 +211,15 @@ public class ExerciseActivity extends SherlockActivity  implements  View.OnClick
             case R.id.btn_exercise_detail:
                 intent = new Intent(ExerciseActivity.this , ExerciseDetailActivity.class);
                 intent.putExtra("userId", mUserId);
+                intent.putExtra("exerciseId", exerciseMain.getExerciseId());
+
                 startActivity(intent);
                 break;
 
             case R.id.btn_exercise_history:
                 intent = new Intent(ExerciseActivity.this , ExerciseHistory.class);
                 intent.putExtra("userId", mUserId);
+                intent.putExtra("exerciseId", exerciseMain.getExerciseId());
                 startActivity(intent);
                 break;
 

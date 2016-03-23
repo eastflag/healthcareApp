@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
@@ -22,6 +23,7 @@ import org.json.JSONObject;
 
 import kr.co.aura.mtelo.healthcare.R;
 import kr.co.aura.mtelo.healthcare.addinfo.exercise.ExerciseActivity;
+import kr.co.aura.mtelo.healthcare.addinfo.exercise.ExerciseMain;
 import kr.co.aura.mtelo.healthcare.addinfo.mentaltest.MentalTestListActivity;
 import kr.co.aura.mtelo.healthcare.network.JSONNetWork_Manager;
 import kr.co.aura.mtelo.healthcare.network.NetWork;
@@ -37,6 +39,7 @@ public class AddInfoActivity extends SherlockActivity implements View.OnClickLis
     private Context mCon = this;
     private Intent mExerciseIntent ;
     private String mName , mSex, mUserId, mExerciseNext, mExercisePreiv;
+    private boolean isExistExerciseData = false;
 
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -48,6 +51,8 @@ public class AddInfoActivity extends SherlockActivity implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_info);
+
+        isExistExerciseData = false;
 
         ImageButton btn1 = (ImageButton) findViewById(R.id.add_info_btn1);
         ImageButton btn2 = (ImageButton) findViewById(R.id.add_info_btn2);
@@ -102,19 +107,26 @@ public class AddInfoActivity extends SherlockActivity implements View.OnClickLis
         Intent intent = null;
 
         switch (v.getId()) {
-            case R.id.add_info_btn1:  //활동량 조회intent = new Intent(AddInfoActivity.this, VideoTest.class);
+            case R.id.add_info_btn1:
                 intent = new Intent(AddInfoActivity.this, MentalTestListActivity.class);
-                Answers.getInstance().logContentView(new ContentViewEvent()
-                        .putContentName("심리검사 시작")
-                        .putContentType("Video")
-                        .putContentId("01040239227"));
+//                Answers.getInstance().logContentView(new ContentViewEvent()
+//                        .putContentName("심리검사 시작")
+//                        .putContentType("Video")
+//                        .putContentId("01040239227"));
                 break;
 
-            case R.id.add_info_btn2:    //심리검사
+            case R.id.add_info_btn2:
+            {
+                if(isExistExerciseData == false){
+                    Toast.makeText(this, "운동내역이 없습니다.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 intent = mExerciseIntent ;
-                Answers.getInstance().logContentView(new ContentViewEvent()
-                        .putContentName("활동량 체크")
-                        .putContentId("01040239227"));
+//                Answers.getInstance().logContentView(new ContentViewEvent()
+//                        .putContentName("활동량 체크")
+//                        .putContentId("01040239227"));
+            }
+
                 break;
 
             case R.id.add_info_btn3:
@@ -166,32 +178,65 @@ public class AddInfoActivity extends SherlockActivity implements View.OnClickLis
 
     public void btnSetting(JSONArray array){
        try {
-           mExerciseIntent = new Intent(AddInfoActivity.this , ExerciseActivity.class );
-            if (array.length() == 0) return;
+
+           if (array.length() == 0) return;
 
            MLog.write(Log.ERROR, this.toString(), "array= i " + array.get(0));
            JSONObject object = array.getJSONObject(0);  // JSONObject 추출
 
-           mExerciseIntent.putExtra("date", object.getString("exerciseDate")); //운동날짜
-           mExerciseIntent.putExtra("name", object.getString("exerciseName")); // 이름
-           mExerciseIntent.putExtra("img", object.getString("exerciseImg")); //이미지 경로
-           mExerciseIntent.putExtra("calorie", object.getString("calorie")); //칼로리
-           mExerciseIntent.putExtra("step", object.getString("step")); //걸음수
-           mExerciseIntent.putExtra("distance", object.getString("distance")); //이동거리
-           mExerciseIntent.putExtra("bodyType", object.getString("bodyType")); //체형
+           String exerciseDate = object.getString("exerciseDate");
 
-           mExerciseIntent.putExtra("class", object.getString("rangkingClass")); // 반랭킹
-           mExerciseIntent.putExtra("grade", object.getString("rangkingGrade")); //학년랭킹
-//           mExerciseIntent.putExtra("exercise", object.getString("rangkingExercise")); // 종목랭킹 16.03.23 해당항목삭
+           if(exerciseDate != null && exerciseDate.length() > 0){
+               mExerciseIntent = new Intent(AddInfoActivity.this , ExerciseActivity.class );
 
-//                mExerciseIntent.putExtra("user", object.getString("user")); //사용자 운동량
-           mExerciseIntent.putExtra("average", object.getString("calorieAverage")); //평군 운동량
-           mExerciseIntent.putExtra("averageMax", object.getString("calorieMax")); //평군 운동량 맥스
+               ExerciseMain exerciseMain = new ExerciseMain();
+
+               exerciseMain.setBodyType(object.getString("bodyType"));
+               exerciseMain.setCalorie(object.getString("calorie"));
+               exerciseMain.setCalorieAverage(object.getString("calorieAverage"));
+               exerciseMain.setCalorieMax(object.getString("calorieMax"));
+               exerciseMain.setDistance(object.getString("distance"));
+               exerciseMain.setExerciseDate(object.getString("exerciseDate"));
+               exerciseMain.setExerciseId(object.getString("exerciseId"));
+               exerciseMain.setExerciseIdNext(object.getString("exerciseIdNext"));
+               exerciseMain.setExerciseIdPrev(object.getString("exerciseIdPrev"));
+               exerciseMain.setExerciseImg(object.getString("exerciseImg"));
+               exerciseMain.setExerciseName(object.getString("exerciseName"));
+               exerciseMain.setRangkingClass(object.getString("rangkingClass"));
+               exerciseMain.setRangkingGrade(object.getString("rangkingGrade"));
+               exerciseMain.setStep(object.getString("step"));
+
+               mExerciseIntent.putExtra("exercise_main", exerciseMain);
 
 
-           mExerciseNext = object.optString("exerciseIdNext");  //다음 운동량
-           mExercisePreiv = object.getString("exerciseIdPrev"); //이전 운동량
-            Log.e("!!!!", "!!!! intent " + mExerciseIntent.getExtras());
+               mExerciseIntent.putExtra("date", object.getString("exerciseDate")); //운동날짜
+               mExerciseIntent.putExtra("name", object.getString("exerciseName")); // 이름
+               mExerciseIntent.putExtra("img", object.getString("exerciseImg")); //이미지 경로
+               mExerciseIntent.putExtra("calorie", object.getString("calorie")); //칼로리
+               mExerciseIntent.putExtra("step", object.getString("step")); //걸음수
+               mExerciseIntent.putExtra("distance", object.getString("distance")); //이동거리
+               mExerciseIntent.putExtra("bodyType", object.getString("bodyType")); //체형
+
+               mExerciseIntent.putExtra("class", object.getString("rangkingClass")); // 반랭킹
+               mExerciseIntent.putExtra("grade", object.getString("rangkingGrade")); //학년랭킹
+//             mExerciseIntent.putExtra("exercise", object.getString("rangkingExercise")); // 종목랭킹 16.03.23 해당항목삭
+//             mExerciseIntent.putExtra("user", object.getString("user")); //사용자 운동량
+               mExerciseIntent.putExtra("average", object.getString("calorieAverage")); //평군 운동량
+               mExerciseIntent.putExtra("averageMax", object.getString("calorieMax")); //평군 운동량 맥스
+
+               mExerciseIntent.putExtra("exerciseId", object.getString("exerciseId")); //평군 운동량 맥스
+
+               mExerciseNext = object.optString("exerciseIdNext");  //다음 운동량
+               mExercisePreiv = object.getString("exerciseIdPrev"); //이전 운동량
+               Log.e("!!!!", "!!!! intent " + mExerciseIntent.getExtras());
+
+               isExistExerciseData = true;
+           }
+
+
+
+
+
         } catch (JSONException e) {
             e.printStackTrace();
         }

@@ -49,6 +49,8 @@ public class ExerciseDetailActivity extends SherlockActivity implements View.OnC
     private final int SPEED = 1003;
     private int mChartStatus  = CALORIE;
 
+    private String mUserId;
+
     private LineChart mChart;
     private ArrayList<ChartData> mCheatDatas = new ArrayList<ChartData>();
 
@@ -63,6 +65,8 @@ public class ExerciseDetailActivity extends SherlockActivity implements View.OnC
 
         setContentView(R.layout.exerics_detail);
 
+        Intent intent = getIntent();
+        mUserId = intent.getStringExtra("userId");
 
         init_ACtionBar();
 
@@ -188,7 +192,7 @@ public class ExerciseDetailActivity extends SherlockActivity implements View.OnC
 
 
     private void getDate(){
-        JSONNetWork_Manager.request_Get_Exercise_Detail_Info("7001", "", this, new NetWork.Call_Back() {
+        JSONNetWork_Manager.request_Get_Exercise_Detail_Info(mUserId, "", this, new NetWork.Call_Back() {
             @Override
             public void onError(String error) {
             }
