@@ -108,7 +108,7 @@ public class AnimatedProgressLinear extends LinearLayout {
 
     public void setProgress(int pro){
         mProgress = pro;
-//        mProgressBar.setProgress(mProgress);
+        mProgressBar.setProgress(mProgress);
     }
     public void setMax(int proMax){
         mProgressBar.setMax(proMax);
@@ -145,7 +145,7 @@ public class AnimatedProgressLinear extends LinearLayout {
                         Xvalue,  // toXDelta
                         0,    // fromYDelta
                         0);// toYDelta
-        anim.setDuration(2000);
+        anim.setDuration(500);
         anim.setFillAfter(true);
 
         mAniImage.startAnimation(anim);
@@ -175,15 +175,15 @@ public class AnimatedProgressLinear extends LinearLayout {
         protected Void doInBackground(Void... arg0) {
             int addCount = 0;
             int max = getMax();
-            if(max > 1000){
+            if(max > 100){
                  addCount = max /100;
             }
                         try {
                 for (int i = 0; i < mProgress; i++) {
                     mProgressBar.setProgress(i + addCount);
-                    Thread.sleep(20);
+                    Thread.sleep(15);
                     i = i+ addCount;
-                    Log.e("!!!!", "!!!! aniPro i "+ i +", addCount "+ addCount +", max "+ max);
+//                    Log.e("!!!!", "!!!! aniPro i "+ i +", addCount "+ addCount +", max "+ max);
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();

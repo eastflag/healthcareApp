@@ -350,11 +350,18 @@ public class ExerciseDetailTabActivity extends Activity {
 
         private void startAni(ExerciseData data) {
             if (mAniPro != null) {
-                int ori = (Integer.parseInt(data.bodyType2)) / 10 ;
-                int xvalue = (int) (ori * 0.9);
+                // 데이터의 비율을 계산후  비율대로 애니메이션을 움직인다
+                int ori, max, value, xvalue;
+                ori = (Integer.parseInt(data.bodyType2));
+                max = (Integer.parseInt(data.bodyType2Max));
+                if (ori == 0) {
+                    xvalue = 0;
+                }else{
+                    value = max / ori;
+                    xvalue = 1000 / value;
+                }
 
                 mAniPro.setXValue(xvalue);
-
                 mAniPro.setMax(Integer.parseInt(data.bodyType2Max));
                 mAniPro.setProgress(Integer.parseInt(data.bodyType2));
                 mAniPro.setAveProgressbar(Integer.parseInt(data.bodyType2) + 100);
