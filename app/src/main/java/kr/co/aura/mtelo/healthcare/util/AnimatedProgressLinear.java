@@ -2,10 +2,10 @@ package kr.co.aura.mtelo.healthcare.util;
 
 import android.annotation.TargetApi;
 import android.content.Context;
-import android.media.Image;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.TranslateAnimation;
@@ -14,7 +14,6 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import io.fabric.sdk.android.services.concurrency.Task;
 import kr.co.aura.mtelo.healthcare.R;
 
 /**
@@ -109,7 +108,7 @@ public class AnimatedProgressLinear extends LinearLayout {
 
     public void setProgress(int pro){
         mProgress = pro;
-        mProgressBar.setProgress(mProgress);
+//        mProgressBar.setProgress(mProgress);
     }
     public void setMax(int proMax){
         mProgressBar.setMax(proMax);
@@ -155,8 +154,10 @@ public class AnimatedProgressLinear extends LinearLayout {
             mTask.cancel(false);
 
 
-        mTask = new CheckTypesTask();
-        mTask.execute();
+//        mTask = new CheckTypesTask();
+//        mTask.execute();
+        CheckTypesTask task = new CheckTypesTask();
+        task.execute();
     }
 
 
@@ -172,10 +173,17 @@ public class AnimatedProgressLinear extends LinearLayout {
 
         @Override
         protected Void doInBackground(Void... arg0) {
-            try {
+            int addCount = 0;
+            int max = getMax();
+            if(max > 1000){
+                 addCount = max /100;
+            }
+                        try {
                 for (int i = 0; i < mProgress; i++) {
-                    mProgressBar.setProgress(i);
+                    mProgressBar.setProgress(i + addCount);
                     Thread.sleep(20);
+                    i = i+ addCount;
+                    Log.e("!!!!", "!!!! aniPro i "+ i +", addCount "+ addCount +", max "+ max);
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();

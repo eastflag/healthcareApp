@@ -23,7 +23,7 @@ import kr.co.aura.mtelo.healthcare.preferences.CPreferences;
  */
 public class ExerciseActivity extends SherlockActivity  implements  View.OnClickListener {
 
-    private String mDate, mName, mImg, mCalorie, mStep, mDistance, mBodyType, mClass, mGrade, mExetices,  mAverage, mAverageMax;
+    private String mDate, mName, mImg, mCalorie, mStep, mDistance, mBodyType, mClass, mGrade, mExetices,  mAverage, mAverageMax, mUserId;
     private TextView mExerciseDate , mExerciseName,  mExerciseCalorie, mExerciseStep, mExerciseDistance,
             mExerciseBodyType, mExerciseClass, mExerciseGrade, mExercicesEntries, mExerciseUser, mExerciseAverage;
     private ImageView mExerciseImg, mExerciseAverImg;
@@ -39,7 +39,7 @@ public class ExerciseActivity extends SherlockActivity  implements  View.OnClick
         init_ACtionBar();
         intiLayout(intent);  // 사용중지
 
-        Log.e("!!!!", "!!!!! intent\n " + intent.getExtras());
+        Log.e("!!!!", "!!!!! intent\n " + intent.getExtras() +"\n "+ toString());
 
         ImageButton btnExeriseDetail = (ImageButton) findViewById(R.id.btn_exercise_detail);
         btnExeriseDetail.setOnClickListener(this);
@@ -63,9 +63,9 @@ public class ExerciseActivity extends SherlockActivity  implements  View.OnClick
         mGrade       = intent.getStringExtra("grade"); //학년랭킹
         mExetices    = intent.getStringExtra("exercise"); // 종목랭킹
 
-//        mUser = intent.getStringExtra("user"); //사용자 운동량 , 칼로리로 대체
         mAverage     = intent.getStringExtra("average"); //평군 운동량
         mAverageMax  = intent.getStringExtra("averageMax"); //평군 운동량 맥스
+        mUserId      = intent.getStringExtra("userId"); //사용자Id
 
 
         if (mImg != null && mName != null && mDate != null) {  //정보가 있을경우 - 정상실행
@@ -151,8 +151,6 @@ public class ExerciseActivity extends SherlockActivity  implements  View.OnClick
             dialog.create().show();
         }
 
-
-
     }
 
 
@@ -179,6 +177,13 @@ public class ExerciseActivity extends SherlockActivity  implements  View.OnClick
 
 
     @Override
+    public String toString() {
+        return "ExerciseActivity{" +
+                "mUserId='" + mUserId + '\'' +
+                '}';
+    }
+
+    @Override
     public void onClick(View v) {
         Intent intent = null;
         switch (v.getId()){
@@ -192,6 +197,8 @@ public class ExerciseActivity extends SherlockActivity  implements  View.OnClick
                 break;
 
         }
+        intent.putExtra("userId", mUserId);
         startActivity(intent);
+
     }
 }

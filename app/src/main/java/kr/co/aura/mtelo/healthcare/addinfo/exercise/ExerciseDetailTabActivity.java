@@ -350,14 +350,17 @@ public class ExerciseDetailTabActivity extends Activity {
 
         private void startAni(ExerciseData data) {
             if (mAniPro != null) {
-                mAniPro.setXValue(800);
+                int ori = (Integer.parseInt(data.bodyType2)) / 10 ;
+                int xvalue = (int) (ori * 0.9);
+
+                mAniPro.setXValue(xvalue);
 
                 mAniPro.setMax(Integer.parseInt(data.bodyType2Max));
                 mAniPro.setProgress(Integer.parseInt(data.bodyType2));
                 mAniPro.setAveProgressbar(Integer.parseInt(data.bodyType2) + 100);
                 mAniPro.startImgAnim();
 
-                Log.e("!!!!" , "!!!!! startAni() "+ mAniPro.getmProgress() +" , "+ mAniPro.getMax());
+                Log.e("!!!!" , "!!!!! startAni() "+ xvalue +" , "+ mAniPro.getmProgress()+", "+ mAniPro.getMax());
             }
         }
 
@@ -394,7 +397,7 @@ public class ExerciseDetailTabActivity extends Activity {
                 tex5.setText(data.bodyType6 + UNIT);
 
                 String log = String.format("pro1 %s, pro1max %s, pro2 %s, pro2max %s, pro3 %s, pro3max %s, pro4 %s, pro4max %s,pro5 %s, pro5max %s",
-                        pro1.getProgress(), pro1.getMax(), mAniPro.getmProgress(), mAniPro.getMax(), pro3.getProgress(), pro3.getMax(), pro4.getProgress(), pro4.getMax(), pro5.getProgress(), pro5.getMax());
+                        pro1.getProgress(), pro1.getMax(), data.bodyType2, data.bodyType2Max, pro3.getProgress(), pro3.getMax(), pro4.getProgress(), pro4.getMax(), pro5.getProgress(), pro5.getMax());
                 Log.e("!!!!!!", "!!!! progressbar 총 데이터 " + data.toString() );
                 Log.e("!!!!!!", "!!!! progressbar 총 데이터 "+mTabLayout.getCurrentTab() +", " + log );
 

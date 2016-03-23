@@ -1,6 +1,7 @@
 package kr.co.aura.mtelo.healthcare.addinfo.exercise;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -48,7 +49,10 @@ public class ExerciseHistory extends SherlockActivity {
 
 
         init_ACtionBar();
-        getDate();
+
+        Intent intent = getIntent();
+        String userId = intent.getStringExtra("userId");
+        getDate(userId,""); //userId, ExerciseId
 
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview);
@@ -116,13 +120,13 @@ public class ExerciseHistory extends SherlockActivity {
 
 
 
-    private void getDate(){
+    private void getDate(String userId, String exerciseId){
         //학교 정보 추출
 //        String url = Define.getNetUrl() + Define.MENTAL_LIST+"?" +JSONNetWork.KEY_USER_ID+ "=123";;
         String url = "http://210.127.55.205:82/HealthCare/simli/type_list?userId=123";
         Log.e("LDK", "############# url: " + url);
 
-        JSONNetWork_Manager.request_Get_Exercise_History("123", "", this, new NetWork.Call_Back() {
+        JSONNetWork_Manager.request_Get_Exercise_History(userId, exerciseId, this, new NetWork.Call_Back() {
             @Override
             public void onError(String error) {
             }

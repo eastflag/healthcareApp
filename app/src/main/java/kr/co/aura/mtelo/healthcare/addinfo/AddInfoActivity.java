@@ -36,7 +36,7 @@ public class AddInfoActivity extends SherlockActivity implements View.OnClickLis
 
     private Context mCon = this;
     private Intent mExerciseIntent ;
-    private String mName , mSex, mUserId;
+    private String mName , mSex, mUserId, mExerciseNext, mExercisePreiv;
 
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -182,12 +182,15 @@ public class AddInfoActivity extends SherlockActivity implements View.OnClickLis
 
            mExerciseIntent.putExtra("class", object.getString("rangkingClass")); // 반랭킹
            mExerciseIntent.putExtra("grade", object.getString("rangkingGrade")); //학년랭킹
-           mExerciseIntent.putExtra("exercise", object.getString("rangkingExercise")); // 종목랭킹
+//           mExerciseIntent.putExtra("exercise", object.getString("rangkingExercise")); // 종목랭킹 16.03.23 해당항목삭
 
 //                mExerciseIntent.putExtra("user", object.getString("user")); //사용자 운동량
            mExerciseIntent.putExtra("average", object.getString("calorieAverage")); //평군 운동량
            mExerciseIntent.putExtra("averageMax", object.getString("calorieMax")); //평군 운동량 맥스
 
+
+           mExerciseNext = object.optString("exerciseIdNext");  //다음 운동량
+           mExercisePreiv = object.getString("exerciseIdPrev"); //이전 운동량
             Log.e("!!!!", "!!!! intent " + mExerciseIntent.getExtras());
         } catch (JSONException e) {
             e.printStackTrace();
