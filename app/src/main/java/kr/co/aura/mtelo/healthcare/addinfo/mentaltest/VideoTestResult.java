@@ -31,14 +31,28 @@ import kr.co.aura.mtelo.healthcare.preferences.CPreferences;
  * Created by young-kchoi on 16. 3. 17..
  */
 public class VideoTestResult extends SherlockActivity {
-    private  String mSimliId = null;
+
+    public static final String Mode_AnswerList = "answerList";
+    public static final String Mode_Parent = "parent";
+    public static final String Mode_Child = "child";
+
+    private String mSimliId = null;
     private String mUserId = null;
     private String mMode = null;
+
+
+
     private ArrayList<ResultList> mResultList = new ArrayList<ResultList>();
+
+
     private final int REFASH_LAYOUT = 100;
+
     private LinearLayout mBG;
+
     private TextView mResultView;
     private StringBuilder mResultText;
+    private String mResult = ""; // test result
+
     private ImageView mImageView ;
     private LinearLayout mLinear;
 
@@ -73,7 +87,13 @@ public class VideoTestResult extends SherlockActivity {
         }else if(mSimliId.toUpperCase().startsWith("SE")) { //자아존중감
             setSelfMode();
         }
-        getResultData(mUserId, mSimliId);
+
+        if(mMode.equals(Mode_AnswerList)){
+            getAnswerList(mUserId, mSimliId);
+        } else if(mMode.equals(Mode_Parent) || mMode.equals(Mode_Child)){
+            getTestResult(mUserId, mSimliId);
+        }
+
 
     }
 
@@ -124,13 +144,9 @@ public class VideoTestResult extends SherlockActivity {
     }
 
 
-
-
-
-
-//데이터 획득
-    private void getResultData(String userId, String simliid) {
-        JSONNetWork_Manager.request_Get_Simli_Result(userId, simliid, this, new NetWork.Call_Back() {
+    //데이터 획득
+    private void getAnswerList(String userId, String simliid) {
+        JSONNetWork_Manager.request_Get_Simli_AnswerList(userId, simliid, this, new NetWork.Call_Back() {
             @Override
             public void onError(String error) {
             }
@@ -156,6 +172,59 @@ public class VideoTestResult extends SherlockActivity {
                     e.printStackTrace();
                 }
             }
+
+            @Override
+            public void onRoaming(String message) {
+            }
+        });
+    }
+
+    private void getTestResult(String userId, String simliid) {
+        JSONNetWork_Manager.request_Get_Simli_Result(userId, simliid, this, new NetWork.Call_Back() {
+            @Override
+            public void onError(String error) {
+            }
+
+            @Override
+            public void onGetResponsData(byte[] data) {
+            }
+
+            @Override
+            public void onGetResponsString(String data) {
+                String Result = null, errMsg = null;
+                JSONObject jsonObject = null;
+
+                try {
+                    if (data != null) {
+                        JSONObject jsonObj = new JSONObject(data);
+                        // parsing 처리
+                        if(mMode.equals(Mode_Parent)){
+                            mResult = jsonObj.getString("resultParent");
+                        } else if(mMode.equals(Mode_Child)) {
+                            mResult = jsonObj.getString("resultStudent");
+                        }
+
+                        if(mResult != null && mResult.length() > 0){
+
+                            mResult = mResult.replace("<br/>", "\n");
+
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    mResultView.setText(mResult);
+                                }
+                            });
+                        }
+
+                    } else {
+                        Toast.makeText(VideoTestResult.this, "다시 시도해주세요.", Toast.LENGTH_LONG).show();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+
 
             @Override
             public void onRoaming(String message) {
@@ -229,7 +298,7 @@ public class VideoTestResult extends SherlockActivity {
                     mResultText.append("□ " + answer.content + "\n");
                 }
             }
-            mResultText.append("\n\n");
+            mResultText.append("\n");
         }
 
         mResultView.setText(mResultText.toString());

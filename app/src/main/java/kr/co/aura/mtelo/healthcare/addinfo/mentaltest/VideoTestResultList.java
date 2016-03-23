@@ -132,10 +132,11 @@ public class VideoTestResultList extends SherlockActivity implements  View.OnCli
 
         switch (v.getId() ){
             case R.id.btn_video_test_result_parent:
-                intent.putExtra("mode" , "parent");  //부모
+                intent.putExtra("mode" , VideoTestResult.Mode_Parent);
                 break;
+
             case R.id.btn_video_test_result_child:
-                intent.putExtra("mode" , "child");  //부모
+                intent.putExtra("mode" , VideoTestResult.Mode_Child);
                 break;
         }
         intent.putExtra("simliId", mSimliId);  //심리ID

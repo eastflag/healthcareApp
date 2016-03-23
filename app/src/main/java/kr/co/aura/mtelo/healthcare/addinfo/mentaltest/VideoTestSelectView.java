@@ -53,8 +53,11 @@ public class VideoTestSelectView extends SherlockActivity implements  View.OnCli
 
         Button btn1 = (Button) findViewById(R.id.btn_test_start);
         TextView btn2 = (Button) findViewById(R.id.btn_test_result);
+        TextView btn3 = (Button) findViewById(R.id.btn_test_answer_list);
+
         btn1.setOnClickListener(this);
         btn2.setOnClickListener(this);
+        btn3.setOnClickListener(this);
 
         mImageView = (ImageButton) findViewById(R.id.test_kind_img);
 
@@ -84,6 +87,7 @@ public class VideoTestSelectView extends SherlockActivity implements  View.OnCli
                             runOnUiThread(new Runnable() {
                                 public void run() {
                                     ((Button) findViewById(R.id.btn_test_result)).setVisibility(View.VISIBLE);
+                                    ((Button) findViewById(R.id.btn_test_answer_list)).setVisibility(View.VISIBLE);
                                 }
                             });
 
@@ -173,7 +177,12 @@ public class VideoTestSelectView extends SherlockActivity implements  View.OnCli
                 break;
 
             case R.id.btn_test_result:
-                intent = new Intent(VideoTestSelectView.this, VideoTestResultList.class);
+                intent = new Intent(this, VideoTestResultList.class);
+                break;
+
+            case R.id.btn_test_answer_list:
+                intent = new Intent(this, VideoTestResult.class);
+                intent.putExtra("mode" , VideoTestResult.Mode_AnswerList);
                 break;
         }
 

@@ -32,7 +32,7 @@
         android:layout_width="320dp"
         android:layout_height="100dp"
         android:contentDescription="검사하기"
-        android:background="#484b5f"
+        android:background="#61657c"
         android:text="검사 하기"
         android:textColor="#FFFFFF"
         android:textAlignment="center"
@@ -46,8 +46,8 @@
         android:layout_width="320dp"
         android:layout_height="100dp"
         android:layout_marginTop="10dip"
-        android:contentDescription="결과보기"
-        android:background="#8d99c3"
+        android:contentDescription="결과 보기"
+        android:background="#6d779b"
         android:text="결과 보기"
         android:textColor="#FFFFFF"
         android:textAlignment="center"
@@ -56,6 +56,22 @@
         android:gravity="center"
         android:visibility="gone"
          />
+
+    <Button
+        android:id="@+id/btn_test_answer_list"
+        android:layout_width="320dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="10dip"
+        android:contentDescription="다시 보기"
+        android:background="#8d99c3"
+        android:text="다시 보기"
+        android:textColor="#FFFFFF"
+        android:textAlignment="center"
+        android:textSize="24dp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:visibility="gone"
+        />
 </LinearLayout>
 
 </LinearLayout>
