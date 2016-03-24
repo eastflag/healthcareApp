@@ -12,6 +12,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
@@ -41,6 +42,7 @@ public class ExerciseActivity extends SherlockActivity  implements  View.OnClick
     private ProgressBar mProgressBar ;
 
     private ExerciseMain exerciseMain;
+    private String mExerciseIdPrev, mExerciseIdNext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +56,11 @@ public class ExerciseActivity extends SherlockActivity  implements  View.OnClick
         init_ACtionBar();
         intiLayout(intent);
 
-        Log.e("!!!!", "!!!!! intent\n " + intent.getExtras() + "\n " + toString());
+
+        //이전운동 이후운동값 획득
+        mExerciseIdNext = exerciseMain.getExerciseIdNext();
+        mExerciseIdPrev = exerciseMain.getExerciseIdPrev();
+
 
         ImageButton btnExeriseDetail = (ImageButton) findViewById(R.id.btn_exercise_detail);
         btnExeriseDetail.setOnClickListener(this);
@@ -71,7 +77,10 @@ public class ExerciseActivity extends SherlockActivity  implements  View.OnClick
         btnExeriseDateNext.setOnClickListener(this);
     }
 
+
+
     private void intiLayout(Intent intent) {
+        Log.e("!!!!", "!!!!! intiLayout() \n " + intent.getExtras() + "\n " + toString());
         mDate        = intent.getStringExtra("date"); //운동날짜
         mName        = intent.getStringExtra("name"); // 이름
         mImg         = intent.getStringExtra("img" ); //이미지 경로
@@ -86,8 +95,13 @@ public class ExerciseActivity extends SherlockActivity  implements  View.OnClick
 
         mAverage     = intent.getStringExtra("average"); //평군 운동량
         mAverageMax  = intent.getStringExtra("averageMax"); //평군 운동량 맥스
-        mUserId      = intent.getStringExtra("userId"); //사용자Id
 
+        String id  = intent.getStringExtra("userId"); //사용자Id
+        if(id != null)
+            mUserId      = id; //사용자Id
+
+        mExerciseIdNext = intent.getStringExtra("exerciseIdNext"); //이전운동
+        mExerciseIdPrev = intent.getStringExtra("exerciseIdPrev"); //이후운동
 
         if (mImg != null && mName != null && mDate != null) {  //정보가 있을경우 - 정상실행
 
@@ -198,13 +212,6 @@ public class ExerciseActivity extends SherlockActivity  implements  View.OnClick
 
 
     @Override
-    public String toString() {
-        return "ExerciseActivity{" +
-                "mUserId='" + mUserId + '\'' +
-                '}';
-    }
-
-    @Override
     public void onClick(View v) {
         Intent intent = null;
         switch (v.getId()){
@@ -224,11 +231,19 @@ public class ExerciseActivity extends SherlockActivity  implements  View.OnClick
                 break;
 
             case R.id.exercise_date_prev:
-                getDate(mUserId , "");
+                if(mExerciseIdPrev == null|| mExerciseIdPrev.length() == 0 ){
+                    Toast.makeText(ExerciseActivity.this, "데이터가 없습니다 ", Toast.LENGTH_SHORT).show();
+                }else{
+                     getDate(mUserId, mExerciseIdPrev); // 이전 운동ID를 얻어올 방법을 찾을것
+                }
                 break;
 
             case R.id.exercise_date_next:
-                getDate(mUserId , "");
+                if(mExerciseIdNext == null || mExerciseIdNext.length() == 0 ){
+                    Toast.makeText(ExerciseActivity.this, "데이터가 없습니다 ", Toast.LENGTH_SHORT).show();
+                }else{
+                    getDate(mUserId , mExerciseIdNext); // 이후 운동ID를 얻어올 방법을 찾을것
+                }
                 break;
         }
     }
@@ -269,36 +284,38 @@ public class ExerciseActivity extends SherlockActivity  implements  View.OnClick
 
     public void btnSetting(JSONArray array){
         try {
-           Intent mExerciseIntent = new Intent();
+           Intent intent = new Intent();
             if (array.length() == 0) return;
 
             MLog.write(Log.ERROR, this.toString(), "array= i " + array.get(0));
             JSONObject object = array.getJSONObject(0);  // JSONObject 추출
 
-            mExerciseIntent.putExtra("date", object.getString("exerciseDate")); //운동날짜
-            mExerciseIntent.putExtra("name", object.getString("exerciseName")); // 이름
-            mExerciseIntent.putExtra("img", object.getString("exerciseImg")); //이미지 경로
-            mExerciseIntent.putExtra("calorie", object.getString("calorie")); //칼로리
-            mExerciseIntent.putExtra("step", object.getString("step")); //걸음수
-            mExerciseIntent.putExtra("distance", object.getString("distance")); //이동거리
-            mExerciseIntent.putExtra("bodyType", object.getString("bodyType")); //체형
+//            intent.putExtra("userId", object.getString("userId")); //유저ID
+            intent.putExtra("date", object.getString("exerciseDate")); //운동날짜
+            intent.putExtra("name", object.getString("exerciseName")); // 이름
+            intent.putExtra("img", object.getString("exerciseImg")); //이미지 경로
+            intent.putExtra("calorie", object.getString("calorie")); //칼로리
+            intent.putExtra("step", object.getString("step")); //걸음수
+            intent.putExtra("distance", object.getString("distance")); //이동거리
+            intent.putExtra("bodyType", object.getString("bodyType")); //체형
 
-            mExerciseIntent.putExtra("class", object.getString("rangkingClass")); // 반랭킹
-            mExerciseIntent.putExtra("grade", object.getString("rangkingGrade")); //학년랭킹
+            intent.putExtra("class", object.getString("rangkingClass")); // 반랭킹
+            intent.putExtra("grade", object.getString("rangkingGrade")); //학년랭킹
 //           mExerciseIntent.putExtra("exercise", object.getString("rangkingExercise")); // 종목랭킹 16.03.23 해당항목삭
 
 //                mExerciseIntent.putExtra("user", object.getString("user")); //사용자 운동량
-            mExerciseIntent.putExtra("average", object.getString("calorieAverage")); //평군 운동량
-            mExerciseIntent.putExtra("averageMax", object.getString("calorieMax")); //평군 운동량 맥스
+            intent.putExtra("average", object.getString("calorieAverage")); //평군 운동량
+            intent.putExtra("averageMax", object.getString("calorieMax")); //평군 운동량 맥스
 
 
-            String mExerciseNext = object.optString("exerciseIdNext");  //다음 운동량
-            String mExercisePreiv = object.getString("exerciseIdPrev"); //이전 운동량
-            Log.e("!!!!", "!!!! intent 운동량 " + mExerciseIntent.getExtras());
+            intent.putExtra("exerciseIdNext", object.optString("exerciseIdNext"));  //다음 운동량
+            intent.putExtra("exerciseIdPrev", object.getString("exerciseIdPrev")); //이전 운동량
+            Log.e("!!!!", "!!!! intent 운동량 " + intent.getExtras());
+
 
             Message msg = new Message();
             msg.what = 0;
-            msg.obj = mExerciseIntent;
+            msg.obj = intent;
             mHandler.sendMessage(msg);
 
         } catch (JSONException e) {

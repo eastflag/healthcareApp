@@ -61,15 +61,16 @@ public class ExerciseDetailTabActivity extends Activity {
         mTextCalorie  = (TextView) findViewById(R.id.txt_my_body_calorie);
 
         mTabLayout = (SegmentTabLayout) findViewById(R.id.exercise_detail_tab);
-        mFragments.add(new TabItemFragment());
-        mFragments.add(new TabItemFragment());
-        mFragments.add(new TabItemFragment());
-        mFragments.add(new TabItemFragment());
+        mFragments.add(new TabItemFragment()); //반
+        mFragments.add(new TabItemFragment()); //학년
+        mFragments.add(new TabItemFragment()); //학교
+        mFragments.add(new TabItemFragment()); //전국
 
 
         Intent intent = getIntent();
         AverageType = intent.getStringExtra("averageType");
 
+        //단위 설정
         if(AverageType.equals("calorie")){
             UNIT = "Kcal";
         }else if(AverageType.equals("step")){
@@ -78,9 +79,13 @@ public class ExerciseDetailTabActivity extends Activity {
             UNIT = "Km";
         }
 
+        //테스트 코드
         UserId = "7001";
         ExerciseId = "137";
         GroupType = "class";
+
+
+        //데이터 얻어오기
         getDate(UserId, ExerciseId, AverageType, GroupType);
 //        getDate(UserId, ExerciseId, AverageType, "grade");
 //        getDate(UserId, ExerciseId, AverageType, "school");
@@ -95,27 +100,22 @@ public class ExerciseDetailTabActivity extends Activity {
             super.handleMessage(msg);
 
             switch (msg.what) {
-                case PAGE_ONE:
+                case PAGE_ONE: //학년정보 얻어오기
                     getDate(UserId, ExerciseId, AverageType, "grade");
                     break;
 
-                case PAGE_TWO:
+                case PAGE_TWO:  //학교정도 얻어오기
                     getDate(UserId, ExerciseId, AverageType, "school");
                     break;
-                case PAGE_THREE:
+                case PAGE_THREE:  //전국정보 얻어오기
                     getDate(UserId, ExerciseId, AverageType, "all");
                     break;
 
-                case PAGE_FOUL:
+                case PAGE_FOUL:  //레이아웃 그리기
                     Log.e("!!!!!!", "!!!! 모든 리스트데이터 " + mExerciseDataList);
                     initTabLayout();
                     mAdapter.notifyDataSetChanged();
                     break;
-            }
-
-            if (mExerciseDataList.size() == 4) {
-
-                //레이아웃 초기화
             }
 
         }
@@ -177,7 +177,6 @@ public class ExerciseDetailTabActivity extends Activity {
                         }else if(mExerciseDataList.size() == 4){
                             mHandler.sendEmptyMessage(PAGE_FOUL);
                         }
-                    } else {
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

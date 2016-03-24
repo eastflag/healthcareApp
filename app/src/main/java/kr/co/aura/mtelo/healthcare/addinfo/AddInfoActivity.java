@@ -12,8 +12,6 @@ import android.widget.Toast;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
-import com.crashlytics.android.answers.Answers;
-import com.crashlytics.android.answers.ContentViewEvent;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 
@@ -116,16 +114,14 @@ public class AddInfoActivity extends SherlockActivity implements View.OnClickLis
                 break;
 
             case R.id.add_info_btn2:
-            {
-                if(isExistExerciseData == false){
+                if (isExistExerciseData == false) {
                     Toast.makeText(this, "운동내역이 없습니다.", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                intent = mExerciseIntent ;
+                intent = mExerciseIntent;
 //                Answers.getInstance().logContentView(new ContentViewEvent()
 //                        .putContentName("활동량 체크")
 //                        .putContentId("01040239227"));
-            }
 
                 break;
 
