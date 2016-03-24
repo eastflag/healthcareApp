@@ -26,7 +26,6 @@ import kr.co.aura.mtelo.healthcare.R;
 import kr.co.aura.mtelo.healthcare.network.JSONNetWork_Manager;
 import kr.co.aura.mtelo.healthcare.network.NetWork;
 import kr.co.aura.mtelo.healthcare.preferences.CPreferences;
-import kr.co.aura.mtelo.healthcare.util.MLog;
 
 /**
  * Created by young-kchoi on 2016. 2. 11..
@@ -287,7 +286,7 @@ public class ExerciseActivity extends SherlockActivity  implements  View.OnClick
            Intent intent = new Intent();
             if (array.length() == 0) return;
 
-            MLog.write(Log.ERROR, this.toString(), "array= i " + array.get(0));
+//            MLog.write(Log.ERROR, this.toString(), "array= i " + array.get(0));
             JSONObject object = array.getJSONObject(0);  // JSONObject 추출
 
 //            intent.putExtra("userId", object.getString("userId")); //유저ID

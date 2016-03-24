@@ -107,10 +107,6 @@ public class AddInfoActivity extends SherlockActivity implements View.OnClickLis
         switch (v.getId()) {
             case R.id.add_info_btn1:
                 intent = new Intent(AddInfoActivity.this, MentalTestListActivity.class);
-//                Answers.getInstance().logContentView(new ContentViewEvent()
-//                        .putContentName("심리검사 시작")
-//                        .putContentType("Video")
-//                        .putContentId("01040239227"));
                 break;
 
             case R.id.add_info_btn2:
@@ -119,10 +115,6 @@ public class AddInfoActivity extends SherlockActivity implements View.OnClickLis
                     return;
                 }
                 intent = mExerciseIntent;
-//                Answers.getInstance().logContentView(new ContentViewEvent()
-//                        .putContentName("활동량 체크")
-//                        .putContentId("01040239227"));
-
                 break;
 
             case R.id.add_info_btn3:
