@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/btnMode2"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical">
+
+
+    <!--배경-->
+    <ImageView
+        android:id="@+id/image_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingTop="90dip">
+
+        <!--버튼 레이아웃 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dip"
+            android:layout_weight="4.5"
+            android:orientation="horizontal"
+            android:padding="10dip">
+
+            <!--보기 버튼1-->
+            <RelativeLayout
+                android:id="@+id/btn_layout1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:id="@+id/example_image1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/imagebtn_bg" />
+
+                <Button
+                    android:id="@+id/dubleBtn1"
+                    android:layout_width="40dip"
+                    android:layout_height="40dip"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/dublebtn_bg" />
+            </RelativeLayout>
+            <!--보기 버튼 끝-->
+
+            <!--보기버튼2 -->
+            <RelativeLayout
+                android:id="@+id/btn_layout2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dip"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:id="@+id/example_image2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/imagebtn_bg" />
+
+                <Button
+                    android:id="@+id/dubleBtn2"
+                    android:layout_width="40dip"
+                    android:layout_height="40dip"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/dublebtn_bg" />
+            </RelativeLayout>
+            <!--보기버튼2 끝-->
+
+
+            <!--보기버튼3 -->
+            <!--보기버튼3 끝-->
+
+            <!--보기버튼4 -->
+            <!--보기버튼4 끝-->
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+</RelativeLayout>

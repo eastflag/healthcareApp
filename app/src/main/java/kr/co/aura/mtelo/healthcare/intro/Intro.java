@@ -102,8 +102,7 @@ public class Intro extends Activity {
         mAq.post(url, json, JSONObject.class, new AjaxCallback<JSONObject>() {
             @Override
             public void callback(String url, JSONObject object, AjaxStatus status) {
-                Log.e("LDK", "!!!!!! @#!@# result: url "+ url +" , object " + object.toString());
-                Log.e("" , "!!!!!! mdn " + getMdn(Intro.this));
+//                Log.e("LDK", "!!!!!! @#!@# result: url "+ url +" , object " + object.toString());
 
                 if (status.getCode() != 200) {
                     showLogo(1);
@@ -230,6 +229,7 @@ public class Intro extends Activity {
                 "http://192.168.0.199:4040/HealthCare/",
                 "http://192.168.0.199:6060/HealthCare/",
                 "http://210.127.55.205/HealthCare/",        // 상용서버
+                "http://210.127.55.205:82/HealthCare/",        // 상용서버
                 //"http://192.168.0.28/HealthCare/", 		// TTA 테스트서버 회사IP
                 //"http://210.96.71.161/HealthCare/", 		// TTA 테스트서버
                 //"http://210.127.55.205:82/HealthCare/"		// 개발서버

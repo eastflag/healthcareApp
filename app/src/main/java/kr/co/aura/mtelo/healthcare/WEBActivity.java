@@ -101,6 +101,8 @@ public class WEBActivity extends SherlockActivity {
 
 		init_ACtionBar();
 		web = (WebView) findViewById(R.id.main_webview);
+
+
 		progressBar = (ProgressBar) findViewById(R.id.progressBar1);
 //		progressBar = (SquareProgressBar) findViewById(R.id.progressBar1);
 		progressBar.bringToFront();
@@ -122,17 +124,20 @@ public class WEBActivity extends SherlockActivity {
 			web.getSettings().setAppCacheEnabled(true);
 		}
 
+
+		// http://10.10.106.79:8080/HealthCare/
+		// "http://210.127.55.205:82/HealthCare/front-views/view?p=food&userId=408&ver=1.1.9"
 		web.loadUrl(mURL);
 		MLog.write(Log.DEBUG, this.toString(), "WEB URL = "+ mURL);
 		
 		
-		web.setWebChromeClient(	new MyWebChromeViewClient() );
-//		web.setWebViewClient(new myWebViewClient() );
+		web.setWebChromeClient(new MyWebChromeViewClient() );
+		web.setWebViewClient(new myWebViewClient() );
 		//객체, 노출할 DOM 명칭
 ////        web.addJavascriptInterface(new AndroidBridge(), "android");
 //		
 		// 서버에서 보낸 쿠키체크
-		checkCookie(mURL);
+		//checkCookie(mURL);
 	}
 	
 	
@@ -348,12 +353,19 @@ public class WEBActivity extends SherlockActivity {
 
 		private class myWebViewClient extends WebViewClient 
 	{
-//		   public boolean shouldOverrideUrlLoading(WebView view, String url) { 
-////			   if(progressBar.getVisibility() == View.GONE) progressBar.setVisibility(View.VISIBLE);
-//	            view.loadUrl(url); 
-//	            return true; 
-//	        }
-//		   
+		   public boolean shouldOverrideUrlLoading(WebView view, String url) {
+
+			   // WebView link click or windows open open default browser
+			   if (url != null && url.startsWith("http://")) {
+				   view.getContext().startActivity(
+						   new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+				   return true;
+			   } else {
+				   return false;
+			   }
+
+	        }
+
 		   @Override
 			public void onPageFinished(WebView view, String url) {			}
 		   

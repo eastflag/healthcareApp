@@ -45,7 +45,7 @@ public class PopEvent extends SherlockActivity implements OnClickListener{
 		webView.setInitialScale(100);
 		webView.getSettings().setLoadWithOverviewMode(true);
 		
-		webView.loadUrl("http://210.127.55.205/HealthCare/popup/event.html"); //팝업 웹뷰 컨텐츠 IP 설정 실서버 
+		webView.loadUrl("http://210.127.55.205:82/HealthCare/popup/event.html"); //팝업 웹뷰 컨텐츠 IP 설정 실서버
 		//webView.loadUrl("http://192.168.0.8:8081/healthcare/popup/event.html"); /팝업 웹뷰 컨텐츠 IP 설정
 		//webView.loadUrl("http:m.naver.com");
 		

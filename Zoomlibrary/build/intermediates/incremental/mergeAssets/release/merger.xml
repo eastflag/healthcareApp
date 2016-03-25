@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="C:\android\studio_workspace\healthcare\Zoomlibrary\assets"/></dataSet><dataSet config="release"><source path="C:\android\studio_workspace\healthcare\Zoomlibrary\build-types\release\assets"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="/Users/young-kchoi/Documents/workspace/healthcareApp/Zoomlibrary/assets"/></dataSet><dataSet config="release"><source path="/Users/young-kchoi/Documents/workspace/healthcareApp/Zoomlibrary/build-types/release/assets"/></dataSet></merger>

@@ -3,64 +3,46 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center"
+    android:gravity="center_horizontal"
     >
 
-    <Button
+    <ImageButton
         android:id="@+id/test_list_btn1"
-        android:layout_width="270dp"
-        android:layout_height="60dp"
-        android:background="@drawable/btn_bg"
+        android:layout_width="320dp"
+        android:layout_height="100dp"
+        android:background="@drawable/btn_worry"
+        android:contentDescription="불안척도"
+        android:layout_marginTop="20dip"
+        />
 
-        android:shadowColor="#A8A8A8"
-        android:shadowDx="0"
-        android:shadowDy="0"
-        android:shadowRadius="5"
-        android:text="btn1"
-        android:textColor="#FFFFFF"
-        android:textSize="30sp" />
 
-    <Button
+    <ImageButton
         android:id="@+id/test_list_btn2"
-        android:layout_width="270dp"
-        android:layout_height="60dp"
-        android:background="@drawable/btn_bg"
+        android:layout_width="320dp"
+        android:layout_height="100dp"
+        android:background="@drawable/btn_gloom"
 
-        android:layout_marginTop="40dip"
-        android:shadowColor="#A8A8A8"
-        android:shadowDx="0"
-        android:shadowDy="0"
-        android:shadowRadius="5"
-        android:text="btn2"
-        android:textColor="#FFFFFF"
-        android:textSize="30sp" />
+        android:layout_marginTop="20dip"
+        android:contentDescription="우울척도"
+        />
 
-    <Button
-        android:id="@+id/test_list_btn3"
-        android:layout_width="270dp"
-        android:layout_height="60dp"
-        android:background="@drawable/btn_bg"
-        android:layout_marginTop="40dip"
-        android:shadowColor="#A8A8A8"
-        android:shadowDx="0"
-        android:shadowDy="0"
-        android:shadowRadius="5"
-        android:text="btn3"
-        android:textColor="#FFFFFF"
-        android:textSize="30sp" />
-
-    <Button
+    <ImageButton
         android:id="@+id/test_list_btn4"
-        android:layout_width="270dp"
-        android:layout_height="60dp"
-        android:background="@drawable/btn_bg"
-        android:layout_marginTop="40dip"
-        android:shadowColor="#A8A8A8"
-        android:shadowDx="0"
-        android:shadowDy="0"
-        android:shadowRadius="5"
-        android:text="btn4"
-        android:textColor="#FFFFFF"
-        android:textSize="30sp" />
+        android:layout_width="320dp"
+        android:layout_height="100dp"
+        android:background="@drawable/btn_self"
+        android:layout_marginTop="20dip"
+        android:contentDescription="자아존중감"
+        />
+
+    <ImageButton
+        android:id="@+id/test_list_btn3"
+        android:layout_width="320dp"
+        android:layout_height="100dp"
+        android:background="@drawable/btn_internet"
+        android:layout_marginTop="20dip"
+        android:contentDescription="인터넷중독"
+        android:visibility="gone"
+        />
 
 </LinearLayout>

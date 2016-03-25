@@ -36,7 +36,7 @@ public class FullVideoView extends VideoView  {
 		int h = getResources().getDisplayMetrics().heightPixels;
 		setMeasuredDimension(w , h);
 		
-		MLog.write(Log.ERROR, "FullVideoView" , "onMeasure W= "+w+", h= "+h);
+		MLog.write(Log.DEBUG, "FullVideoView" , "onMeasure W= "+w+", h= "+h);
 
 		//16.02.04 비디오 플레이시 화면 하단의 버튼을 안보이게..
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {

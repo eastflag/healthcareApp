@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingLeft="15dip"
+    android:paddingRight="15dip">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dip"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/icon_body_b"
+            android:layout_marginRight="20dp"
+            />
+
+        <TextView
+            android:id="@+id/exercise_detail_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="22dp"
+            android:textStyle="bold"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dip"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/exercise_detail_top_tx1"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/exercise_detail_tab_btn_bg"
+            android:text="칼로리"
+            android:layout_marginRight="2dip"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:textSize="18dp"
+            />
+
+        <Button
+            android:id="@+id/exercise_detail_top_tx2"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/exercise_detail_tab_btn_bg"
+            android:text="걸음 수"
+            android:layout_marginRight="2dip"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:textSize="18dp"
+            />
+
+        <Button
+            android:id="@+id/exercise_detail_top_tx3"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/exercise_detail_tab_btn_bg"
+            android:text="이동거리"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:textSize="18dp"
+            />
+    </LinearLayout>
+
+    <!-- 중간 그래ㅠㅡ 헤이아웃 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        >
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/chart1"
+            android:layout_width="match_parent"
+            android:layout_height="260dip"
+            />
+
+    </LinearLayout>
+
+
+
+    <!-- custom 범례 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="15dp"
+        android:gravity="center"
+        >
+        <TextView
+            android:id="@+id/chart1_regend_color"
+            android:layout_width="15dip"
+            android:layout_height="15dip"
+            android:background="#FF0000"
+            android:gravity="center"
+
+            />
+        <TextView
+            android:id="@+id/chart1_regend"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:drawablePadding="10dp"
+            android:gravity="left|center_vertical"
+            android:layout_marginLeft="5dp"
+            android:text="칼로리"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            />
+        <TextView
+            android:id="@+id/chart2_regend_color"
+            android:layout_width="15dip"
+            android:layout_height="15dip"
+            android:background="#00FF00"
+            android:gravity="center"
+            />
+        <TextView
+            android:id="@+id/chart2_regend"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:drawablePadding="10dp"
+            android:gravity="left|center_vertical"
+            android:layout_marginLeft="5dp"
+            android:text="걸음수"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            />
+        <TextView
+            android:id="@+id/chart3_regend_color"
+            android:layout_width="15dip"
+            android:layout_height="15dip"
+            android:background="#0000FF"
+            android:gravity="center"
+            />
+        <TextView
+            android:id="@+id/chart3_regend"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:gravity="left|center_vertical"
+            android:layout_marginLeft="5dp"
+            android:text="이동거리"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            />
+    </LinearLayout>
+
+
+    <!-- 하단 레이아웃 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+
+    <!-- 1번쨰 항목 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="1dp"
+        >
+
+        <TextView
+            android:id="@+id/exercise_detail_bottom_left_tx1"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:drawableLeft="@drawable/icon_kcal"
+            android:background="#8d99c3"
+            android:text="소모 칼로리"
+            style="@style/exercise_text_white2"
+
+            />
+
+        <TextView
+            android:id="@+id/exercise_detail_bottom_right_tx1"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#dce0f0"
+            android:gravity="center"
+            android:text=""
+            style="@style/exercise_text"
+            android:padding="5dip"/>
+    </LinearLayout>
+
+    <!-- 2번쨰 항목 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="1dp">
+
+        <TextView
+            android:id="@+id/exercise_detail_bottom_left_tx2"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:drawableLeft="@drawable/icon_step"
+            android:background="#6d779b"
+            android:text="걸음수"
+            style="@style/exercise_text_white2"
+            />
+
+        <TextView
+            android:id="@+id/exercise_detail_bottom_right_tx2"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#dce0f0"
+            android:gravity="center"
+            android:text=""
+            style="@style/exercise_text"
+            android:padding="5dip"/>
+    </LinearLayout>
+
+    <!-- 3번쨰 항목 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="1dp">
+
+        <TextView
+            android:id="@+id/exercise_detail_bottom_left_tx3"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:drawableLeft="@drawable/icon_km"
+            android:background="#61657c"
+            android:text="이동거리"
+            style="@style/exercise_text_white2"
+            />
+
+        <TextView
+            android:id="@+id/exercise_detail_bottom_right_tx3"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#dce0f0"
+            android:gravity="center"
+            android:text=""
+            style="@style/exercise_text"
+            android:padding="5dip"/>
+    </LinearLayout>
+
+
+    <!-- 4번쨰 항목 -->
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="horizontal"-->
+        <!--android:layout_marginBottom="1dp">-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/exercise_detail_bottom_left_tx4"-->
+            <!--android:layout_width="0dip"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="1"-->
+            <!--android:drawableLeft="@drawable/icon_speed"-->
+            <!--android:drawablePadding="10dp"-->
+            <!--android:gravity="center"-->
+            <!--android:background="#484b5f"-->
+            <!--android:text="평균속도"-->
+            <!--style="@style/exercise_text_white"-->
+            <!--android:padding="5dip"/>-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/exercise_detail_bottom_right_tx4"-->
+            <!--android:layout_width="0dip"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="1"-->
+            <!--android:background="#dce0f0"-->
+            <!--android:text="66m/min"-->
+            <!--style="@style/exercise_text"-->
+            <!--android:padding="5dip"/>-->
+    <!--</LinearLayout>-->
+
+
+    <!-- 5번쨰 항목 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            android:id="@+id/exercise_detail_bottom_left_tx5"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:drawableLeft="@drawable/icon_body"
+            android:background="#484b5f"
+            android:text="체형"
+            style="@style/exercise_text_white2"
+            />
+
+        <TextView
+            android:id="@+id/exercise_detail_bottom_right_tx5"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#dce0f0"
+            android:text=""
+            style="@style/exercise_text"
+            android:padding="5dip"/>
+    </LinearLayout>
+
+
+</LinearLayout></LinearLayout>

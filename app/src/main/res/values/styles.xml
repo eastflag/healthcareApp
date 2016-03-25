@@ -36,8 +36,22 @@
 
     <!-- exerice_main 텍스트 -->
     <style name="exercise_text">
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">#000000</item>
+    </style>
+
+    <style name="exercise_text_white">
+        <item name="android:textSize">18sp</item>
         <item name="android:gravity">center</item>
         <item name="android:textColor">#ffffff</item>
+    </style>
+
+    <style name="exercise_text_white2">
+        <item name="android:textSize">18sp</item>
+        <item name="android:gravity">left|center_vertical</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:drawablePadding">10dp</item>
     </style>
 </resources>

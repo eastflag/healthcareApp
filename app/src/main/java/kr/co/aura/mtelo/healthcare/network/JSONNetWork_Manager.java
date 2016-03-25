@@ -6,6 +6,8 @@ import kr.co.aura.mtelo.healthcare.util.MLog;
 import android.content.Context;
 import android.util.Log;
 
+import java.util.ArrayList;
+
 public class JSONNetWork_Manager //implements Call_Back
 {
 	private final static String LOG_TAG = "JSONNetWork_Manager";
@@ -333,19 +335,242 @@ public class JSONNetWork_Manager //implements Call_Back
 	{
 		StringBuffer strbuff = new StringBuffer();
 //		strbuff.append((String)Define.getNetUrl());
-		strbuff.append( "http://210.127.55.205:82/HealthCare/");
+		strbuff.append( Define.TEST_URL);
 		strbuff.append(Define.MENTAL_LIST);
+		strbuff.append("?" + JSONNetWork.KEY_USER_ID +"=" + userId);
 
-		String keys[] = {JSONNetWork.KEY_USER_ID};
-		String values[] = { userId};
-		MLog.write(Log.ERROR, "request_Get_Mental_Info",  "userId = "+userId);
+		MLog.write(Log.ERROR, "request_Get_Mental_Info", "userId = " + userId +", url :"+ strbuff);
 
 		JSONNetWork jn = new JSONNetWork(context);
 		jn.setMRequestType(JSONNetWork.REQUESTTYPE_GET);
-		jn.setPostParams(keys, values);
 		jn.setMRequestUrl(strbuff.toString());
 		jn.set_Call_Back(call_back);
 		jn.start_Request();
 	}
+
+
+	/**
+	 * 16.2.18 신규
+	 * 심리검사 뮨재리스트 조회
+	 * @param type
+	 * @param call_back
+	 */
+	public static void request_Get_Mental_TestList(String simliId,  Context context, final Call_Back call_back)
+	{
+
+		StringBuffer strbuff = new StringBuffer();
+//		strbuff.append((String)Define.getNetUrl());
+		strbuff.append( Define.TEST_URL);
+		strbuff.append(Define.MENTAL_TEST_LIST);
+		strbuff.append("?" + JSONNetWork.KEY_MENTAL_ID +"=" + simliId);
+
+		MLog.write(Log.ERROR, "request_Get_Mental_TestList", "simliId = " + simliId +", url :"+ strbuff);
+
+		JSONNetWork jn = new JSONNetWork(context);
+		jn.setMRequestType(JSONNetWork.REQUESTTYPE_GET);
+		jn.setMRequestUrl(strbuff.toString());
+		jn.set_Call_Back(call_back);
+		jn.start_Request();
+	}
+
+
+
+	/**
+	 * 16.3.7 신규
+	 * 운동량 정보 조회
+	 * @param type
+	 * @param call_back
+	 */
+	public static void request_Get_Exercise_Info(String simliId, String exerciseId, Context context, final Call_Back call_back)
+	{
+
+		StringBuffer strbuff = new StringBuffer();
+//		strbuff.append((String)Define.getNetUrl());
+		strbuff.append( Define.TEST_URL);
+		strbuff.append(Define.EXERCISE_INFO);
+		strbuff.append("?" + JSONNetWork.KEY_USER_ID +"=" + simliId +"&" +JSONNetWork.KEY_EXERCISE_ID +"="+ exerciseId);
+
+		MLog.write(Log.ERROR, "request_Get_Exercise_Info", "simliId = " + simliId + ", url :" + strbuff);
+
+		JSONNetWork jn = new JSONNetWork(context);
+		jn.setMRequestType(JSONNetWork.REQUESTTYPE_GET);
+		jn.setMRequestUrl(strbuff.toString());
+		jn.set_Call_Back(call_back);
+		jn.start_Request();
+	}
+
+
+	/**
+	 * 16.3.10 신규
+	 * 운동량 디테일 정보 조회
+	 * @param type
+	 * @param call_back
+	 */
+	public static void request_Get_Exercise_Detail_Info(String userId, String exerciseId, Context context, final Call_Back call_back)
+	{
+
+		StringBuffer strbuff = new StringBuffer();
+//		strbuff.append((String)Define.getNetUrl());
+		strbuff.append( Define.TEST_URL);
+		strbuff.append(Define.EXERCISE_DETAIL_INFO);
+		strbuff.append("?" + JSONNetWork.KEY_USER_ID +"=" + userId +"&" +JSONNetWork.KEY_EXERCISE_ID +"="+ exerciseId);
+
+		MLog.write(Log.ERROR, "request_Get_Exercise_Detail_Info", "simliId = " + userId + ", url :" + strbuff);
+
+		JSONNetWork jn = new JSONNetWork(context);
+		jn.setMRequestType(JSONNetWork.REQUESTTYPE_GET);
+		jn.setMRequestUrl(strbuff.toString());
+		jn.set_Call_Back(call_back);
+		jn.start_Request();
+	}
+
+
+	/**
+	 * 16.3.10 신규
+	 * 운동량 히스토리  정보 조회
+	 * @param type
+	 * @param call_back
+	 */
+	public static void request_Get_Exercise_History(String simliId, String exerciseId, Context context, final Call_Back call_back)
+	{
+
+		StringBuffer strbuff = new StringBuffer();
+//		strbuff.append((String)Define.getNetUrl());
+		strbuff.append( Define.TEST_URL);
+		strbuff.append(Define.EXERCISE_HISTORY);
+		strbuff.append("?" + JSONNetWork.KEY_USER_ID +"=" + simliId +"&" +JSONNetWork.KEY_EXERCISE_ID +"="+ exerciseId);
+
+		MLog.write(Log.ERROR, "request_Get_Exercise_History", "simliId = " + simliId + ", url :" + strbuff);
+
+		JSONNetWork jn = new JSONNetWork(context);
+		jn.setMRequestType(JSONNetWork.REQUESTTYPE_GET);
+		jn.setMRequestUrl(strbuff.toString());
+		jn.set_Call_Back(call_back);
+		jn.start_Request();
+	}
+
+
+
+	/**
+	 * 16.3.10 신규
+	 * 운동량 히스토리  정보 조회
+	 * @param type
+	 * @param call_back
+	 */
+	public static void request_Get_Simli_AnswerList(String userid, String simliId,  Context context, final Call_Back call_back)
+	{
+
+		StringBuffer strbuff = new StringBuffer();
+		strbuff.append( Define.TEST_URL);
+		strbuff.append(Define.MENTAL_TEST_ANSWER_LIST);
+		strbuff.append("?" + JSONNetWork.KEY_USER_ID +"=" + userid+"&" +JSONNetWork.KEY_MENTAL_ID+"="+ simliId);
+
+		MLog.write(Log.ERROR, "request_Get_Simli_AnswerList", "userId= "+userid +" simliId = " + simliId + ", url :" + strbuff);
+
+		JSONNetWork jn = new JSONNetWork(context);
+		jn.setMRequestType(JSONNetWork.REQUESTTYPE_GET);
+		jn.setMRequestUrl(strbuff.toString());
+		jn.set_Call_Back(call_back);
+		jn.start_Request();
+	}
+
+	public static void request_Get_Simli_Result(String userid, String simliId,  Context context, final Call_Back call_back)
+	{
+
+		StringBuffer strbuff = new StringBuffer();
+		strbuff.append( Define.TEST_URL);
+		strbuff.append(Define.MENTAL_TEST_RESULT);
+		strbuff.append("?" + JSONNetWork.KEY_USER_ID +"=" + userid+"&" +JSONNetWork.KEY_MENTAL_ID+"="+ simliId);
+
+		MLog.write(Log.ERROR, "request_Get_Simli_Result", "userId= "+userid +" simliId = " + simliId + ", url :" + strbuff);
+
+		JSONNetWork jn = new JSONNetWork(context);
+		jn.setMRequestType(JSONNetWork.REQUESTTYPE_GET);
+		jn.setMRequestUrl(strbuff.toString());
+		jn.set_Call_Back(call_back);
+		jn.start_Request();
+	}
+
+	public static void request_insert_Simli_Result(String userid, ArrayList<String> listResult, Context context, final Call_Back call_back)
+	{
+
+
+
+		StringBuffer strbuff = new StringBuffer();
+//		strbuff.append((String)Define.getNetUrl());
+		strbuff.append(Define.TEST_URL);
+		strbuff.append(Define.MENTAL_TEST_INSERT);
+		//strbuff.append("?" + JSONNetWork.KEY_USER_ID + "=" + userid+"&" +JSONNetWork.KEY_MENTAL_ANSWER + "=");
+
+
+
+		String answerData = "";
+		for (String item:listResult) {
+			answerData += item;
+			answerData += ",";
+		}
+
+		String keys[] = {JSONNetWork.KEY_USER_ID, JSONNetWork.KEY_MENTAL_ANSWER};
+		String values[] = { userid, answerData};
+
+		// TODO result setting
+
+		MLog.write(Log.ERROR, "request_Get_Simli_Result", "url :" + strbuff);
+
+		JSONNetWork jn = new JSONNetWork(context);
+		jn.setMRequestType(JSONNetWork.REQUESTTYPE_POST);
+		jn.setPostParams(keys, values); // 순서 주의
+		jn.setMRequestUrl(strbuff.toString());
+		//jn.setMRequestUrl("http://10.10.106.79:8080/HealthCare/simli/insert_simli_result");
+		jn.set_Call_Back(call_back);
+		jn.start_Request();
+
+	}
+
+	public static void request_Get_Simli_Result_Check(String userid, String simliId, Context context, final Call_Back call_back)
+	{
+
+		StringBuffer strbuff = new StringBuffer();
+//		strbuff.append((String)Define.getNetUrl());
+		strbuff.append( Define.TEST_URL);
+		strbuff.append(Define.MENTAL_TEST_RESULT_CHECK);
+		strbuff.append("?" + JSONNetWork.KEY_USER_ID +"=" + userid+"&" +JSONNetWork.KEY_MENTAL_ID+"="+ simliId);
+
+		MLog.write(Log.ERROR, "request_Get_Simli_Result_check", "url :" + strbuff);
+
+		JSONNetWork jn = new JSONNetWork(context);
+		jn.setMRequestType(JSONNetWork.REQUESTTYPE_GET);
+		jn.setMRequestUrl(strbuff.toString());
+		jn.set_Call_Back(call_back);
+		jn.start_Request();
+	}
+
+
+
+	/**
+	 * 16.3.10 신규
+	 * 운동량 히스토리  정보 조회
+	 * @param type
+	 * @param call_back
+	 */
+	public static void request_Get_User_Exercise_Data(String userid, String exerciseId, String averageType, String groupType, Context context, final Call_Back call_back)
+	{
+
+		StringBuffer strbuff = new StringBuffer();
+//		strbuff.append((String)Define.getNetUrl());
+		strbuff.append( Define.TEST_URL);
+		strbuff.append(Define.EXERCISE_DATA);
+		strbuff.append("?" + JSONNetWork.KEY_USER_ID +"=" + userid+ "&" + JSONNetWork.KEY_EXERCISE_ID+"="+ exerciseId +"&"+
+				JSONNetWork.KEY_EXERCISE_AVERAGE_TYPE +"="+ averageType +"&"+ JSONNetWork.KEY_EXERCISE_GROUP_TYPE +"="+ groupType);
+
+		MLog.write(Log.ERROR, "request_Get_User_Exercise_Data", "url :" + strbuff);
+
+		JSONNetWork jn = new JSONNetWork(context);
+		jn.setMRequestType(JSONNetWork.REQUESTTYPE_GET);
+		jn.setMRequestUrl(strbuff.toString());
+		jn.set_Call_Back(call_back);
+		jn.start_Request();
+	}
+
 
 }

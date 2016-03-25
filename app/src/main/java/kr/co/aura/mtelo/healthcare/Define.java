@@ -21,7 +21,9 @@ public class Define {
 	  
 	///릴리즈 서버 아이피  변경시 수정... 2015.02.26 tharaud 추가 
 	//public static String SERVER_IP = "http://210.96.71.161/HealthCare/";//TTA
-	public static String SERVER_IP = "http://210.127.55.205/HealthCare/"; //Real
+	//public static String SERVER_IP = "http://210.127.55.205/HealthCare/"; //Real
+	public static String SERVER_IP = "http://210.127.55.205:82/HealthCare/"; //Real
+	//public static String SERVER_IP = "http://10.10.106.79:8080/HealthCare/"; //Real
 	//public static String SERVER_IP = "http://192.168.0.8:8081/healthcare/"; //
 	//public static String SERVER_IP = "http://192.168.0.100:7070/HealthCare/"; //시연
 	//public static String SERVER_IP = "http://106.245.237.196:7070/HealthCare/"; //시연
@@ -75,7 +77,19 @@ public class Define {
 
 
 	//심리검사
+	public static String TEST_URL ="http://210.127.55.205:82/HealthCare/";
 	public static String MENTAL_LIST ="simli/type_list";
+	public static String MENTAL_TEST_LIST ="simli/qna_list";
+	public static String MENTAL_TEST_ANSWER_LIST ="simli/simli_review";
+	public static String MENTAL_TEST_RESULT ="simli/simli_result";
+	public static String MENTAL_TEST_RESULT_CHECK ="simli/simli_result_check";
+	public static String MENTAL_TEST_INSERT ="simli/insert_simli_result";
+
+	//운동량
+	public static String EXERCISE_INFO ="exercise/main";
+	public static String EXERCISE_DETAIL_INFO ="exercise/view";
+	public static String EXERCISE_HISTORY ="exercise/history";
+	public static String EXERCISE_DATA ="exercise/tab";
 
 
 }
