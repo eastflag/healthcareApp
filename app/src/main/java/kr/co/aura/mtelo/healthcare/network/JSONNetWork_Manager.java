@@ -494,11 +494,15 @@ public class JSONNetWork_Manager //implements Call_Back
 	public static void request_insert_Simli_Result(String userid, ArrayList<String> listResult, Context context, final Call_Back call_back)
 	{
 
+
+
 		StringBuffer strbuff = new StringBuffer();
 //		strbuff.append((String)Define.getNetUrl());
 		strbuff.append(Define.TEST_URL);
 		strbuff.append(Define.MENTAL_TEST_INSERT);
-		strbuff.append("?" + JSONNetWork.KEY_USER_ID + "=" + userid+"&" +JSONNetWork.KEY_MENTAL_ANSWER + "=");
+		//strbuff.append("?" + JSONNetWork.KEY_USER_ID + "=" + userid+"&" +JSONNetWork.KEY_MENTAL_ANSWER + "=");
+
+
 
 		String answerData = "";
 		for (String item:listResult) {
@@ -506,32 +510,21 @@ public class JSONNetWork_Manager //implements Call_Back
 			answerData += ",";
 		}
 
-		strbuff.append(answerData);
+		String keys[] = {JSONNetWork.KEY_USER_ID, JSONNetWork.KEY_MENTAL_ANSWER};
+		String values[] = { userid, answerData};
 
 		// TODO result setting
 
 		MLog.write(Log.ERROR, "request_Get_Simli_Result", "url :" + strbuff);
 
 		JSONNetWork jn = new JSONNetWork(context);
-		jn.setMRequestType(JSONNetWork.REQUESTTYPE_GET);
+		jn.setMRequestType(JSONNetWork.REQUESTTYPE_POST);
+		jn.setPostParams(keys, values); // 순서 주의
 		jn.setMRequestUrl(strbuff.toString());
+		//jn.setMRequestUrl("http://10.10.106.79:8080/HealthCare/simli/insert_simli_result");
 		jn.set_Call_Back(call_back);
 		jn.start_Request();
 
-
-//		StringBuffer strbuff = new StringBuffer();
-//		strbuff.append((String)Define.getNetUrl());
-//		strbuff.append(Define.SMS_CERF);
-//		String keys[] = {JSONNetWork.KEY_MDN};
-//		String values[] = { myMDN};
-//		MLog.write(context, "mdn = "+myMDN );
-//
-//		JSONNetWork jn = new JSONNetWork(context);
-//		jn.setMRequestType(JSONNetWork.REQUESTTYPE_POST);
-//		jn.setPostParams(keys, values);
-//		jn.setMRequestUrl(strbuff.toString());
-//		jn.set_Call_Back(call_back);
-//		jn.start_Request();
 	}
 
 	public static void request_Get_Simli_Result_Check(String userid, String simliId, Context context, final Call_Back call_back)
