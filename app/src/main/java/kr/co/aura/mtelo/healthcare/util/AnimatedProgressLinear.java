@@ -12,6 +12,7 @@ import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import kr.co.aura.mtelo.healthcare.R;
@@ -26,7 +27,7 @@ public class AnimatedProgressLinear extends LinearLayout {
     private int mMode = MODE_ALL;
 
     private int mProgress = 0;
-    private ProgressBar mProgressBar;
+    private SeekBar mProgressBar;
     private ImageView mAniImage, mUpDownImage;
     private TextView mSubText, mMainText;
     private Context mContext;
@@ -67,7 +68,7 @@ public class AnimatedProgressLinear extends LinearLayout {
 
         LinearLayout view = (LinearLayout) LayoutInflater.from(context).inflate(R.layout.animated_porgress_linear , null);
 
-        mProgressBar = (ProgressBar) view.findViewById(R.id.ani_progressbar);
+        mProgressBar = (SeekBar) view.findViewById(R.id.ani_progressbar);
         mAniImage = (ImageView) view.findViewById(R.id.ani_move_img);
         mUpDownImage = (ImageView) view.findViewById(R.id.ani_updown_flag_img);
         mSubText = (TextView) view.findViewById(R.id.ani_user_sub_text);
@@ -174,7 +175,7 @@ public class AnimatedProgressLinear extends LinearLayout {
         @Override
         protected Void doInBackground(Void... arg0) {
             int addCount = 0;
-            int max = getMax();
+            int max = mProgressBar.getMax();
             if(max > 100){
                  addCount = max /100;
             }

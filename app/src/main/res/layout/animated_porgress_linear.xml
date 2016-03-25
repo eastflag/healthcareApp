@@ -56,13 +56,13 @@
         </LinearLayout>
     </LinearLayout>
 
-    <ProgressBar
+    <SeekBar
         android:id="@+id/ani_progressbar"
         style="@android:style/Widget.ProgressBar.Horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dip"
         android:progressDrawable="@drawable/progress"
-
+        android:thumb="@drawable/reddot"
         />
 </LinearLayout>

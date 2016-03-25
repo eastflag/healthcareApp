@@ -169,6 +169,9 @@ public class ExerciseDetailActivity extends SherlockActivity implements View.OnC
     @Override
     public void onClick(View v) {
         Intent intent = new Intent(ExerciseDetailActivity.this, ExerciseDetailTabActivity.class);
+        intent.putExtra("userId", mUserId );
+        intent.putExtra("exerciseId", mExerciseId );
+
         switch (v.getId()) {
 
             case R.id.exercise_detail_top_tx1:

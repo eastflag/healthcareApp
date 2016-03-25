@@ -69,6 +69,8 @@ public class ExerciseDetailTabActivity extends Activity {
 
         Intent intent = getIntent();
         AverageType = intent.getStringExtra("averageType");
+        UserId = intent.getStringExtra("userId");
+        ExerciseId = intent.getStringExtra("exerciseId");
 
         //단위 설정
         if(AverageType.equals("calorie")){
@@ -79,11 +81,7 @@ public class ExerciseDetailTabActivity extends Activity {
             UNIT = "Km";
         }
 
-        //테스트 코드
-        UserId = "7001";
-        ExerciseId = "1230";
         GroupType = "class";
-
 
         //데이터 얻어오기
         getDate(UserId, ExerciseId, AverageType, GroupType);

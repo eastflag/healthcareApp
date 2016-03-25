@@ -48,7 +48,8 @@
             style="@android:style/Widget.ProgressBar.Horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:indeterminate="false" />
+            android:indeterminate="false"
+            android:progressDrawable="@drawable/progress"/>
     </LinearLayout>
 
     <!-- 2번쨰 -->
@@ -112,7 +113,8 @@
             android:id="@+id/detail_tab_item_pro3"
             style="@android:style/Widget.ProgressBar.Horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:progressDrawable="@drawable/progress"/>
     </LinearLayout>
 
     <!-- 4번쨰 -->
@@ -148,7 +150,8 @@
             android:id="@+id/detail_tab_item_pro4"
             style="@android:style/Widget.ProgressBar.Horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:progressDrawable="@drawable/progress"/>
     </LinearLayout>
 
     <!-- 5번쨰 -->
@@ -184,6 +187,7 @@
             android:id="@+id/detail_tab_item_pro5"
             style="@android:style/Widget.ProgressBar.Horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:progressDrawable="@drawable/progress"/>
     </LinearLayout>
 </LinearLayout>
