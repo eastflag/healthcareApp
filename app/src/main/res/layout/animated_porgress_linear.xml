@@ -60,10 +60,9 @@
         android:id="@+id/ani_progressbar"
         style="@android:style/Widget.ProgressBar.Horizontal"
         android:layout_width="match_parent"
-        android:layout_height="15dip"
+        android:layout_height="wrap_content"
         android:layout_marginTop="2dip"
-        android:background="#303F9F"
-        android:progressDrawable="@color/c_465866"
-        />
+        android:progressDrawable="@drawable/progress"
 
+        />
 </LinearLayout>

@@ -81,7 +81,7 @@ public class ExerciseDetailTabActivity extends Activity {
 
         //테스트 코드
         UserId = "7001";
-        ExerciseId = "137";
+        ExerciseId = "1230";
         GroupType = "class";
 
 
@@ -350,7 +350,8 @@ public class ExerciseDetailTabActivity extends Activity {
         private void startAni(ExerciseData data) {
             if (mAniPro != null) {
                 // 데이터의 비율을 계산후  비율대로 애니메이션을 움직인다
-                int ori, max, value, xvalue;
+
+                int ori, max, value =0 , xvalue;
                 ori = (Integer.parseInt(data.bodyType2));
                 max = (Integer.parseInt(data.bodyType2Max));
                 if (ori == 0) {
@@ -366,7 +367,8 @@ public class ExerciseDetailTabActivity extends Activity {
                 mAniPro.setAveProgressbar(Integer.parseInt(data.bodyType2) + 100);
                 mAniPro.startImgAnim();
 
-                Log.e("!!!!" , "!!!!! startAni() "+ xvalue +" , "+ mAniPro.getmProgress()+", "+ mAniPro.getMax());
+                Log.e("!!!!" , "!!!!! startAni() "+ xvalue +" value : "+ value +" , "+ " max: "+ max +", "+ max /ori);
+
             }
         }
 
