@@ -7,6 +7,7 @@ import android.os.Build;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
@@ -20,7 +21,7 @@ import kr.co.aura.mtelo.healthcare.R;
 /**
  * Created by young-kchoi on 16. 3. 3..
  */
-public class AnimatedProgressLinear extends LinearLayout {
+public class AnimatedProgressLinear extends LinearLayout{
 
     public static final int MODE_ALL = 100;
     public static final int MODE_NO_ANI = 101;
@@ -57,9 +58,14 @@ public class AnimatedProgressLinear extends LinearLayout {
     }
 
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-//        setMeasuredDimension(getDefaultSize(getSuggestedMinimumWidth(), widthMeasureSpec),
-//                getDefaultSize(getSuggestedMinimumHeight(), heightMeasureSpec));
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+//        setMeasuredDimension(
+//                getDefaultSize(getSuggestedMinimumWidth(), widthMeasureSpec),    //width
+//                getDefaultSize(getSuggestedMinimumHeight(), heightMeasureSpec));  //height
+
+
+
+
     }
 
     private void init(Context context) {
@@ -73,6 +79,13 @@ public class AnimatedProgressLinear extends LinearLayout {
         mUpDownImage = (ImageView) view.findViewById(R.id.ani_updown_flag_img);
         mSubText = (TextView) view.findViewById(R.id.ani_user_sub_text);
         mMainText = (TextView) view.findViewById(R.id.ani_main_text);
+
+        mProgressBar.setOnTouchListener(new OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return true;
+            }
+        });
 
         switch (mMode) {
             case MODE_ALL:
