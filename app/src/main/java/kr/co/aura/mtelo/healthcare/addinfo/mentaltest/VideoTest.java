@@ -186,8 +186,8 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
 
         try {
             // TODO 임시로 2개만 처리 하도록 구성
-            //for (int i = 0; i < array.length(); i++) {
-            for (int i = 0; i < 2; i++) {
+            for (int i = 0; i < array.length(); i++) {
+            //for (int i = 0; i < 2; i++) {
                 JSONObject object = array.getJSONObject(i);
                 TestList item = new TestList();
                 item.content = object.getString("content");
