@@ -87,44 +87,7 @@ public class ExerciseHistory extends SherlockActivity {
         });
     }
 
-
-    //차후 삭제할것
-    private ArrayList<HistoryListItem> testCode() {
-
-        HistoryListItem item = new HistoryListItem("20160310123", "2016.03.10", "축국",  "240", "6000", "4.05", "http://210.127.55.205/exercise_contents/soccer.png");
-        HistoryListItem item2 = new HistoryListItem("20160310123", "2016.03.03", "농구",  "340", "6500", "4.05", "http://210.127.55.205/exercise_contents/soccer.png");
-        HistoryListItem item3 = new HistoryListItem("20160310123", "2016.03.04", "탁구",  "200", "2000", "4", "http://210.127.55.205/exercise_contents/soccer.png");
-        HistoryListItem item4 = new HistoryListItem("20160310123", "2016.03.06", "배구",  "1140", "8000", "1.05", "http://210.127.55.205/exercise_contents/soccer.png");
-        HistoryListItem item5 = new HistoryListItem("20160310123", "2016.03.08", "당구",  "640", "1000", "5", "http://210.127.55.205/exercise_contents/soccer.png");
-
-        HistoryListItem item6 = new HistoryListItem("20160310123", "2016.03.10", "축국",  "240", "6000", "4.05", "http://210.127.55.205/exercise_contents/soccer.png");
-        HistoryListItem item7 = new HistoryListItem("20160310123", "2016.03.03", "농구",  "340", "6500", "4.05", "http://210.127.55.205/exercise_contents/soccer.png");
-        HistoryListItem item8 = new HistoryListItem("20160310123", "2016.03.04", "탁구",  "200", "2000", "4", "http://210.127.55.205/exercise_contents/soccer.png");
-        HistoryListItem item9 = new HistoryListItem("20160310123", "2016.03.06", "배구",  "1140", "8000", "1.05", "http://210.127.55.205/exercise_contents/soccer.png");
-        HistoryListItem item10 = new HistoryListItem("20160310123", "2016.03.08", "당구", "640", "1000", "5", "http://210.127.55.205/exercise_contents/soccer.png");
-
-        mHistoryItems.add(item);
-        mHistoryItems.add(item2);
-        mHistoryItems.add(item3);
-        mHistoryItems.add(item4);
-        mHistoryItems.add(item5);
-
-        mHistoryItems.add(item6);
-        mHistoryItems.add(item7);
-        mHistoryItems.add(item8);
-        mHistoryItems.add(item9);
-        mHistoryItems.add(item10);
-
-        return mHistoryItems;
-    }
-
-
-
     private void getDate(String userId, String exerciseId){
-        //학교 정보 추출
-//        String url = Define.getNetUrl() + Define.MENTAL_LIST+"?" +JSONNetWork.KEY_USER_ID+ "=123";;
-        String url = "http://210.127.55.205:82/HealthCare/simli/type_list?userId=123";
-        Log.e("LDK", "############# url: " + url);
 
         JSONNetWork_Manager.request_Get_Exercise_History(userId, exerciseId, this, new NetWork.Call_Back() {
             @Override
@@ -212,7 +175,7 @@ public class ExerciseHistory extends SherlockActivity {
 
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.exercise_history_item, null);
+            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.exercise_history_item, parent, false);
             return new ViewHolder(v);
         }
 
