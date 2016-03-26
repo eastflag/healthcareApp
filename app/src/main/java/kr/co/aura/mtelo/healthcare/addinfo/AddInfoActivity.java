@@ -179,6 +179,7 @@ public class AddInfoActivity extends SherlockActivity implements View.OnClickLis
 
                ExerciseMain exerciseMain = new ExerciseMain();
 
+               exerciseMain.setUserId(mUserId);
                exerciseMain.setBodyType(object.getString("bodyType"));
                exerciseMain.setCalorie(object.getString("calorie"));
                exerciseMain.setCalorieAverage(object.getString("calorieAverage"));
@@ -197,6 +198,7 @@ public class AddInfoActivity extends SherlockActivity implements View.OnClickLis
                mExerciseIntent.putExtra("exercise_main", exerciseMain);
 
 
+               /*
                mExerciseIntent.putExtra("date", object.getString("exerciseDate")); //운동날짜
                mExerciseIntent.putExtra("name", object.getString("exerciseName")); // 이름
                mExerciseIntent.putExtra("img", object.getString("exerciseImg")); //이미지 경로
@@ -216,7 +218,8 @@ public class AddInfoActivity extends SherlockActivity implements View.OnClickLis
 
                mExerciseNext = object.optString("exerciseIdNext");  //다음 운동량
                mExercisePreiv = object.getString("exerciseIdPrev"); //이전 운동량
-               Log.e("!!!!", "!!!! intent " + mExerciseIntent.getExtras());
+               */
+               //Log.e("!!!!", "ExerciseMain " + exerciseMain.toString());
 
                isExistExerciseData = true;
            }

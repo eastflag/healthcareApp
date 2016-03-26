@@ -6,6 +6,7 @@ import java.io.Serializable;
  * Created by harksoo on 2016-03-23.
  */
 public class ExerciseMain implements Serializable {
+    String userId = "";
     String bodyType = "";
     String calorie = "";
     String calorieAverage = "";
@@ -20,6 +21,14 @@ public class ExerciseMain implements Serializable {
     String rangkingClass = "";
     String rangkingGrade = "";
     String step = "";
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 
     public String getBodyType() {
         return bodyType;
@@ -136,7 +145,8 @@ public class ExerciseMain implements Serializable {
     @Override
     public String toString() {
         return "ExerciseMain{" +
-                "bodyType='" + bodyType + '\'' +
+                "userId='" + userId + '\'' +
+                ", bodyType='" + bodyType + '\'' +
                 ", calorie='" + calorie + '\'' +
                 ", calorieAverage='" + calorieAverage + '\'' +
                 ", calorieMax='" + calorieMax + '\'' +

@@ -32,16 +32,12 @@ import kr.co.aura.mtelo.healthcare.preferences.CPreferences;
  */
 public class ExerciseActivity extends SherlockActivity  implements  View.OnClickListener {
 
-    private String mDate, mName, mImg, mCalorie, mStep, mDistance, mBodyType, mClass, mGrade, mExetices,  mAverage, mAverageMax, mUserId;
-    private String mExerciseId;
-
-    private TextView mExerciseDate , mExerciseName,  mExerciseCalorie, mExerciseStep, mExerciseDistance,
-            mExerciseBodyType, mExerciseClass, mExerciseGrade, mExercicesEntries, mExerciseUser, mExerciseAverage;
-    private ImageView mExerciseImg, mExerciseAverImg;
+    private String TAG = "ExerciseActivity";
+    private String mUserId;
+    private ImageView mExerciseImg;
     private ProgressBar mProgressBar ;
 
-    private ExerciseMain exerciseMain;
-    private String mExerciseIdPrev, mExerciseIdNext;
+    private ExerciseMain mExerciseMain;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,16 +46,13 @@ public class ExerciseActivity extends SherlockActivity  implements  View.OnClick
 
         Intent intent = getIntent();
 
-        exerciseMain = (ExerciseMain)intent.getSerializableExtra("exercise_main");
+        ExerciseMain exerciseMain = (ExerciseMain)intent.getSerializableExtra("exercise_main");
+
+
 
         init_ACtionBar();
-        intiLayout(intent);
 
-
-        //이전운동 이후운동값 획득
-        mExerciseIdNext = exerciseMain.getExerciseIdNext();
-        mExerciseIdPrev = exerciseMain.getExerciseIdPrev();
-
+        intiLayout(exerciseMain);
 
         ImageButton btnExeriseDetail = (ImageButton) findViewById(R.id.btn_exercise_detail);
         btnExeriseDetail.setOnClickListener(this);
@@ -78,95 +71,77 @@ public class ExerciseActivity extends SherlockActivity  implements  View.OnClick
 
 
 
-    private void intiLayout(Intent intent) {
-        Log.e("!!!!", "!!!!! intiLayout() \n " + intent.getExtras() + "\n " + toString());
-        mDate        = intent.getStringExtra("date"); //운동날짜
-        mName        = intent.getStringExtra("name"); // 이름
-        mImg         = intent.getStringExtra("img" ); //이미지 경로
-        mCalorie     = intent.getStringExtra("calorie"); //칼로리
-        mStep        = intent.getStringExtra("step"); //걸음수
-        mDistance    = intent.getStringExtra("distance"); //이동거리
-        mBodyType    = intent.getStringExtra("bodyType"); //체형
+    private void intiLayout(ExerciseMain exerciseMain) {
+        Log.e(TAG, "ExerciseMain " + exerciseMain.toString());
 
-        mClass       = intent.getStringExtra("class"); // 반랭킹
-        mGrade       = intent.getStringExtra("grade"); //학년랭킹
-        mExetices    = intent.getStringExtra("exercise"); // 종목랭킹
+        if (exerciseMain != null
+                && exerciseMain.getUserId() != null && exerciseMain.getUserId().length() > 0
+                && exerciseMain.getExerciseImg() != null && exerciseMain.getExerciseImg().length() > 0
+                && exerciseMain.getExerciseName() != null && exerciseMain.getExerciseName().length() > 0
+                && exerciseMain.getExerciseDate() != null && exerciseMain.getExerciseDate().length() > 0
+            ) {  //정보가 있을경우 - 정상실행
 
-        mAverage     = intent.getStringExtra("average"); //평군 운동량
-        mAverageMax  = intent.getStringExtra("averageMax"); //평군 운동량 맥스
+            // Data Init
+            mExerciseMain = exerciseMain;
+            mUserId = exerciseMain.getUserId();
 
-        String id  = intent.getStringExtra("userId"); //사용자Id
-        if(id != null)
-            mUserId      = id; //사용자Id
+            TextView tv = (TextView) findViewById(R.id.exercise_date_txt);
+            tv.setText(exerciseMain.getExerciseDate());
 
-        mExerciseIdNext = intent.getStringExtra("exerciseIdNext"); //이전운동
-        mExerciseIdPrev = intent.getStringExtra("exerciseIdPrev"); //이후운동
-
-        if (mImg != null && mName != null && mDate != null) {  //정보가 있을경우 - 정상실행
-
-
-            // 날짜
-            mExerciseDate = (TextView) findViewById(R.id.exercise_date_txt);
-            mExerciseDate.setText(mDate);
-
-
-            //운동종목
-            mExerciseName = (TextView) findViewById(R.id.exercise_left_top_txt);
-            mExerciseName.setText(mName);
+            tv = (TextView) findViewById(R.id.exercise_left_top_txt);
+            tv.setText(exerciseMain.getExerciseName());
 
 
             //운동이미지
             mExerciseImg = (ImageView) findViewById(R.id.exercise_left_img);
-            Picasso.with(ExerciseActivity.this).load(mImg).fit().into(mExerciseImg);
+            Picasso.with(ExerciseActivity.this).load(exerciseMain.getExerciseImg()).fit().into(mExerciseImg);
 
             //기본운동정보
-            mExerciseCalorie = (TextView) findViewById(R.id.exercise_right_txt_1);  //칼로리
-            mExerciseCalorie.setText(mCalorie + " Kcal");
+            tv = (TextView) findViewById(R.id.exercise_right_txt_1);  //칼로리
+            tv.setText(exerciseMain.getCalorie() + " Kcal");
 
-            mExerciseStep = (TextView) findViewById(R.id.exercise_right_txt_2);     //걸음수
-            mExerciseStep.setText(mStep + " 보");
+            tv = (TextView) findViewById(R.id.exercise_right_txt_2);     //걸음수
+            tv.setText(exerciseMain.getStep() + " 보");
 
-            mExerciseDistance = (TextView) findViewById(R.id.exercise_right_txt_3);  //이동거리
-            mExerciseDistance.setText(mDistance + " km");
+            tv = (TextView) findViewById(R.id.exercise_right_txt_3);  //이동거리
+            tv.setText(exerciseMain.getDistance() + " km");
 
-            mExerciseBodyType = (TextView) findViewById(R.id.exercise_right_txt_4);  //체형
+            tv = (TextView) findViewById(R.id.exercise_right_txt_4);  //체형
+            tv.setText(exerciseMain.getBodyType());
 
 
             //등수
-            mExerciseClass = (TextView) findViewById(R.id.exercise_class_number);    //반 등수
-            mExerciseClass.setText(mClass +" 등");
+            tv = (TextView) findViewById(R.id.exercise_class_number);    //반 등수
+            tv.setText(exerciseMain.getRangkingClass() +" 등");
 
-            mExerciseGrade = (TextView) findViewById(R.id.exercise_student_number);    // 학년등수
-            mExerciseGrade.setText(mGrade +" 등");
-
-            mExercicesEntries = (TextView) findViewById(R.id.exercise_entries_number); //종목등수
-            mExercicesEntries.setText(mExetices);
+            tv = (TextView) findViewById(R.id.exercise_student_number);    // 학년등수
+            tv.setText(exerciseMain.getRangkingGrade() +" 등");
 
 
             //칼로리 계산
-            mExerciseUser = (TextView) findViewById(R.id.exercise_average_text);   //사용자 운동량
-            mExerciseUser.setText(mBodyType + " " + mCalorie + " Kcal"); // 바디타임과 사용자의 운동량을 추가한다
+            tv = (TextView) findViewById(R.id.exercise_average_text);   //사용자 운동량
+            tv.setText(exerciseMain.getBodyType() + " " + exerciseMain.getCalorie() + " Kcal"); // 바디타임과 사용자의 운동량을 추가한다
 
 
             //평균운동량 계산
-            int user = Integer.parseInt(mCalorie);
-            int aver = Integer.parseInt(mAverage);
+            int user = Integer.parseInt(exerciseMain.getCalorie());
+            int aver = Integer.parseInt(exerciseMain.getCalorieAverage());
             int result = aver - user;
 
-            mExerciseAverage = (TextView) findViewById(R.id.exercise_average_sub_text);   //평균 운동량
-            mExerciseAverage.setText(Math.abs(result) + " Kcal");
+            tv = (TextView) findViewById(R.id.exercise_average_sub_text);   //평균 운동량
+            tv.setText(Math.abs(result) + " Kcal");
 
-            mExerciseAverImg = (ImageView) findViewById(R.id.exercise_average_sub_img);
+            ImageView arrow = (ImageView) findViewById(R.id.exercise_average_sub_img);
             if (user > aver) {
-                mExerciseAverImg.setBackgroundResource(R.drawable.arrow_up);
+                arrow.setBackgroundResource(R.drawable.arrow_up);
             } else {
-                mExerciseAverImg.setBackgroundResource(R.drawable.arrow_down);  //up이미지가 필요하다
+                arrow.setBackgroundResource(R.drawable.arrow_down);
             }
 
 
             //프로그래스바
             mProgressBar = (ProgressBar) findViewById(R.id.exercise_average_prog);
-            mProgressBar.setMax(Integer.parseInt(mAverageMax));
+            mProgressBar.setMax(Integer.parseInt(exerciseMain.getCalorieMax()));
             mProgressBar.setProgress(user);
             mProgressBar.setSecondaryProgress(aver);
 
@@ -183,7 +158,6 @@ public class ExerciseActivity extends SherlockActivity  implements  View.OnClick
             });
             dialog.create().show();
         }
-
     }
 
 
@@ -216,7 +190,7 @@ public class ExerciseActivity extends SherlockActivity  implements  View.OnClick
             case R.id.btn_exercise_detail:
                 intent = new Intent(ExerciseActivity.this , ExerciseDetailActivity.class);
                 intent.putExtra("userId", mUserId);
-                intent.putExtra("exerciseId", exerciseMain.getExerciseId());
+                intent.putExtra("exerciseId", mExerciseMain.getExerciseId());
 
                 startActivity(intent);
                 break;
@@ -224,23 +198,23 @@ public class ExerciseActivity extends SherlockActivity  implements  View.OnClick
             case R.id.btn_exercise_history:
                 intent = new Intent(ExerciseActivity.this , ExerciseHistory.class);
                 intent.putExtra("userId", mUserId);
-                intent.putExtra("exerciseId", exerciseMain.getExerciseId());
+                intent.putExtra("exerciseId", mExerciseMain.getExerciseId());
                 startActivity(intent);
                 break;
 
             case R.id.exercise_date_prev:
-                if(mExerciseIdPrev == null|| mExerciseIdPrev.length() == 0 ){
+                if(mExerciseMain == null|| mExerciseMain.getExerciseIdPrev().length() == 0 ){
                     Toast.makeText(ExerciseActivity.this, "데이터가 없습니다 ", Toast.LENGTH_SHORT).show();
                 }else{
-                     getDate(mUserId, mExerciseIdPrev); // 이전 운동ID를 얻어올 방법을 찾을것
+                     getDate(mUserId, mExerciseMain.getExerciseIdPrev()); // 이전 운동ID를 얻어올 방법을 찾을것
                 }
                 break;
 
             case R.id.exercise_date_next:
-                if(mExerciseIdNext == null || mExerciseIdNext.length() == 0 ){
+                if(mExerciseMain == null || mExerciseMain.getExerciseIdNext().length() == 0 ){
                     Toast.makeText(ExerciseActivity.this, "데이터가 없습니다 ", Toast.LENGTH_SHORT).show();
                 }else{
-                    getDate(mUserId , mExerciseIdNext); // 이후 운동ID를 얻어올 방법을 찾을것
+                    getDate(mUserId , mExerciseMain.getExerciseIdNext()); // 이후 운동ID를 얻어올 방법을 찾을것
                 }
                 break;
         }
@@ -266,7 +240,7 @@ public class ExerciseActivity extends SherlockActivity  implements  View.OnClick
                         data = "[" + data + "]";
                         Log.e("!!!!", "!!! request_Get_Exercise_Info()");
                         JSONArray array = new JSONArray(data);
-                        btnSetting(array);
+                        parsingExerciseMain(array);
                     } else {
                     }
                 } catch (Exception e) {
@@ -280,36 +254,41 @@ public class ExerciseActivity extends SherlockActivity  implements  View.OnClick
         });
     }
 
-    public void btnSetting(JSONArray array){
+    public void parsingExerciseMain(JSONArray array){
         try {
-           Intent intent = new Intent();
+
             if (array.length() == 0) return;
 
 //            MLog.write(Log.ERROR, this.toString(), "array= i " + array.get(0));
             JSONObject object = array.getJSONObject(0);  // JSONObject 추출
 
-//            intent.putExtra("userId", object.getString("userId")); //유저ID
-            intent.putExtra("date", object.getString("exerciseDate")); //운동날짜
-            intent.putExtra("name", object.getString("exerciseName")); // 이름
-            intent.putExtra("img", object.getString("exerciseImg")); //이미지 경로
-            intent.putExtra("calorie", object.getString("calorie")); //칼로리
-            intent.putExtra("step", object.getString("step")); //걸음수
-            intent.putExtra("distance", object.getString("distance")); //이동거리
-            intent.putExtra("bodyType", object.getString("bodyType")); //체형
+            ExerciseMain exerciseInfo = new ExerciseMain();
 
-            intent.putExtra("class", object.getString("rangkingClass")); // 반랭킹
-            intent.putExtra("grade", object.getString("rangkingGrade")); //학년랭킹
-//           mExerciseIntent.putExtra("exercise", object.getString("rangkingExercise")); // 종목랭킹 16.03.23 해당항목삭
+            exerciseInfo.setUserId(mUserId);
+            exerciseInfo.setExerciseId(object.getString("exerciseId"));
+            exerciseInfo.setExerciseIdNext(object.optString("exerciseIdNext")); //다음 운동 ID
+            exerciseInfo.setExerciseIdPrev(object.optString("exerciseIdPrev")); //이전 운동 ID
 
-//                mExerciseIntent.putExtra("user", object.getString("user")); //사용자 운동량
-            intent.putExtra("average", object.getString("calorieAverage")); //평군 운동량
-            intent.putExtra("averageMax", object.getString("calorieMax")); //평군 운동량 맥스
+            exerciseInfo.setExerciseDate(object.getString("exerciseDate")); //운동날짜
+            exerciseInfo.setExerciseName(object.getString("exerciseName")); // 이름
+            exerciseInfo.setExerciseImg(object.getString("exerciseImg")); //이미지 경로
+            exerciseInfo.setCalorie(object.getString("calorie")); //칼로리
+            exerciseInfo.setStep(object.getString("step")); //걸음수
+            exerciseInfo.setDistance(object.getString("distance")); //이동거리
+            exerciseInfo.setBodyType(object.getString("bodyType")); //체형
+
+            exerciseInfo.setRangkingClass(object.getString("rangkingClass")); // 반랭킹
+            exerciseInfo.setRangkingGrade(object.getString("rangkingGrade")); //학년랭킹
+
+            exerciseInfo.setCalorieAverage(object.getString("calorieAverage")); //평군 운동량
+            exerciseInfo.setCalorieMax(object.getString("calorieMax")); //평군 운동량 맥스
 
 
-            intent.putExtra("exerciseIdNext", object.optString("exerciseIdNext"));  //다음 운동량
-            intent.putExtra("exerciseIdPrev", object.getString("exerciseIdPrev")); //이전 운동량
-            Log.e("!!!!", "!!!! intent 운동량 " + intent.getExtras());
+            Log.e("!!!!", "ExerciseMain : " + exerciseInfo.toString());
 
+            Intent intent = new Intent();
+
+            intent.putExtra("exercise_main", exerciseInfo);
 
             Message msg = new Message();
             msg.what = 0;
@@ -326,7 +305,9 @@ public class ExerciseActivity extends SherlockActivity  implements  View.OnClick
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             Intent intent = (Intent) msg.obj;
-            intiLayout(intent);
+
+            ExerciseMain exerciseMain = (ExerciseMain)intent.getSerializableExtra("exercise_main");
+            intiLayout(exerciseMain);
         }
     };
 }
