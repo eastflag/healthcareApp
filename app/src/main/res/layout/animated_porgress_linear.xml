@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/progress_background"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
 
     >
@@ -11,15 +11,13 @@
         android:id="@+id/ani_main_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text=" 정상 : 20Kcal"
-        android:textSize="16sp"
         android:padding="5dip"
-        />
+        android:text=" 정상 : 20Kcal"
+        android:textSize="16sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="30dip"
-        >
+        android:layout_height="30dip">
 
         <LinearLayout
             android:layout_width="300dip"
@@ -44,8 +42,8 @@
                 android:id="@+id/ani_user_sub_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:text="20Kcal" />
+                android:text="20Kcal"
+                android:textSize="14sp" />
 
             <ImageView
                 android:id="@+id/ani_updown_flag_img"
@@ -56,14 +54,21 @@
         </LinearLayout>
     </LinearLayout>
 
-    <ProgressBar
-        android:id="@+id/ani_progressbar"
-        style="@android:style/Widget.ProgressBar.Horizontal"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="15dip"
-        android:layout_marginTop="2dip"
-        android:background="#303F9F"
-        android:progressDrawable="@color/c_465866"
-        />
+        android:layout_height="wrap_content">
 
+        <SeekBar
+            android:id="@+id/ani_progressbar"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dip"
+            android:progress="50"
+            android:progressDrawable="@drawable/progress"
+            android:thumb="@drawable/reddot"
+
+            />
+    </LinearLayout>
+    <!--android:background="#CFDADB"-->
 </LinearLayout>

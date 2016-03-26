@@ -48,21 +48,18 @@
             style="@android:style/Widget.ProgressBar.Horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:indeterminate="false" />
+            android:indeterminate="false"
+            android:progressDrawable="@drawable/progress"/>
     </LinearLayout>
 
     <!-- 2번쨰 -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="20dip"
-        >
 
         <kr.co.aura.mtelo.healthcare.util.AnimatedProgressLinear
             android:id="@+id/ani_layout_2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            />
     <!--<TextView-->
     <!--android:id="@+id/detail_tab_item_tx2"-->
     <!--style="@style/exercise_text"-->
@@ -112,7 +109,8 @@
             android:id="@+id/detail_tab_item_pro3"
             style="@android:style/Widget.ProgressBar.Horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:progressDrawable="@drawable/progress"/>
     </LinearLayout>
 
     <!-- 4번쨰 -->
@@ -148,7 +146,8 @@
             android:id="@+id/detail_tab_item_pro4"
             style="@android:style/Widget.ProgressBar.Horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:progressDrawable="@drawable/progress"/>
     </LinearLayout>
 
     <!-- 5번쨰 -->
@@ -184,6 +183,7 @@
             android:id="@+id/detail_tab_item_pro5"
             style="@android:style/Widget.ProgressBar.Horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:progressDrawable="@drawable/progress"/>
     </LinearLayout>
 </LinearLayout>

@@ -7,11 +7,13 @@ import android.os.Build;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import kr.co.aura.mtelo.healthcare.R;
@@ -19,14 +21,14 @@ import kr.co.aura.mtelo.healthcare.R;
 /**
  * Created by young-kchoi on 16. 3. 3..
  */
-public class AnimatedProgressLinear extends LinearLayout {
+public class AnimatedProgressLinear extends LinearLayout{
 
     public static final int MODE_ALL = 100;
     public static final int MODE_NO_ANI = 101;
     private int mMode = MODE_ALL;
 
     private int mProgress = 0;
-    private ProgressBar mProgressBar;
+    private SeekBar mProgressBar;
     private ImageView mAniImage, mUpDownImage;
     private TextView mSubText, mMainText;
     private Context mContext;
@@ -56,9 +58,14 @@ public class AnimatedProgressLinear extends LinearLayout {
     }
 
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-//        setMeasuredDimension(getDefaultSize(getSuggestedMinimumWidth(), widthMeasureSpec),
-//                getDefaultSize(getSuggestedMinimumHeight(), heightMeasureSpec));
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+//        setMeasuredDimension(
+//                getDefaultSize(getSuggestedMinimumWidth(), widthMeasureSpec),    //width
+//                getDefaultSize(getSuggestedMinimumHeight(), heightMeasureSpec));  //height
+
+
+
+
     }
 
     private void init(Context context) {
@@ -67,11 +74,18 @@ public class AnimatedProgressLinear extends LinearLayout {
 
         LinearLayout view = (LinearLayout) LayoutInflater.from(context).inflate(R.layout.animated_porgress_linear , null);
 
-        mProgressBar = (ProgressBar) view.findViewById(R.id.ani_progressbar);
+        mProgressBar = (SeekBar) view.findViewById(R.id.ani_progressbar);
         mAniImage = (ImageView) view.findViewById(R.id.ani_move_img);
         mUpDownImage = (ImageView) view.findViewById(R.id.ani_updown_flag_img);
         mSubText = (TextView) view.findViewById(R.id.ani_user_sub_text);
         mMainText = (TextView) view.findViewById(R.id.ani_main_text);
+
+        mProgressBar.setOnTouchListener(new OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return true;
+            }
+        });
 
         switch (mMode) {
             case MODE_ALL:
@@ -174,7 +188,7 @@ public class AnimatedProgressLinear extends LinearLayout {
         @Override
         protected Void doInBackground(Void... arg0) {
             int addCount = 0;
-            int max = getMax();
+            int max = mProgressBar.getMax();
             if(max > 100){
                  addCount = max /100;
             }
