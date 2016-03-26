@@ -134,10 +134,10 @@ public class ExerciseActivity extends SherlockActivity  implements  View.OnClick
 
             //등수
             mExerciseClass = (TextView) findViewById(R.id.exercise_class_number);    //반 등수
-            mExerciseClass.setText(mClass +"등");
+            mExerciseClass.setText(mClass +" 등");
 
             mExerciseGrade = (TextView) findViewById(R.id.exercise_student_number);    // 학년등수
-            mExerciseGrade.setText(mGrade +"등");
+            mExerciseGrade.setText(mGrade +" 등");
 
             mExercicesEntries = (TextView) findViewById(R.id.exercise_entries_number); //종목등수
             mExercicesEntries.setText(mExetices);
@@ -145,7 +145,7 @@ public class ExerciseActivity extends SherlockActivity  implements  View.OnClick
 
             //칼로리 계산
             mExerciseUser = (TextView) findViewById(R.id.exercise_average_text);   //사용자 운동량
-            mExerciseUser.setText(mBodyType + " - " + mCalorie + " Kcal"); // 바디타임과 사용자의 운동량을 추가한다
+            mExerciseUser.setText(mBodyType + " " + mCalorie + " Kcal"); // 바디타임과 사용자의 운동량을 추가한다
 
 
             //평균운동량 계산
@@ -154,12 +154,11 @@ public class ExerciseActivity extends SherlockActivity  implements  View.OnClick
             int result = aver - user;
 
             mExerciseAverage = (TextView) findViewById(R.id.exercise_average_sub_text);   //평균 운동량
-            mExerciseAverage.setText(result + " Kcal");
+            mExerciseAverage.setText(Math.abs(result) + " Kcal");
 
             mExerciseAverImg = (ImageView) findViewById(R.id.exercise_average_sub_img);
             if (user > aver) {
-                mExerciseAverImg.setBackgroundResource(R.drawable.arrow_up
-                );
+                mExerciseAverImg.setBackgroundResource(R.drawable.arrow_up);
             } else {
                 mExerciseAverImg.setBackgroundResource(R.drawable.arrow_down);  //up이미지가 필요하다
             }

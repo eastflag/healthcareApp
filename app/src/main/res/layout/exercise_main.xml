@@ -410,12 +410,6 @@
                         android:text="등"
                         />
                 </LinearLayout>
-                <ProgressBar
-                    android:layout_width="match_parent"
-                    android:layout_height="20dip"
-                    android:gravity="bottom"
-                    style="@android:style/Widget.ProgressBar.Horizontal"
-                    />
             </LinearLayout>
         </LinearLayout>
 

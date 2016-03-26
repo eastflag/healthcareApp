@@ -31,6 +31,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 import kr.co.aura.mtelo.healthcare.R;
 import kr.co.aura.mtelo.healthcare.network.JSONNetWork_Manager;
@@ -59,6 +61,10 @@ public class ExerciseDetailActivity extends SherlockActivity implements View.OnC
 
     private TextView mCalorieText, mStepText, mSpeedText, mBodyTypeText, mDistanceText;
     private TextView mTitle;
+
+    private TextView [] mSportsName = new TextView[4];
+    private List<String> listSportsNames = new LinkedList<String>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,6 +104,12 @@ public class ExerciseDetailActivity extends SherlockActivity implements View.OnC
         mBodyTypeText = (TextView) findViewById(R.id.exercise_detail_bottom_right_tx5);
 
 
+        mSportsName[0] = (TextView) findViewById(R.id.sports_name_1);
+        mSportsName[1] = (TextView) findViewById(R.id.sports_name_2);
+        mSportsName[2] = (TextView) findViewById(R.id.sports_name_3);
+        mSportsName[3] = (TextView) findViewById(R.id.sports_name_4);
+
+
         mChart = (LineChart) findViewById(R.id.chart1);
 
         mChart.setOnChartGestureListener(this);
@@ -121,7 +133,7 @@ public class ExerciseDetailActivity extends SherlockActivity implements View.OnC
         mChart.getXAxis().setAvoidFirstLastClipping(true);
 
         mChart.setExtraLeftOffset(15);
-        mChart.setExtraRightOffset(40);
+        mChart.setExtraRightOffset(15);
         //X축 표시하기
         //mChart.getXAxis().setValueFormatter(new MyValueFormatter(mCheatDatas));
 
@@ -169,8 +181,8 @@ public class ExerciseDetailActivity extends SherlockActivity implements View.OnC
     @Override
     public void onClick(View v) {
         Intent intent = new Intent(ExerciseDetailActivity.this, ExerciseDetailTabActivity.class);
-        intent.putExtra("userId", mUserId );
-        intent.putExtra("exerciseId", mExerciseId );
+        intent.putExtra("userId", mUserId);
+        intent.putExtra("exerciseId", mExerciseId);
 
         switch (v.getId()) {
 
@@ -196,9 +208,6 @@ public class ExerciseDetailActivity extends SherlockActivity implements View.OnC
             case R.id.chart3_regend:
                 DrawChart(DISTANCE);
                 break;
-
-
-
         }
     }
 
@@ -215,6 +224,7 @@ public class ExerciseDetailActivity extends SherlockActivity implements View.OnC
 
         ArrayList<Entry> listEntry = new ArrayList<Entry>();
 
+        listSportsNames.clear();
 
 
         for (int i = 0; i < mCheatDatas.size(); i++) {
@@ -222,6 +232,9 @@ public class ExerciseDetailActivity extends SherlockActivity implements View.OnC
             ChartData item =  mCheatDatas.get(i);
 
             //xVals.add(String.format("%s\n(%s)", item.getDate(), item.getExercise()));
+
+            listSportsNames.add(item.getExercise());
+
             xVals.add(item.getDate());
 
             String entryData = "0";
@@ -314,6 +327,7 @@ public class ExerciseDetailActivity extends SherlockActivity implements View.OnC
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
+
                                 setupText();
                             }
                         });
@@ -332,11 +346,24 @@ public class ExerciseDetailActivity extends SherlockActivity implements View.OnC
         });
     }
 
+    private void SetSportsName(){
+
+        int i = 0;
+        // 이전값 clear
+
+        for (TextView tv: mSportsName) {
+            tv.setText("");
+        }
+
+        for (String name: listSportsNames) {
+            mSportsName[i++].setText(name);
+        }
+    }
 
     //하단 텍스트상자를 체워넣는다
     private void setupText() {
 
-        mTitle.setText(String.format("체형 : %s : 평균( %s Kcal)", mBodyType, mCalorie));
+        mTitle.setText(String.format("체형 : %s ( %s Kcal )", mBodyType, mCalorie));
 
         mCalorieText.setText(mCalorie +" Kcal");
         mStepText.setText(mStep +" 보");
@@ -365,6 +392,12 @@ public class ExerciseDetailActivity extends SherlockActivity implements View.OnC
             }
 
             DrawChart(CALORIE);
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    SetSportsName();
+                }
+            });
 
 
         } catch (JSONException e) {
