@@ -180,22 +180,22 @@ public class ExerciseDetailActivity extends SherlockActivity implements View.OnC
 
     @Override
     public void onClick(View v) {
-        Intent intent = new Intent(ExerciseDetailActivity.this, ExerciseDetailTabActivity.class);
+        Intent intent = new Intent(ExerciseDetailActivity.this, ExerciseDetailTabActivity2.class);
         intent.putExtra("userId", mUserId);
         intent.putExtra("exerciseId", mExerciseId);
 
         switch (v.getId()) {
 
             case R.id.exercise_detail_top_tx1:
-                intent.putExtra("averageType", "calorie");
+                intent.putExtra("averageType", ExerciseDetailTabActivity2.UNIT_CALORIE);
                 startActivity(intent);
                 break;
             case R.id.exercise_detail_top_tx2:
-                intent.putExtra("averageType", "step");
+                intent.putExtra("averageType", ExerciseDetailTabActivity2.UNIT_STEP);
                 startActivity(intent);
                 break;
             case R.id.exercise_detail_top_tx3:
-                intent.putExtra("averageType", "distance");
+                intent.putExtra("averageType", ExerciseDetailTabActivity2.UNIT_DISTANCE);
                 startActivity(intent);
                 break;
 

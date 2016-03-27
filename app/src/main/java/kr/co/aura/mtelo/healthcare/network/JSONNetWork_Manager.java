@@ -553,17 +553,17 @@ public class JSONNetWork_Manager //implements Call_Back
 	 * @param type
 	 * @param call_back
 	 */
-	public static void request_Get_User_Exercise_Data(String userid, String exerciseId, String averageType, String groupType, Context context, final Call_Back call_back)
+	public static void request_Get_User_Exercise_Tab(String userid, String exerciseId, String averageType, String groupType, Context context, final Call_Back call_back)
 	{
 
 		StringBuffer strbuff = new StringBuffer();
 //		strbuff.append((String)Define.getNetUrl());
 		strbuff.append( Define.TEST_URL);
-		strbuff.append(Define.EXERCISE_DATA);
+		strbuff.append(Define.EXERCISE_TAB);
 		strbuff.append("?" + JSONNetWork.KEY_USER_ID +"=" + userid+ "&" + JSONNetWork.KEY_EXERCISE_ID+"="+ exerciseId +"&"+
 				JSONNetWork.KEY_EXERCISE_AVERAGE_TYPE +"="+ averageType +"&"+ JSONNetWork.KEY_EXERCISE_GROUP_TYPE +"="+ groupType);
 
-		MLog.write(Log.ERROR, "request_Get_User_Exercise_Data", "url :" + strbuff);
+		MLog.write(Log.ERROR, "request_Get_User_Exercise_Tab", "url :" + strbuff);
 
 		JSONNetWork jn = new JSONNetWork(context);
 		jn.setMRequestType(JSONNetWork.REQUESTTYPE_GET);

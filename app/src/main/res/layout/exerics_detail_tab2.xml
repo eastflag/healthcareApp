@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingLeft="15dip"
+    android:paddingRight="15dip"
+    android:paddingBottom="10dip"
+    >
+
+
+    <TextView
+        android:id="@+id/exercise_tab2_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="나의 체형 : "
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:layout_marginTop="5dp"
+        />
+
+
+    <!--
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="5dp"
+        >
+
+        <TextView
+            android:id="@+id/exercise_detail_tab2_title_key"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="나의 칼로리 : "
+            android:textSize="18dp"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:id="@+id/exercise_detail_tab2_title_value"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="18dp"
+            android:textStyle="bold"
+            />
+    </LinearLayout>
+    -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/exercise_tab2_btn_class"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/exercise_detail_tab_btn_bg2"
+            android:text="반"
+            android:layout_marginRight="2dip"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:textSize="18dp"
+            />
+
+        <Button
+            android:id="@+id/exercise_tab2_btn_grade"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/exercise_detail_tab_btn_bg2"
+            android:text="학년"
+            android:layout_marginRight="2dip"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:textSize="18dp"
+            />
+
+        <Button
+            android:id="@+id/exercise_tab2_btn_all"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/exercise_detail_tab_btn_bg2"
+            android:text="전국"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:textSize="18dp"
+            />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/exercise_tab2_avg_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/stroke_bg"
+        android:text="반 평균(35명) 254Kcal"
+        android:textColor="#ED4929"
+        android:textStyle="bold"
+        />
+
+
+    <!-- 1번쨰 -->
+    <LinearLayout
+        android:id="@+id/layout_type_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/exercise_tab_group"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/exercise_tab_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="저체중 : "
+                />
+            <TextView
+                android:id="@+id/txt_avg_1"
+                style="@style/exercise_tab_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="215 Kcal"
+                />
+        </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/progress_avg_1"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:indeterminate="false"
+            android:progressDrawable="@drawable/progress"
+            android:progress="0"
+            android:layout_marginBottom="10dip"
+            />
+
+        <ProgressBar
+            android:id="@+id/progress_user_1"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:indeterminate="false"
+            android:progressDrawable="@drawable/progress_user"
+            android:progress="0"
+            android:visibility="gone"
+            />
+
+    </LinearLayout>
+
+    <!-- 2번쨰 -->
+    <LinearLayout
+        android:id="@+id/layout_type_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/exercise_tab_group"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/exercise_tab_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="정상 : " />
+            <TextView
+                android:id="@+id/txt_avg_2"
+                style="@style/exercise_tab_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="215 Kcal" />
+        </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/progress_avg_2"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:indeterminate="false"
+            android:progressDrawable="@drawable/progress"
+            android:layout_marginBottom="10dip"
+            android:progress="0"
+            />
+
+        <ProgressBar
+            android:id="@+id/progress_user_2"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:indeterminate="false"
+            android:progressDrawable="@drawable/progress_user"
+            android:progress="0"
+            android:visibility="gone"
+            />
+    </LinearLayout>
+
+    <!-- 3번쨰 -->
+    <LinearLayout
+        android:id="@+id/layout_type_3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/exercise_tab_group"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/exercise_tab_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="과체중 : " />
+            <TextView
+                android:id="@+id/txt_avg_3"
+                style="@style/exercise_tab_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="215 Kcal" />
+        </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/progress_avg_3"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:indeterminate="false"
+            android:progressDrawable="@drawable/progress"
+            android:layout_marginBottom="10dip"
+            android:progress="0"
+            />
+
+        <ProgressBar
+            android:id="@+id/progress_user_3"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:indeterminate="false"
+            android:progressDrawable="@drawable/progress_user"
+            android:progress="0"
+            android:visibility="gone"
+            />
+    </LinearLayout>
+
+    <!-- 4번쨰 -->
+    <LinearLayout
+        android:id="@+id/layout_type_4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/exercise_tab_group"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/exercise_tab_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="비만 : " />
+            <TextView
+                android:id="@+id/txt_avg_4"
+                style="@style/exercise_tab_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="215 Kcal" />
+        </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/progress_avg_4"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:indeterminate="false"
+            android:progressDrawable="@drawable/progress"
+            android:layout_marginBottom="10dip"
+            android:progress="0"
+            />
+
+        <ProgressBar
+            android:id="@+id/progress_user_4"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:indeterminate="false"
+            android:progressDrawable="@drawable/progress_user"
+            android:progress="0"
+            android:visibility="gone"
+            />
+    </LinearLayout>
+
+    <!-- 5번쨰 -->
+    <LinearLayout
+        android:id="@+id/layout_type_5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/exercise_tab_group"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/exercise_tab_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="중도비만 : " />
+            <TextView
+                android:id="@+id/txt_avg_5"
+                style="@style/exercise_tab_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="215 Kcal" />
+        </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/progress_avg_5"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:indeterminate="false"
+            android:progressDrawable="@drawable/progress"
+            android:layout_marginBottom="10dip"
+            android:progress="0"
+            />
+
+        <ProgressBar
+            android:id="@+id/progress_user_5"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:indeterminate="false"
+            android:progressDrawable="@drawable/progress_user"
+            android:progress="0"
+            android:visibility="gone"
+            />
+    </LinearLayout>
+
+    <!-- 6번쨰 -->
+    <LinearLayout
+        android:id="@+id/layout_type_6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/exercise_tab_group"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/exercise_tab_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="고도비만 : " />
+            <TextView
+                android:id="@+id/txt_avg_6"
+                style="@style/exercise_tab_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="215 Kcal" />
+        </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/progress_avg_6"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:indeterminate="false"
+            android:progressDrawable="@drawable/progress"
+            android:layout_marginBottom="10dip"
+            android:progress="0"
+            />
+
+        <ProgressBar
+            android:id="@+id/progress_user_6"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:indeterminate="false"
+            android:progressDrawable="@drawable/progress_user"
+            android:progress="0"
+            android:visibility="gone"
+            />
+    </LinearLayout>
+
+
+</LinearLayout>

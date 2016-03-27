@@ -121,7 +121,7 @@ public class ExerciseDetailTabActivity extends Activity {
 
 
     private void getDate(String userId, String exerciseId, String averageType, String groupType) {
-        JSONNetWork_Manager.request_Get_User_Exercise_Data(userId, exerciseId, averageType, groupType, this, new NetWork.Call_Back() {
+        JSONNetWork_Manager.request_Get_User_Exercise_Tab(userId, exerciseId, averageType, groupType, this, new NetWork.Call_Back() {
             @Override
             public void onError(String error) {
             }
@@ -138,7 +138,7 @@ public class ExerciseDetailTabActivity extends Activity {
                             data = data.substring(1, data.length());
                             data = data.substring(0, data.length() - 1);
                         }
-                        Log.e("!!!!", "!!! request_Get_User_Exercise_Data()\n " + data);
+                        Log.e("!!!!", "!!! request_Get_User_Exercise_Tab()\n " + data);
 
                         JSONObject object = new JSONObject(data);
 
@@ -166,13 +166,13 @@ public class ExerciseDetailTabActivity extends Activity {
                         Log.e("!!!! ", "!!!" + exdata.toString());
                         mExerciseDataList.add(exdata);
 
-                        if(mExerciseDataList.size() == 1){
+                        if (mExerciseDataList.size() == 1) {
                             mHandler.sendEmptyMessage(PAGE_ONE);
-                        }else if(mExerciseDataList.size() == 2){
+                        } else if (mExerciseDataList.size() == 2) {
                             mHandler.sendEmptyMessage(PAGE_TWO);
-                        }else if(mExerciseDataList.size() == 3){
+                        } else if (mExerciseDataList.size() == 3) {
                             mHandler.sendEmptyMessage(PAGE_THREE);
-                        }else if(mExerciseDataList.size() == 4){
+                        } else if (mExerciseDataList.size() == 4) {
                             mHandler.sendEmptyMessage(PAGE_FOUL);
                         }
                     }

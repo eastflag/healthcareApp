@@ -30,4 +30,8 @@
     <color name="video_test_result_gloom_bg">#fbf2d7</color>
     <color name="video_test_result_worry_bg">#e3f7b6</color>
 
+
+    <color name="exercise_tab_item_normal">#ECF0F1</color>
+    <color name="exercise_tab_item_select">#B1B1B1</color>
+
 </resources>

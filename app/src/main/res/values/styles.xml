@@ -64,4 +64,22 @@
         <item name="android:layout_margin">3dp</item>
     </style>
 
+    <style name="exercise_tab_text">
+        <item name="android:textSize">18dp</item>
+        <item name="android:gravity">left</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:layout_marginBottom">5dip</item>
+    </style>
+
+    <style name="exercise_tab_group">
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:paddingTop">2dp</item>
+        <item name="android:paddingBottom">2dp</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:background">#ECF0F1</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+
 </resources>
