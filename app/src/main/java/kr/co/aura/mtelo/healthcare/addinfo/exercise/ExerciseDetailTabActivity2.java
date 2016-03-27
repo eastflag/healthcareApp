@@ -2,6 +2,8 @@ package kr.co.aura.mtelo.healthcare.addinfo.exercise;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -27,7 +29,9 @@ public class ExerciseDetailTabActivity2 extends SherlockActivity implements View
 
     private static final String TAG = "tab_exercize";
 
-    private static final String WEIGHT_SMALL = "저체상";
+    private final int HANDLER_MSG = 0;
+
+    private static final String WEIGHT_SMALL = "저체중";
     private static final String WEIGHT_NORMAL = "정상";
     private static final String WEIGHT_BIG = "과체중";
     private static final String WEIGHT_OBESITY = "비만";
@@ -97,7 +101,7 @@ public class ExerciseDetailTabActivity2 extends SherlockActivity implements View
         tv.setText(s);
 
         // Avg Title 반 평균(35명) 254Kcal
-        String avgGroupType = getAvgGroupType(mAvrGroupType);
+        String avgGroupType = getAvgGroupType(exerciseTab.getAverageType());
         tv = (TextView) findViewById(R.id.exercise_tab2_avg_title);
         tv.setText(String.format("%s 평균 (%s 명) %s %s"
                 , avgGroupType
@@ -113,6 +117,8 @@ public class ExerciseDetailTabActivity2 extends SherlockActivity implements View
         tv = (TextView) findViewById(R.id.txt_avg_1);
         progressBarAvg = (ProgressBar) findViewById(R.id.progress_avg_1);
         progressBarUser = (ProgressBar) findViewById(R.id.progress_user_1);
+        progressBarAvg.setProgress(0);
+        progressBarUser.setProgress(0);
 
         setProgressItem(linearLayout, tv,
                 progressBarAvg, progressBarUser,
@@ -125,6 +131,8 @@ public class ExerciseDetailTabActivity2 extends SherlockActivity implements View
         tv = (TextView) findViewById(R.id.txt_avg_2);
         progressBarAvg = (ProgressBar) findViewById(R.id.progress_avg_2);
         progressBarUser = (ProgressBar) findViewById(R.id.progress_user_2);
+        progressBarAvg.setProgress(0);
+        progressBarUser.setProgress(0);
 
         setProgressItem(linearLayout, tv,
                 progressBarAvg, progressBarUser,
@@ -137,6 +145,8 @@ public class ExerciseDetailTabActivity2 extends SherlockActivity implements View
         tv = (TextView) findViewById(R.id.txt_avg_3);
         progressBarAvg = (ProgressBar) findViewById(R.id.progress_avg_3);
         progressBarUser = (ProgressBar) findViewById(R.id.progress_user_3);
+        progressBarAvg.setProgress(0);
+        progressBarUser.setProgress(0);
 
         setProgressItem(linearLayout, tv,
                 progressBarAvg, progressBarUser,
@@ -149,6 +159,8 @@ public class ExerciseDetailTabActivity2 extends SherlockActivity implements View
         tv = (TextView) findViewById(R.id.txt_avg_4);
         progressBarAvg = (ProgressBar) findViewById(R.id.progress_avg_4);
         progressBarUser = (ProgressBar) findViewById(R.id.progress_user_4);
+        progressBarAvg.setProgress(0);
+        progressBarUser.setProgress(0);
 
         setProgressItem(linearLayout, tv,
                 progressBarAvg, progressBarUser,
@@ -161,6 +173,8 @@ public class ExerciseDetailTabActivity2 extends SherlockActivity implements View
         tv = (TextView) findViewById(R.id.txt_avg_5);
         progressBarAvg = (ProgressBar) findViewById(R.id.progress_avg_5);
         progressBarUser = (ProgressBar) findViewById(R.id.progress_user_5);
+        progressBarAvg.setProgress(0);
+        progressBarUser.setProgress(0);
 
         setProgressItem(linearLayout, tv,
                 progressBarAvg, progressBarUser,
@@ -173,6 +187,8 @@ public class ExerciseDetailTabActivity2 extends SherlockActivity implements View
         tv = (TextView) findViewById(R.id.txt_avg_6);
         progressBarAvg = (ProgressBar) findViewById(R.id.progress_avg_6);
         progressBarUser = (ProgressBar) findViewById(R.id.progress_user_6);
+        progressBarAvg.setProgress(0);
+        progressBarUser.setProgress(0);
 
         setProgressItem(linearLayout, tv,
                 progressBarAvg, progressBarUser,
@@ -220,16 +236,16 @@ public class ExerciseDetailTabActivity2 extends SherlockActivity implements View
 
         progressBarUser.setVisibility(View.GONE);
 
-        progressBarAvg.setMax(progressMax);
         progressBarAvg.setProgress(progressValue);
+        progressBarAvg.setMax(progressMax);
 
         if(bodyType.equals(weghtType)){
 
             linearLayout.setBackgroundResource(R.color.exercise_tab_item_select);
 
             // 사용자 정보 구성
-            progressBarUser.setMax(progressMax);
             progressBarUser.setProgress(progressUserValue);
+            progressBarUser.setMax(progressMax);
             progressBarUser.setVisibility(View.VISIBLE);
         }
     }
@@ -315,6 +331,10 @@ public class ExerciseDetailTabActivity2 extends SherlockActivity implements View
 
                         JSONObject object = new JSONObject(data);
 
+//                        ExerciseTab tempExerciseTab = new ExerciseTab();
+//
+//                        tempExerciseTab.setUserId(mUserId);
+//                        tempExerciseTab.setAverageType(mAverageType);
 
                         exerciseTab.setUserValue(object.optString("user"));
                         exerciseTab.setBodyType(object.optString("bodyType"));
@@ -335,12 +355,14 @@ public class ExerciseDetailTabActivity2 extends SherlockActivity implements View
                         exerciseTab.setBodyType6(object.optString("bodyType6"));
                         exerciseTab.setBodyType6Max(object.optString("bodyType6Max"));
 
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                setUIContents(exerciseTab);
-                            }
-                        });
+                        mHandler.sendEmptyMessage(HANDLER_MSG);
+
+//                        runOnUiThread(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                setUIContents(exerciseTab);
+//                            }
+//                        });
 
                     }
                 } catch (Exception e) {
@@ -353,6 +375,16 @@ public class ExerciseDetailTabActivity2 extends SherlockActivity implements View
             }
         });
     }
+
+    private Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+
+            setUIContents(exerciseTab);
+        }
+    };
+
 
     private void init_ACtionBar() {
         ActionBar mActionBar;
@@ -374,4 +406,6 @@ public class ExerciseDetailTabActivity2 extends SherlockActivity implements View
             }
         });
     }
+
+
 }
