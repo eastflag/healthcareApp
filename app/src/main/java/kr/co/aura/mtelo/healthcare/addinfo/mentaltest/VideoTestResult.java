@@ -80,6 +80,7 @@ public class VideoTestResult extends SherlockActivity {
         mResultView = (TextView) findViewById(R.id.video_result_text);
         mResultView.setMovementMethod(new ScrollingMovementMethod());
 
+        //문제를 파악한다
         if(mSimliId.toUpperCase().startsWith("AN")){ //불안척도
             setWorryMode();
         }else if(mSimliId.toUpperCase().startsWith("GL")){ //우울척도

@@ -91,10 +91,40 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
 
         Log.e("###", "######" + toString());
 
+
         mImgLayout = (LinearLayout)findViewById(R.id.btnLayout);
         //배경이미지
         mBG= (ImageView) findViewById(R.id.image_bg);
 
+
+        int color = 0;
+        //각 문제에 맞게 칼라값을 획득, 적용한다
+        if(mSimliId.toUpperCase().startsWith("AN")){ //불안척도
+            color = Color.parseColor("#a7c787");
+        }else if(mSimliId.toUpperCase().startsWith("GL")){ //우울척도
+            color = Color.parseColor("#ffce98");
+        }else if(mSimliId.toUpperCase().startsWith("SE")) { //자아존중감
+            color = Color.parseColor("#70a3c7");
+        }
+        mBG.setBackgroundColor(color);
+        mImgBtn1 = (ImageView) mImgLayout.findViewById(R.id.example_image1);
+        mImgBtn2 = (ImageView) mImgLayout.findViewById(R.id.example_image2);
+        mImgBtn3 = (ImageView) mImgLayout.findViewById(R.id.example_image3);
+        mImgBtn4 = (ImageView) mImgLayout.findViewById(R.id.example_image4);
+
+        if (mImgBtn2 != null) {
+            mImgBtn1.setBackgroundColor(color);
+            mImgBtn2.setBackgroundColor(color);
+            if (mImgBtn3 != null) {
+                mImgBtn3.setBackgroundColor(color);
+                if (mImgBtn4 != null) {
+                    mImgBtn4.setBackgroundColor(color);
+                }
+            }
+        }
+
+
+        // 데이터를 획득한다
         getMenetalTestList(mSimliId);
 
         if(mIntroType.toLowerCase().equals("video")){
@@ -240,7 +270,9 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
         mImgLayout.removeAllViews();
         mImgLayout.addView(layout);
 
+
         mBG= (ImageView) layout.findViewById(R.id.image_bg);
+
         if (count >= 2) {
             mImgBtn1 = (ImageView) layout.findViewById(R.id.example_image1);
             mImgBtn2 = (ImageView) layout.findViewById(R.id.example_image2);
@@ -251,18 +283,22 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
             mCheckBtn2 = (Button) layout.findViewById(R.id.dubleBtn2);
             mCheckBtn1.setOnClickListener(this);
             mCheckBtn2.setOnClickListener(this);
+
+
             if (count >= 3) {
                 mImgBtn3 = (ImageView) layout.findViewById(R.id.example_image3);
                 mImgBtn3.setOnClickListener(this);
 
                 mCheckBtn3 = (Button) layout.findViewById(R.id.dubleBtn3);
                 mCheckBtn3.setOnClickListener(this);
+
                 if (count >= 4) {
                     mImgBtn4 = (ImageView) layout.findViewById(R.id.example_image4);
                     mImgBtn4.setOnClickListener(this);
 
                     mCheckBtn4 = (Button) layout.findViewById(R.id.dubleBtn4);
                     mCheckBtn4.setOnClickListener(this);
+
                 }
             }
         }
@@ -329,6 +365,8 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
         }
     }
 
+
+    // answer의 수에 따라 레이아웃을 변경한다
     private void BtnLayuoutInit(int count) {
         if (count == 2) {
             mBtnMode2 = (RelativeLayout) getLayoutInflater().inflate(R.layout.video_test_img_btn_list2, null);
@@ -494,7 +532,6 @@ public class VideoTest extends Activity implements MediaPlayer.OnPreparedListene
         mVideoView.setBackgroundColor(Color.TRANSPARENT);
         mVideoView.setVisibility(View.VISIBLE);
 
-//        mp.seekTo(10000);
         mp.start();
 
 
