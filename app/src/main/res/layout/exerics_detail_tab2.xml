@@ -100,7 +100,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:background="@drawable/stroke_bg"
-        android:text="반 평균(35명) 254Kcal"
+        android:text="반 평균(0명) 0 Kcal"
         android:textColor="#ED4929"
         android:textStyle="bold"
         />
@@ -130,7 +130,7 @@
                 style="@style/exercise_tab_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="215 Kcal"
+                android:text=""
                 />
         </LinearLayout>
 
@@ -181,7 +181,7 @@
                 style="@style/exercise_tab_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="215 Kcal" />
+                android:text="" />
         </LinearLayout>
 
         <ProgressBar
@@ -230,7 +230,7 @@
                 style="@style/exercise_tab_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="215 Kcal" />
+                android:text="" />
         </LinearLayout>
 
         <ProgressBar
@@ -279,7 +279,7 @@
                 style="@style/exercise_tab_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="215 Kcal" />
+                android:text="" />
         </LinearLayout>
 
         <ProgressBar
@@ -328,7 +328,7 @@
                 style="@style/exercise_tab_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="215 Kcal" />
+                android:text="" />
         </LinearLayout>
 
         <ProgressBar
@@ -377,7 +377,7 @@
                 style="@style/exercise_tab_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="215 Kcal" />
+                android:text="" />
         </LinearLayout>
 
         <ProgressBar
