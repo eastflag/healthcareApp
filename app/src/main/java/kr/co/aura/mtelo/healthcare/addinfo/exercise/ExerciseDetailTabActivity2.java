@@ -236,16 +236,17 @@ public class ExerciseDetailTabActivity2 extends SherlockActivity implements View
 
         progressBarUser.setVisibility(View.GONE);
 
-        progressBarAvg.setProgress(progressValue);
         progressBarAvg.setMax(progressMax);
+        progressBarAvg.setProgress(progressValue);
 
         if(bodyType.equals(weghtType)){
 
             linearLayout.setBackgroundResource(R.color.exercise_tab_item_select);
 
             // 사용자 정보 구성
-            progressBarUser.setProgress(progressUserValue);
             progressBarUser.setMax(progressMax);
+            progressBarUser.setProgress(progressUserValue);
+
             progressBarUser.setVisibility(View.VISIBLE);
         }
     }
